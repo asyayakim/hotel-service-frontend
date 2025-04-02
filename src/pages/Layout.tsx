@@ -4,11 +4,12 @@ import Footer from "../components/Footer.tsx";
 
 export default function Layout() {
     const hideNavbarRoutes = ["/login", "/signUp"];
+    const hideFooterRoutes = ["/login", "/signUp"];
     return (
         <>
             {!hideNavbarRoutes.includes(location.pathname) && <Header/>}
             <Outlet  />
-            <Footer />
+            {!hideFooterRoutes.includes(location.pathname) && <Footer />}
         </>
     );
 }
