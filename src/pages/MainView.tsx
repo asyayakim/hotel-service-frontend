@@ -32,7 +32,7 @@ export default function MainView() {
             }
 
             const data = await response.json();
-            setHotels(data.Hotels);
+            setHotels(data.hotels);
             setTotalPages(data.TotalPages);
             setPageNumber(newPageNumber);
         } catch (err) {
@@ -50,28 +50,31 @@ export default function MainView() {
                     <p>Loading hotels...</p>
                 ) : (
                     <>
-                        <div className="hotels-grid">
-                            {hotels.length > 0 ? (
+                        <div className="hotels-container">
+                            <div className="hotels-grid">
+                            {hotels ? (
                                 hotels.map((hotel) => (
+                                    
                                     <div key={hotel.id} className="hotel-card">
-                                        <h3>{hotel.name || "Noname Hotel"}</h3>
-                                        <p>{hotel.description || "No description available"}</p>
-                                        <img src={hotel.thumbnailUrl || ""} alt="Hotel Thumbnail" width="100" />
-                                        <p>Price: {hotel.logPrice}</p>
+                                        <img className="hotel-img" src={hotel.thumbnailUrl || "src/assets/noImage.png"} alt="Hotel Thumbnail" />
+                                        <h4>{hotel.name || "Noname Hotel"}</h4>
+                                        <h4>Price:</h4> {hotel.logPrice.toString().slice(0,5)}kr pr night
+                                        <button className="button-main">Check Availability</button>
                                     </div>
                                 ))
                             ) : (
                                 <p>No hotels found.</p>
                             )}
+                            </div>
                         </div>
 
                         <div className="pagination-controls">
                             <button onClick={() => fetchHotels(pageNumber - 1)} disabled={pageNumber <= 1}>
-                                Previous
+                                ◀
                             </button>
                             <span>Page {pageNumber} of {totalPages}</span>
                             <button onClick={() => fetchHotels(pageNumber + 1)} disabled={pageNumber >= totalPages}>
-                                Next
+                                ▶
                             </button>
                         </div>
                     </>

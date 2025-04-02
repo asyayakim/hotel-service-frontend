@@ -3,7 +3,7 @@ import Header from "../components/Header.tsx";
 import Footer from "../components/Footer.tsx";
 
 export default function Layout() {
-    const hideNavbarRoutes = ["/login", "/register"];
+    const hideNavbarRoutes = ["/login", "/signUp"];
     return (
         <>
             {!hideNavbarRoutes.includes(location.pathname) && <Header/>}

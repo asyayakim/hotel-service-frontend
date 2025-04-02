@@ -2,7 +2,7 @@ export default function Header() {
     return (
         <header>
             <div className="header-container">
-                <a href="/" className="logo">YourLogo</a>
+                <a href="/" className="logo">Logo</a>
                 <nav>
                     <ul>
                         <li><a href="#">Home</a></li>
