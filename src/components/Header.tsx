@@ -1,6 +1,10 @@
 import { Link } from "react-router-dom";
+import {UserContext} from "./UserProvider.tsx";
+import {useContext} from "react";
 
 export default function Header() {
+    const { user, logout } = useContext(UserContext)!;
+    const userRole = user?.role;
     const renderCommonHeader = () => {
         return (
             <header>
@@ -14,13 +18,34 @@ export default function Header() {
                             <li><a href="#">About</a></li>
                             <li><a href="#">Services</a></li>
                             <li><a href="#">Contact</a></li>
-                            <li><Link to="/signUp" className="btn btn-primary">Sign Up</Link></li>
+                            <li>
+                                {user ? (
+                                    <>
+                                        <button onClick={logout} className="btn btn-primary">Logout</button>
+                                    </>
+                                    ) : (
+                                <Link to="/login" className="btn btn-primary">Login
+                                </Link> )} 
+                            </li>
+                                    
                         </ul>
                     </nav>
                 </div>
             </header>
         );
     };
-
-    return renderCommonHeader();
+    const renderHeader = () => {
+        switch (userRole) {
+            // case "Admin":
+            //     return renderAdminHeader();
+            case "User":
+            default:
+                return (
+                    <header>
+                        {renderCommonHeader()}
+                    </header>
+                );
+        }
+    };
+    return renderHeader();
 }

@@ -7,7 +7,6 @@ import SignUp from "./pages/SignUp.tsx";
 import UserProvider from "./components/UserProvider.tsx";
 import UserPage from "./pages/UserPage.tsx";
 
-
 export default function App() {
     return (
         <UserProvider>
