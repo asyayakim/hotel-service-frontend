@@ -26,11 +26,6 @@ export default function MainView() {
                 method: "GET",
                 headers: { "Content-Type": "application/json" },
             });
-
-            if (!response.ok) {
-                throw new Error("Failed to load hotels.");
-            }
-
             const data = await response.json();
             setHotels(data.hotels);
             setTotalPages(data.TotalPages);
