@@ -40,7 +40,7 @@ export default function Footer() {
                 </div>
             </div>
             <div className="copyright">
-                &copy; 2023 Your Company. All rights reserved.
+                &copy; All rights reserved.
             </div>
         </footer>
     )

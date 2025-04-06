@@ -45,31 +45,58 @@ export default function MainView() {
                     <p>Loading hotels...</p>
                 ) : (
                     <>
-                        <div className="hotels-container">
-                            <div className="hotels-grid">
-                            {hotels ? (
+                        <div className="hotels-grid">
+                            {hotels?.length ? (
                                 hotels.map((hotel) => (
-                                    
                                     <div key={hotel.id} className="hotel-card">
-                                        <img className="hotel-img" src={hotel.thumbnailUrl || "src/assets/noImage.png"} alt="Hotel Thumbnail" />
-                                        <h4>{hotel.name || "Noname Hotel"}</h4>
-                                        <h4>Price:</h4> {hotel.logPrice.toString().slice(0,5)}kr pr night
-                                        <button className="button-main">Check Availability</button>
+                                        <div className="hotel-img-container">
+                                            <div className="favorite-icon">
+                                                <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24">
+                                                    <path stroke-linecap="round" stroke-linejoin="round" d="M21 8.25c0-2.485-2.099-4.5-4.688-4.5-1.935 0-3.597 1.126-4.312 2.733-.715-1.607-2.377-2.733-4.313-2.733C5.1 3.75 3 5.765 3 8.25c0 7.22 9 12 9 12s9-4.78 9-12z" />
+                                                </svg>
+                                            </div>
+                                            <img
+                                                className="hotel-img"
+                                                src={hotel.thumbnailUrl || "/placeholder-hotel.jpg"}
+                                                alt={hotel.name || "Hotel image"}
+                                            />
+                                        </div>
+                                        <div className="hotel-content">
+                                            <h4>{hotel.name || "Noname Hotel"}</h4>
+                                            <div className="price-section">
+                                                <p className="price-label">Starting from</p>
+                                                <div className="price-value">
+                                                    {hotel.logPrice.toFixed(2)} kr
+                                                </div>
+                                                <span className="price-label">per night</span>
+                                            </div>
+                                            <button className="button-main">
+                                                <svg xmlns="http://www.w3.org/2000/svg" width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                                                    <path d="M5 12h14M12 5l7 7-7 7"/>
+                                                </svg>
+                                                Check Availability
+                                            </button>
+                                        </div>
                                     </div>
                                 ))
                             ) : (
-                                <p>No hotels found.</p>
+                                <p className="no-results">No hotels found</p>
                             )}
-                            </div>
                         </div>
 
                         <div className="pagination-controls">
-                            <button onClick={() => fetchHotels(pageNumber - 1)} disabled={pageNumber <= 1}>
-                                ◀
+                            <button
+                                onClick={() => fetchHotels(pageNumber - 1)}
+                                disabled={pageNumber <= 1}
+                            >
+                                Previous
                             </button>
                             <span>Page {pageNumber} of {totalPages}</span>
-                            <button onClick={() => fetchHotels(pageNumber + 1)} disabled={pageNumber >= totalPages}>
-                                ▶
+                            <button
+                                onClick={() => fetchHotels(pageNumber + 1)}
+                                disabled={pageNumber >= totalPages}
+                            >
+                                Next
                             </button>
                         </div>
                     </>

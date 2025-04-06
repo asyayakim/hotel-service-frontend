@@ -7,27 +7,50 @@ export default function Header() {
     const userRole = user?.role;
     const renderCommonHeader = () => {
         return (
-            <header>
+            <header className="main-header">
                 <div className="header-container">
-                    <a href="/" className="logo">
-                        <img src="https://img.icons8.com/?size=100&id=xQKKgneHmsia&format=png&color=000000" alt="house icon"/>
-                    </a>
-                    <nav>
-                        <ul>
-                            <li><a href="#">Home</a></li>
-                            <li><a href="#">About</a></li>
-                            <li><a href="#">Services</a></li>
-                            <li><a href="#">Contact</a></li>
-                            <li>
-                                {user ? (
-                                    <>
-                                        <button onClick={logout} className="btn btn-primary">Logout</button>
-                                    </>
-                                    ) : (
-                                <Link to="/login" className="btn btn-primary">Login
-                                </Link> )} 
+                    <Link to="/" className="logo" aria-label="Home">
+                        <img
+                            src="https://img.icons8.com/?size=100&id=xQKKgneHmsia&format=png&color=000000"
+                            alt="Travel accommodation logo"
+                            className="logo-image"
+                        />
+                        <h1 className="logo-text">
+                        Hotels.</h1>
+                    </Link>
+                    <nav aria-label="Main navigation">
+                        <ul className="nav-list">
+                            <li className="nav-item">
+                                <Link to="/hotels" className="nav-link">Hotels</Link>
                             </li>
-                                    
+                            <li className="nav-item">
+                                <Link to="/apartments" className="nav-link">Apartments</Link>
+                            </li>
+                            <li className="nav-item">
+                                <Link to="/services" className="nav-link">Services</Link>
+                            </li>
+                            <li className="nav-item">
+                                <Link to="/contact" className="nav-link">Contact</Link>
+                            </li>
+                            <li className="nav-item auth-section">
+                                {user ? (
+                                    <button
+                                        onClick={logout}
+                                        className="btn btn-primary logout-button"
+                                        aria-label="Logout"
+                                    >
+                                        Logout
+                                    </button>
+                                ) : (
+                                    <Link
+                                        to="/login"
+                                        className="btn btn-primary login-button"
+                                        aria-label="Login"
+                                    >
+                                        Login
+                                    </Link>
+                                )}
+                            </li>
                         </ul>
                     </nav>
                 </div>
