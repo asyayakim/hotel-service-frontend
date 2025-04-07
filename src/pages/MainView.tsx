@@ -12,7 +12,7 @@ type Hotel = {
 };
 
 export default function MainView() {
-    const [hotels, setHotels] = useState<Hotel[]>([]);
+    const [hotels, setHotels] = useState<Hotel[]>();
     const [error, setError] = useState<string | null>(null);
     const [loading, setLoading] = useState<boolean>(true);
     const [pageNumber, setPageNumber] = useState<number>(1);
@@ -70,7 +70,7 @@ export default function MainView() {
                                             <div className="price-section">
                                                 <p className="price-label">Starting from</p>
                                                 <div className="price-value">
-                                                    {hotel.logPrice.toFixed(2)} kr
+                                                    {hotel.logPrice.toFixed(2)} $
                                                 </div>
                                                 <span className="price-label">per night</span>
                                             </div>

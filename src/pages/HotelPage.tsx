@@ -34,16 +34,12 @@ export default function HotelPage() {
             setLoading(true);
             setError(null);
             try {
-                const response = await fetch(`http://localhost:5003/hotel?hotelId=${hotelId}`, {
+                const response = await fetch(`http://localhost:5003/hotel/${hotelId}`, {
                     method: "GET",
                     headers: { "Content-Type": "application/json" },
                 });
-
-                if (!response.ok) {
-                    throw new Error(`HTTP error! status: ${response.status}`);
-                }
-
                 const data = await response.json();
+                console.log(data);
                 setHotel(data);
             } catch (err) {
                 setError(err instanceof Error ? err.message : "Failed to load hotel details");
@@ -70,15 +66,12 @@ export default function HotelPage() {
     if (loading) {
         return <div className="loading-message">Loading hotel details...</div>;
     }
-
     if (error) {
         return <div className="error-message">Error: {error}</div>;
     }
-
     if (!hotel) {
         return <div className="not-found-message">Hotel not found</div>;
     }
-
     return (
         <div className="hotel-page-container">
             <div className="hotel-gallery">
@@ -98,7 +91,7 @@ export default function HotelPage() {
                 <h1 className="hotel-title">{hotel.name}</h1>
                 <p className="hotel-description">{hotel.description}</p>
                 <div className="price-badge">
-                    <span className="price">${hotel.logPrice}</span>
+                    <span className="price">${hotel.logPrice.toFixed(2)}</span>
                     <span className="per-night">per night</span>
                 </div>
 
@@ -143,7 +136,7 @@ export default function HotelPage() {
 
                     {showConfirmation && hotel && (
                         <div className="confirmation-modal">
-                            <h3>Booking Confirmed! 🎉</h3>
+                            <h3>Booking Confirmed!</h3>
                             <p>Your reservation at {hotel.name} has been confirmed.</p>
                             <button
                                 className="close-button"
