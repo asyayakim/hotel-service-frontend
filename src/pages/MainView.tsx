@@ -1,4 +1,8 @@
 import { useEffect, useState } from "react";
+
+import {Link} from "react-router-dom";
+
+
 type Hotel = {
     id: number;
     name: string;
@@ -70,12 +74,9 @@ export default function MainView() {
                                                 </div>
                                                 <span className="price-label">per night</span>
                                             </div>
-                                            <button className="button-main">
-                                                <svg xmlns="http://www.w3.org/2000/svg" width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
-                                                    <path d="M5 12h14M12 5l7 7-7 7"/>
-                                                </svg>
-                                                Check Availability
-                                            </button>
+                                            <Link to={`/hotels/${hotel.id}`} className="button-main">
+                                                View Details
+                                            </Link>
                                         </div>
                                     </div>
                                 ))
@@ -86,15 +87,17 @@ export default function MainView() {
 
                         <div className="pagination-controls">
                             <button
+                                className="button-extra"
                                 onClick={() => fetchHotels(pageNumber - 1)}
                                 disabled={pageNumber <= 1}
                             >
                                 Previous
                             </button>
-                            <span>Page {pageNumber} of {totalPages}</span>
+                            <span> Page {pageNumber} of {totalPages} </span>
                             <button
                                 onClick={() => fetchHotels(pageNumber + 1)}
                                 disabled={pageNumber >= totalPages}
+                                className="button-extra" 
                             >
                                 Next
                             </button>
