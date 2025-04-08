@@ -1,9 +1,10 @@
-import { useEffect, useState } from "react";
+import {useContext, useEffect, useState} from "react";
 import { DateRange, Range, RangeKeyDict } from "react-date-range";
 import "react-date-range/dist/styles.css";
 import "react-date-range/dist/theme/default.css";
 import { addDays } from "date-fns";
-import {useParams} from "react-router-dom";
+import {useNavigate, useParams} from "react-router-dom";
+import {UserContext} from "../components/UserProvider.tsx";
 
 type Hotel = {
     id: number;
@@ -14,6 +15,7 @@ type Hotel = {
 };
 
 export default function HotelPage() {
+    const { user } = useContext(UserContext)!;
     const { id } = useParams<{ id: string }>();
     const hotelId = id ? parseInt(id) : 0;
     const [loading, setLoading] = useState<boolean>(true);
@@ -28,7 +30,7 @@ export default function HotelPage() {
     ]);
     const [guests, setGuests] = useState<number>(1);
     const [showConfirmation, setShowConfirmation] = useState<boolean>(false);
-
+    const navigate = useNavigate();
     useEffect(() => {
         const fetchHotel = async () => {
             setLoading(true);
@@ -51,7 +53,20 @@ export default function HotelPage() {
 
         fetchHotel();
     }, [hotelId]);
-
+    const startReservation = async () => {
+        const response = await fetch(`http://localhost:5003/hotel/reservation/${hotelId}`, {
+            method: "POST",
+            headers: { "Content-Type": "application/json" },
+            body: JSON.stringify({ hotelId: hotelId, dateRange: dateRange, hotelPrice: hotel?.logPrice, user }),
+        });
+        console.log(response.json());
+        const data = await response.json();
+        if (response.ok) {
+            console.log(data);
+            setShowConfirmation(false)
+            navigate("/payment");
+        }
+    }
     const handleSelect = (ranges: RangeKeyDict) => {
         setDateRange([ranges.selection]);
     };
@@ -125,15 +140,23 @@ export default function HotelPage() {
                             ) : 0} nights:</h3>
                         <div className="total-price">${calculateTotal().toFixed(2)}</div>
                     </div>
+                    {!user ? ( 
 
                     <button
                         className="reserve-button"
-                        onClick={() => setShowConfirmation(true)}
-                        disabled={!dateRange[0].startDate || !dateRange[0].endDate}
+                        onClick={() => alert("Login for reservation")}
                     >
                         Reserve Now
                     </button>
-
+                    ) : (
+                        <button
+                            className="reserve-button"
+                            onClick={() => startReservation}
+                            disabled={!dateRange[0].startDate || !dateRange[0].endDate}
+                        >
+                            Reserve Now
+                        </button>
+                    )};
                     {showConfirmation && hotel && (
                         <div className="confirmation-modal">
                             <h3>Booking Confirmed!</h3>
@@ -141,6 +164,7 @@ export default function HotelPage() {
                             <button
                                 className="close-button"
                                 onClick={() => setShowConfirmation(false)}
+                                
                             >
                                 Close
                             </button>
