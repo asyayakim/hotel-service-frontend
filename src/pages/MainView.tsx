@@ -4,11 +4,11 @@ import {Link} from "react-router-dom";
 
 
 type Hotel = {
-    id: number;
+    hotelId: number;
     name: string;
     description: string;
     thumbnailUrl: string;
-    logPrice: number;
+    price: number;
 };
 
 export default function MainView() {
@@ -26,7 +26,7 @@ export default function MainView() {
         setLoading(true);
         setError(null);
         try {
-            const response = await fetch(`http://localhost:5003/hotel?pageNumber=${newPageNumber}&pageSize=${pageSize}`, {
+            const response = await fetch(`http://localhost:5003/hotel/all-hotels?pageNumber=${newPageNumber}&pageSize=${pageSize}`, {
                 method: "GET",
                 headers: { "Content-Type": "application/json" },
             });
@@ -34,6 +34,7 @@ export default function MainView() {
             setHotels(data.hotels);
             setTotalPages(data.TotalPages);
             setPageNumber(newPageNumber);
+            console.log(data)
         } catch (err) {
             setError("Failed to load hotels.");
         } finally {
@@ -52,7 +53,7 @@ export default function MainView() {
                         <div className="hotels-grid">
                             {hotels?.length ? (
                                 hotels.map((hotel) => (
-                                    <div key={hotel.id} className="hotel-card">
+                                    <div key={hotel.hotelId} className="hotel-card">
                                         <div className="hotel-img-container">
                                             <div className="favorite-icon">
                                                 <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24">
@@ -70,11 +71,11 @@ export default function MainView() {
                                             <div className="price-section">
                                                 <p className="price-label">Starting from</p>
                                                 <div className="price-value">
-                                                    {hotel.logPrice.toFixed(2)} $
+                                                    {hotel.price} $
                                                 </div>
                                                 <span className="price-label">per night</span>
                                             </div>
-                                            <Link to={`/hotels/${hotel.id}`} className="button-main">
+                                            <Link to={`/hotel/${hotel.hotelId}`} className="button-main">
                                                 View Details
                                             </Link>
                                         </div>

@@ -11,13 +11,17 @@ type Hotel = {
     name: string;
     description: string;
     thumbnailUrl: string;
-    logPrice: number;
+    price: number;
 };
 
 export default function HotelPage() {
+    const params = useParams();
+    console.log("Route params:", params);
+
     const { user } = useContext(UserContext)!;
     const { id } = useParams<{ id: string }>();
-    const hotelId = id ? parseInt(id) : 0;
+    const hotelId = id && !isNaN(parseInt(id)) &&
+    parseInt(id) > 0 ? parseInt(id): null;
     const [loading, setLoading] = useState<boolean>(true);
     const [hotel, setHotel] = useState<Hotel | null>(null);
     const [error, setError] = useState<string | null>(null);
@@ -35,13 +39,13 @@ export default function HotelPage() {
         const fetchHotel = async () => {
             setLoading(true);
             setError(null);
+            
             try {
-                const response = await fetch(`http://localhost:5003/hotel/${hotelId}`, {
+                const response = await fetch(`http://localhost:5003/hotel/from-db/${hotelId}`, {
                     method: "GET",
                     headers: { "Content-Type": "application/json" },
                 });
                 const data = await response.json();
-                console.log(data);
                 setHotel(data);
             } catch (err) {
                 setError(err instanceof Error ? err.message : "Failed to load hotel details");
@@ -57,7 +61,7 @@ export default function HotelPage() {
         const response = await fetch(`http://localhost:5003/hotel/reservation/${hotelId}`, {
             method: "POST",
             headers: { "Content-Type": "application/json" },
-            body: JSON.stringify({ hotelId: hotelId, dateRange: dateRange, hotelPrice: hotel?.logPrice, user }),
+            body: JSON.stringify({ hotelId: hotelId, dateRange: dateRange, price: hotel?.price, user }),
         });
         console.log(response.json());
         const data = await response.json();
@@ -75,7 +79,7 @@ export default function HotelPage() {
         if (!hotel || !dateRange[0].startDate || !dateRange[0].endDate) return 0;
         const diffTime = Math.abs(dateRange[0].endDate.getTime() - dateRange[0].startDate.getTime());
         const diffDays = Math.ceil(diffTime / (1000 * 60 * 60 * 24));
-        return diffDays * hotel.logPrice;
+        return diffDays * hotel.price;
     };
 
     if (loading) {
@@ -106,7 +110,7 @@ export default function HotelPage() {
                 <h1 className="hotel-title">{hotel.name}</h1>
                 <p className="hotel-description">{hotel.description}</p>
                 <div className="price-badge">
-                    <span className="price">${hotel.logPrice.toFixed(2)}</span>
+                    <span className="price">${hotel.price.toFixed(2)}</span>
                     <span className="per-night">per night</span>
                 </div>
 

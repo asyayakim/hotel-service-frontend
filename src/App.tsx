@@ -20,7 +20,7 @@ export default function App() {
                     <Route path="login" element={<Login/>}/>
                     <Route path="user" element={<UserPage />} />
                     <Route path="payment" element={<PaymentPage />} />
-                    <Route path="/hotels/:id" element={<HotelPage />} />
+                    <Route path="/hotel/:id" element={<HotelPage />} />
                     <Route path="*" element={<p>404 - Page not found</p>}/>
                 </Route>
             </Routes>
