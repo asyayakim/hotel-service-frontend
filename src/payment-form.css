@@ -1,116 +1,140 @@
-@import url("https://fonts.googleapis.com/css2?family=Poppins:weight@100;200;300;400;500;600;700;800&display=swap");
-
-
-body{
-    background-color:#f5eee7;
-    font-family: "Poppins", sans-serif;
-    font-weight: 300;
+.payment-container {
+    width: 100%;
+    max-width: 500px;
+    margin: 0 auto;
 }
 
-.container{
-
-    height: 100vh;
-
+.payment-card {
+    background: var(--background);
+    border-radius: 12px;
+    box-shadow: 0 4px 20px rgba(0, 0, 0, 0.08);
+    padding: 30px;
+    border: 1px solid var(--border);
 }
 
-.card{
-
-    border: none;
+.payment-title {
+    color: var(--secondary);
+    font-weight: 600;
+    margin-bottom: 25px;
+    text-align: center;
+    font-size: 1.6rem;
 }
 
-.card-header {
-    padding: .5rem 1rem;
-    margin-bottom: 0;
-    background-color: rgba(0,0,0,.03);
-    border-bottom: none;
+.form-group {
+    margin-bottom: 20px;
 }
 
-.btn-light:focus {
-    color: #212529;
-    background-color: #e2e6ea;
-    border-color: #dae0e5;
-    box-shadow: 0 0 0 0.2rem rgba(216,217,219,.5);
-}
-
-.form-control{
-
-    height: 50px;
-    border: 2px solid #eee;
-    border-radius: 6px;
+.form-group label {
+    display: block;
+    margin-bottom: 8px;
     font-size: 14px;
+    color: var(--text-dark);
+    font-weight: 500;
 }
 
-.form-control:focus {
-    color: #495057;
-    background-color: #fff;
-    border-color: #039be5;
-    outline: 0;
-    box-shadow: none;
-
-}
-
-.input{
-
+.input-field {
     position: relative;
 }
 
-.input i{
-
+.input-field i {
     position: absolute;
-    top: 16px;
-    left: 11px;
-    color: #989898;
+    left: 15px;
+    top: 50%;
+    transform: translateY(-50%);
+    color: var(--secondary-light);
 }
 
-.input input{
-
-    text-indent: 25px;
-}
-
-.card-text{
-
-    font-size: 13px;
-    margin-left: 6px;
-}
-
-.certificate-text{
-
-    font-size: 12px;
-}
-
-
-.billing{
-    font-size: 11px;
-}
-
-.super-price{
-
-    top: 0px;
-    font-size: 22px;
-}
-
-.super-month{
-
-    font-size: 11px;
-}
-
-
-.line{
-    color: #bfbdbd;
-}
-
-.free-button{
-
-    background: #1565c0;
-    height: 52px;
-    font-size: 15px;
+.input-field input {
+    width: 100%;
+    padding: 12px 15px 12px 45px;
+    border: 2px solid var(--border);
     border-radius: 8px;
+    font-size: 15px;
+    transition: all 0.3s;
+    background-color: var(--background);
+    color: var(--text-dark);
+}
+
+.input-field input:focus {
+    border-color: var(--primary);
+    outline: none;
+    box-shadow: 0 0 0 3px rgba(45, 155, 146, 0.2); /* --primary */
+}
+
+.form-row {
+    display: flex;
+    gap: 15px;
+}
+
+.form-row .form-group {
+    flex: 1;
 }
 
 
-.payment-card-body{
+.card-types {
+    display: flex;
+    gap: 10px;
+    margin-bottom: 10px;
+}
 
-    flex: 1 1 auto;
-    padding: 24px 1rem !important;
+.card-type {
+    width: 50px;
+    height: 30px;
+    object-fit: contain;
+    cursor: pointer;
+    opacity: 0.6;
+    transition: all 0.3s;
+    border: 1px solid transparent;
+    border-radius: 4px;
+    padding: 2px;
+    background-color: var(--background);
+}
 
+.card-type.active {
+    opacity: 1;
+    border-color: var(--primary);
+    background: rgba(45, 155, 146, 0.05); /* --primary light bg */
+}
+
+/* Submit Button */
+.submit-btn {
+    width: 100%;
+    padding: 15px;
+    background: var(--primary);
+    color: var(--text-light);
+    border: none;
+    border-radius: 8px;
+    font-size: 16px;
+    font-weight: 500;
+    cursor: pointer;
+    transition: all 0.3s;
+    margin-top: 10px;
+}
+
+.submit-btn:hover {
+    background: var(--primary-dark);
+}
+
+.submit-btn:disabled {
+    background: #cccccc;
+    cursor: not-allowed;
+}
+
+.error-message {
+    color: var(--accent-dark);
+    font-size: 14px;
+    margin-top: 15px;
+    text-align: center;
+}
+
+
+@media (max-width: 576px) {
+    .form-row {
+        flex-direction: column;
+        gap: 0;
+    }
+
+    .payment-card {
+        padding: 20px;
+    }
 }

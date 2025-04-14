@@ -30,15 +30,15 @@ export default function Login() {
                 login(data);
                 console.log(data.user.role);
                 setMessage("Login successful!");
-                if (data.user.role === "Admin") {
-                    navigate("/admin");
-                }
-                else if (data.user.role === "User") {
-                    navigate("/user");
-                }
-                else if (data.user.role === "Employee" ){
-                    navigate("/employee");
-                }
+                // if (data.user.role === "Admin") {
+                //     navigate("/admin");
+                // }
+                // else if (data.user.role === "User") {
+                //     navigate("/user");
+                // }
+                // else if (data.user.role === "Employee" ){
+                //     navigate("/employee");
+                // }
             } else {
                 setMessage(data.message || "Login failed");
             }

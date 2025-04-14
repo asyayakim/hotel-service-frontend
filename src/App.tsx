@@ -8,6 +8,7 @@ import UserProvider from "./components/UserProvider.tsx";
 import UserPage from "./pages/UserPage.tsx";
 import HotelPage from "./pages/HotelPage.tsx";
 import PaymentPage from "./pages/PaymentPage.tsx";
+import ConfirmationPage from "./pages/ConfirmationPage.tsx";
 
 
 export default function App() {
@@ -20,6 +21,7 @@ export default function App() {
                     <Route path="login" element={<Login/>}/>
                     <Route path="user" element={<UserPage />} />
                     <Route path="payment" element={<PaymentPage />} />
+                    <Route path="confirmation" element={<ConfirmationPage />} />
                     <Route path="/hotel/:id" element={<HotelPage />} />
                     <Route path="*" element={<p>404 - Page not found</p>}/>
                 </Route>

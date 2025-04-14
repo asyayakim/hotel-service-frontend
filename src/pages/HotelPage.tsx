@@ -25,12 +25,12 @@ export default function HotelPage() {
   
     const { user } = useContext(UserContext)!;
     const { id } = useParams<{ id: string }>();
-    const navigate = useNavigate();
     const hotelId = id && !isNaN(parseInt(id)) &&
     parseInt(id) > 0 ? parseInt(id): null;
     const [loading, setLoading] = useState<boolean>(true);
     const [hotel, setHotel] = useState<Hotel | null>(null);
     const [error, setError] = useState<string | null>(null);
+    const navigate = useNavigate();
     const [selectedRoom, setSelectedRoom] = useState<Room | null>(null);
     const [dateRange, setDateRange] = useState<Range[]>([
         {
@@ -68,20 +68,6 @@ export default function HotelPage() {
 
         fetchHotel();
     }, [hotelId]);
-    // const startReservation = async () => {
-    //     const response = await fetch(`http://localhost:5003/hotel/reservation/${hotelId}`, {
-    //         method: "POST",
-    //         headers: { "Content-Type": "application/json" },
-    //         body: JSON.stringify({ hotelId: hotelId, dateRange: dateRange, price: hotel?.price, user }),
-    //     });
-    //     console.log(response.json());
-    //     const data = await response.json();
-    //     if (response.ok) {
-    //         console.log(data);
-    //         setShowConfirmation(false)
-    //         navigate("/payment");
-    //     }
-    // }
     const handleSelect = (ranges: RangeKeyDict) => {
         setDateRange([ranges.selection]);
     };
@@ -93,16 +79,24 @@ export default function HotelPage() {
         return diffDays * selectedRoom.pricePerNight;
     };
 
-    const startReservation = () => {
+    const startReservation = async () => {
         if (!user) {
-            navigate("/login");
+            alert("Please login to select a hotel");
             return;
         }
         if (!selectedRoom || !dateRange[0].startDate || !dateRange[0].endDate) return;
 
         setShowConfirmation(true);
-        // Here you would typically send reservation data to your API
-    };
+        navigate("/payment", {
+            state: {
+                roomId: selectedRoom.roomId,
+                checkInDate: dateRange[0].startDate,
+                checkOutDate: dateRange[0].endDate,
+                totalPrice: calculateTotal(),
+                hotelId: hotelId,
+            }
+        });
+    }
 
     if (loading) return <div className="loading">Loading hotel details...</div>;
     if (error) return <div className="error">{error}</div>;
@@ -178,7 +172,7 @@ export default function HotelPage() {
                             <h3>Your Stay</h3>
                             <div className="room-selected">
                                 <span>{selectedRoom.roomType}</span>
-                                <span>${selectedRoom.pricePerNight.toFixed(2)}/night</span>
+                                <span> ${selectedRoom.pricePerNight.toFixed(2)}/night</span>
                             </div>
                             <div className="dates-selected">
                                 {dateRange[0].startDate?.toLocaleDateString()} - {dateRange[0].endDate?.toLocaleDateString()}
