@@ -1,24 +1,37 @@
 import {useLocation, useNavigate} from "react-router-dom";
 import {useContext, useState} from "react";
 import {UserContext} from "../components/UserProvider.tsx";
+import Swal from 'sweetalert2';
 
+interface ReservationState {
+    hotelId: number;
+    roomId: number;
+    checkInDate: Date;
+    checkOutDate: Date;
+    totalPrice: number;
+    imageUrl: string;
+    hotelName: string;
+    adultsCount: number;
+}
 export default function PaymentPage() {
-    const navigate = useNavigate();
+const navigate = useNavigate();
     const { user } = useContext(UserContext)!;
     const location = useLocation();
+    
     const {
         hotelId
     } = location.state || {};
-    const reservationDetails = location.state;
+    const reservationDetails = location.state as ReservationState;
 
     const [cardDetails, setCardDetails] = useState({
         cardNumber: "",
         expiry: "",
         cvv: "",
         billingAddress: "",
-        cardType: "Visa" 
+        cardType: "" 
     });
-
+console.log(reservationDetails);
+console.log(reservationDetails.imageUrl);
     const [loading, setLoading] = useState(false);
     const [error, setError] = useState("");
 
@@ -57,7 +70,8 @@ export default function PaymentPage() {
                     CheckInDate: reservationDetails.checkInDate.toISOString().split('T')[0],
                     CheckOutDate: reservationDetails.checkOutDate.toISOString().split('T')[0],
                     TotalPrice: reservationDetails.totalPrice,
-                    PaymentMethodId: paymentData.paymentMethodId
+                    PaymentMethodId: paymentData.paymentMethodId,
+                    AdultsCount: reservationDetails.adultsCount,
                 })
             });
 
@@ -65,8 +79,15 @@ export default function PaymentPage() {
                 const errorData = await reservationResponse.json();
                 throw new Error(errorData.message || "Reservation failed");
             }
-
-            navigate("/confirmation");
+            navigate("/")
+            Swal.fire({
+                title: "Congratulations!",
+                text: `Get ready to the next trip to ${reservationDetails.hotelName}.`,
+                imageUrl: reservationDetails.imageUrl,
+                imageWidth: 400,
+                imageHeight: 200,
+                imageAlt: "Hotel image"
+            });
         } catch (err) {
             setError(err instanceof Error ? err.message : "An error occurred");
         } finally {
@@ -100,7 +121,7 @@ export default function PaymentPage() {
                         <div className="input-field">
                             <i className="bi bi-credit-card"></i>
                             <input
-                                type="text"
+                                type="number"
                                 placeholder="1234 5678 9012 3456"
                                 value={cardDetails.cardNumber}
                                 onChange={(e) => setCardDetails({...cardDetails, cardNumber: e.target.value})}
@@ -115,7 +136,7 @@ export default function PaymentPage() {
                             <div className="input-field">
                                 <i className="bi bi-calendar"></i>
                                 <input
-                                    type="text"
+                                    type="date"
                                     placeholder="MM/YY"
                                     value={cardDetails.expiry}
                                     onChange={(e) => setCardDetails({...cardDetails, expiry: e.target.value})}
@@ -129,7 +150,7 @@ export default function PaymentPage() {
                             <div className="input-field">
                                 <i className="bi bi-lock"></i>
                                 <input
-                                    type="text"
+                                    type="number"
                                     placeholder="123"
                                     value={cardDetails.cvv}
                                     onChange={(e) => setCardDetails({...cardDetails, cvv: e.target.value})}
@@ -151,6 +172,7 @@ export default function PaymentPage() {
                             />
                         </div>
                     </div>
+                    <label>Pay Total {reservationDetails.totalPrice} $</label> 
 
                     <button type="submit" className="submit-btn" disabled={loading}>
                         {loading ? 'Processing...' : 'Pay Now'}

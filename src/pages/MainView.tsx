@@ -94,7 +94,7 @@ export default function MainView() {
                             >
                                 Previous
                             </button>
-                            <span> Page {pageNumber} of {totalPages} </span>
+                            <span  className="price-label"> &nbsp; Page {pageNumber} of {totalPages} &nbsp; </span>
                             <button
                                 onClick={() => fetchHotels(pageNumber + 1)}
                                 disabled={pageNumber >= totalPages}

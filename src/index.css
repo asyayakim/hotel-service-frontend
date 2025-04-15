@@ -5,7 +5,7 @@
   --secondary-light: #2A4B6F;
   --accent: #FF6B6B;
   --accent-dark: #E55656;
-  --background: #FFFFFF;
+  --background: #f5f9fa;
   --text-dark: #2D3748;
   --text-light: #FFFFFF;
   --highlight: #F4D03F;
@@ -111,7 +111,7 @@ main {
 footer {
   background-color: var(--accent);
   color: var(--text-light);
-  padding: 3rem 2rem 1.5rem;
+  padding: 0.4rem;
   margin-top: auto;
 }
 

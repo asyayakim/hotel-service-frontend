@@ -1,8 +1,8 @@
 import {useContext, useEffect, useState} from "react";
-import { DateRange, Range, RangeKeyDict } from "react-date-range";
+import {DateRange, Range, RangeKeyDict} from "react-date-range";
 import "react-date-range/dist/styles.css";
 import "react-date-range/dist/theme/default.css";
-import { addDays } from "date-fns";
+import {addDays} from "date-fns";
 import {useNavigate, useParams} from "react-router-dom";
 import {UserContext} from "../components/UserProvider.tsx";
 
@@ -22,11 +22,11 @@ type Room = {
 }
 
 export default function HotelPage() {
-  
-    const { user } = useContext(UserContext)!;
-    const { id } = useParams<{ id: string }>();
+
+    const {user} = useContext(UserContext)!;
+    const {id} = useParams<{ id: string }>();
     const hotelId = id && !isNaN(parseInt(id)) &&
-    parseInt(id) > 0 ? parseInt(id): null;
+    parseInt(id) > 0 ? parseInt(id) : null;
     const [loading, setLoading] = useState<boolean>(true);
     const [hotel, setHotel] = useState<Hotel | null>(null);
     const [error, setError] = useState<string | null>(null);
@@ -41,20 +41,19 @@ export default function HotelPage() {
     ]);
     const [guests, setGuests] = useState<number>(1);
     const [showConfirmation, setShowConfirmation] = useState<boolean>(false);
-   
+    const [disabledDates, setDisabledDates] = useState<Date[]>([]);
     useEffect(() => {
         const fetchHotel = async () => {
             setLoading(true);
             setError(null);
-            
+
             try {
                 const response = await fetch(`http://localhost:5003/hotel/from-db/${hotelId}`, {
                     method: "GET",
-                    headers: { "Content-Type": "application/json" },
+                    headers: {"Content-Type": "application/json"},
                 });
                 const data: Hotel = await response.json();
                 setHotel(data);
-                console.log(data);
                 if (data.rooms.length > 0) {
                     setSelectedRoom(data.rooms[0]);
                 }
@@ -65,9 +64,40 @@ export default function HotelPage() {
                 setLoading(false);
             }
         };
-
         fetchHotel();
     }, [hotelId]);
+    useEffect(() => {
+        const fetchUnavailableDates = async () => {
+            try {
+                if (!selectedRoom?.roomId) return;
+                const response = await fetch(`http://localhost:5003/reservation/available-date/${selectedRoom?.roomId}`, {
+                    method: "GET",
+                    headers: {"Content-Type": "application/json"},
+                });
+                const reservations = await response.json();
+                console.log(reservations);
+                const allDates = reservations.flatMap((res: any) => {
+                    const start = new Date(res.checkInDate);
+                    const end = new Date(res.checkOutDate);
+                    const dates = [];
+
+                    let current = new Date(start);
+                    while (current < end) {
+                        dates.push(new Date(current));
+                        current = addDays(current, 1);
+                    }
+                    return dates;
+                });
+                setDisabledDates(allDates);
+                console.log(allDates);
+            } catch (err) {
+                console.error("Error fetching unavailable dates:", err);
+            }
+        };
+        fetchUnavailableDates()
+    }, [selectedRoom?.roomId]);
+    
+    
     const handleSelect = (ranges: RangeKeyDict) => {
         setDateRange([ranges.selection]);
     };
@@ -94,6 +124,9 @@ export default function HotelPage() {
                 checkOutDate: dateRange[0].endDate,
                 totalPrice: calculateTotal(),
                 hotelId: hotelId,
+                hotelName: hotel?.name,
+                adultsCount: guests,
+                imageUrl: hotel?.thumbnailUrl,
             }
         });
     }
@@ -153,6 +186,12 @@ export default function HotelPage() {
                             ranges={dateRange}
                             minDate={new Date()}
                             rangeColors={["var(--primary)"]}
+                            disabledDates={disabledDates}
+                            disabledDay={(date) =>
+                                disabledDates.some(disabledDate => 
+                                    date.toDateString() === disabledDate.toDateString(),
+                                )
+                            }
                         />
                     </div>
 
@@ -161,7 +200,7 @@ export default function HotelPage() {
                         <input
                             type="number"
                             min="1"
-                            max="8"
+                            max="4"
                             value={guests}
                             onChange={(e) => setGuests(Math.max(1, parseInt(e.target.value) || 1))}
                         />

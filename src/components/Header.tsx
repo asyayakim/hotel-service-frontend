@@ -4,7 +4,7 @@ import {useContext} from "react";
 
 export default function Header() {
     const { user, logout } = useContext(UserContext)!;
-    const userRole = user?.role;
+    let userRole = user?.role;
     const renderCommonHeader = () => {
         return (
             <header className="main-header">
@@ -25,9 +25,6 @@ export default function Header() {
                             </li>
                             <li className="nav-item">
                                 <Link to="/apartments" className="nav-link">Apartments</Link>
-                            </li>
-                            <li className="nav-item">
-                                <Link to="/services" className="nav-link">Services</Link>
                             </li>
                             <li className="nav-item">
                                 <Link to="/contact" className="nav-link">Contact</Link>
@@ -61,6 +58,12 @@ export default function Header() {
         switch (userRole) {
             // case "Admin":
             //     return renderAdminHeader();
+            case null:
+                return  (
+                    <header>
+                        {renderCommonHeader()}
+                    </header> 
+                    )
             case "User":
             default:
                 return (
@@ -68,6 +71,7 @@ export default function Header() {
                         {renderCommonHeader()}
                     </header>
                 );
+                
         }
     };
     return renderHeader();
