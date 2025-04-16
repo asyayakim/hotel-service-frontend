@@ -2,7 +2,7 @@
     max-width: 400px;
     margin: 100px auto;
     padding: 30px;
-    background: var(--primary);
+    background: var(--primary-color);
     box-shadow: var(--shadow);
     border-radius: 10px;
     text-align: center;
