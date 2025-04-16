@@ -5,8 +5,8 @@
 }
 
 .hotel-header {
-    margin-bottom: 2rem;
     text-align: center;
+    padding: 1rem 1rem;
 }
 
 .hotel-header h1 {
@@ -162,6 +162,9 @@
     max-width: 500px;
     width: 90%;
     text-align: center;
+}
+.text-section {
+    padding-top: 2rem;
 }
 
 @media (max-width: 768px) {

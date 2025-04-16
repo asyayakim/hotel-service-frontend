@@ -136,13 +136,15 @@ export default function HotelPage() {
     if (!hotel) return <div className="not-found">Hotel not found</div>;
 
     return (
+        
         <div className="hotel-page">
+            <div className="booking-section">
             <div className="hotel-header">
                 <h1>{hotel.name}</h1>
-                <p className="description">{hotel.description}</p>
             </div>
-
+            </div>
             <div className="hotel-content">
+                <div className="booking-section">
                 <div className="gallery">
                     <img
                         src={hotel.thumbnailUrl || "/placeholder-hotel.jpg"}
@@ -159,6 +161,10 @@ export default function HotelPage() {
                                 onClick={() => setSelectedRoom(room)}
                             />
                         ))}
+                    </div>
+                </div>
+                    <div className="text-section">
+                    <p className="description">{hotel.description}</p>
                     </div>
                 </div>
 
