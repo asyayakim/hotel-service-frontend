@@ -1,6 +1,7 @@
-import { useEffect, useState } from "react";
+import {useContext, useEffect, useState} from "react";
 
 import {Link} from "react-router-dom";
+import {UserContext} from "../components/UserProvider.tsx";
 
 
 type Hotel = {
@@ -9,9 +10,11 @@ type Hotel = {
     description: string;
     thumbnailUrl: string;
     price: number;
+    isFavorite?: boolean;
 };
 
 export default function MainView() {
+    const { user } = useContext(UserContext)!;
     const [hotels, setHotels] = useState<Hotel[]>();
     const [error, setError] = useState<string | null>(null);
     const [loading, setLoading] = useState<boolean>(true);
@@ -19,7 +22,7 @@ export default function MainView() {
     const [totalPages, setTotalPages] = useState<number>(1);
 
     useEffect(() => {
-        fetchHotels(1, 10); 
+        fetchHotels(1, 10);
     }, []);
 
     const fetchHotels = async (newPageNumber = 1, pageSize = 10) => {
@@ -28,24 +31,46 @@ export default function MainView() {
         try {
             const response = await fetch(`http://localhost:5003/hotel/all-hotels?pageNumber=${newPageNumber}&pageSize=${pageSize}`, {
                 method: "GET",
-                headers: { "Content-Type": "application/json" },
+                headers: {"Content-Type": "application/json"},
             });
             const data = await response.json();
             setHotels(data.hotels);
             setTotalPages(data.TotalPages);
             setPageNumber(newPageNumber);
-            console.log(data)
         } catch (err) {
             setError("Failed to load hotels.");
         } finally {
             setLoading(false);
         }
     };
-
+    const AddToFavorite = async (hotelId: number) => {
+        if (!user) {
+            localStorage.setItem("userId", JSON.stringify(user));
+            localStorage.setItem("hotelId", JSON.stringify(hotelId));
+        }
+        try {
+            const response = await fetch(`http://localhost:5003/api/favorite`, {
+                method: "POST",
+                headers: {
+                    "Content-Type": "application/json",
+                    "Authorization": `Bearer ${user?.token}`,
+                },
+                body: JSON.stringify({
+                    hotelId: hotelId,
+                    userId: user.id,
+                }),
+            });
+            if (response.ok) {
+                alert("Added to favorites.");
+            }
+            const data = await response.json();
+        } catch (err) {
+            setError(err instanceof Error ? err.message : "Failed to add favorite");
+        }
+    }
     return (
         <section className="hotels-section">
             <div className="hotels-container">
-                {error && <p className="error-message">{error}</p>}
                 {loading ? (
                     <p>Loading hotels...</p>
                 ) : (
@@ -56,8 +81,13 @@ export default function MainView() {
                                     <div key={hotel.hotelId} className="hotel-card">
                                         <div className="hotel-img-container">
                                             <div className="favorite-icon">
-                                                <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24">
-                                                    <path stroke-linecap="round" stroke-linejoin="round" d="M21 8.25c0-2.485-2.099-4.5-4.688-4.5-1.935 0-3.597 1.126-4.312 2.733-.715-1.607-2.377-2.733-4.313-2.733C5.1 3.75 3 5.765 3 8.25c0 7.22 9 12 9 12s9-4.78 9-12z" />
+                                                <svg onClick={() => AddToFavorite(hotel.hotelId)}
+                                                     fill={hotel.isFavorite ? "red" : "none"}
+                                                     stroke="currentColor"
+                                                     strokeWidth="1.5"
+                                                     xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24">
+                                                    <path stroke-linecap="round" stroke-linejoin="round"
+                                                          d="M21 8.25c0-2.485-2.099-4.5-4.688-4.5-1.935 0-3.597 1.126-4.312 2.733-.715-1.607-2.377-2.733-4.313-2.733C5.1 3.75 3 5.765 3 8.25c0 7.22 9 12 9 12s9-4.78 9-12z"/>
                                                 </svg>
                                             </div>
                                             <img
@@ -94,11 +124,11 @@ export default function MainView() {
                             >
                                 Previous
                             </button>
-                            <span  className="price-label"> &nbsp; Page {pageNumber} of {totalPages} &nbsp; </span>
+                            <span className="price-label"> &nbsp; Page {pageNumber} of {totalPages} &nbsp; </span>
                             <button
                                 onClick={() => fetchHotels(pageNumber + 1)}
                                 disabled={pageNumber >= totalPages}
-                                className="button-extra" 
+                                className="button-extra"
                             >
                                 Next
                             </button>

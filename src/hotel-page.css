@@ -120,7 +120,21 @@
     font-weight: bold;
     margin-top: 1rem;
 }
+.favorite-icon svg {
+    cursor: pointer;
+    transition: all 0.3s ease;
+    width: 24px;
+    height: 24px;
+}
 
+.favorite-icon svg:hover {
+    transform: scale(1.1);
+}
+
+.favorite-icon svg[fill="red"] {
+    fill: var(--accent);
+    stroke: #ff4444;
+}
 .reserve-button {
     background: var(--accent);
     color: white;
