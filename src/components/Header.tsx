@@ -27,6 +27,9 @@ export default function Header() {
                                 <Link to="/apartments" className="nav-link">Apartments</Link>
                             </li>
                             <li className="nav-item">
+                                <Link to="/favorite" className="nav-link">Favorite</Link>
+                            </li>
+                            <li className="nav-item">
                                 <Link to="/user" className="nav-link">User Page</Link>
                             </li>
                             <li className="nav-item auth-section">
@@ -66,7 +69,7 @@ export default function Header() {
                                 <Link to="/apartments" className="nav-link">Apartments</Link>
                             </li>
                             <li className="nav-item">
-                                <Link to="/contact" className="nav-link">Favorite</Link>
+                                <Link to="/favorite" className="nav-link">Favorite</Link>
                             </li>
                             <li className="nav-item auth-section">
                                 {user ? (

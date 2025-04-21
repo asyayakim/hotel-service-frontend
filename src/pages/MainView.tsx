@@ -20,10 +20,50 @@ export default function MainView() {
     const [loading, setLoading] = useState<boolean>(true);
     const [pageNumber, setPageNumber] = useState<number>(1);
     const [totalPages, setTotalPages] = useState<number>(1);
+    const [favoriteLoading, setFavoriteLoading] = useState<number | null>(null);
 
     useEffect(() => {
         fetchHotels(1, 10);
+          if (!user) {
+            const localFavs = getLocalFavorites();
+            setHotels(prev =>
+                prev?.map(hotel =>
+                    localFavs.includes(hotel.hotelId)
+                        ? { ...hotel, isFavorite: true }
+                        : hotel
+                )
+            );
+        }
     }, []);
+    const saveToLocalFavorites = (hotelId: number) => {
+        let favs = JSON.parse(localStorage.getItem("guestFavorites") || "[]");
+        if (!favs.includes(hotelId)) {
+            favs.push(hotelId);
+            localStorage.setItem("guestFavorites", JSON.stringify(favs));
+        }
+    };
+    const getLocalFavorites = (): number[] => {
+        return JSON.parse(localStorage.getItem("guestFavorites") || "[]");
+    };
+    const fetchFavorites = async () => {
+        const response = await fetch(`http://localhost:5003/api/favorite/all-by-user`, {
+            headers: {
+                "Content-Type": "application/json",
+                "Authorization": `Bearer ${user?.token}`
+            }
+        });
+        
+        if (response.ok) {
+            const data = await response.json();
+            const favoriteIds = data.map((f: { hotelId: number }) => f.hotelId);
+            setHotels(prev =>
+                prev?.map(hotel => ({
+                    ...hotel,
+                    isFavorite: favoriteIds.includes(hotel.hotelId)
+                }))
+            );
+        }
+    };
 
     const fetchHotels = async (newPageNumber = 1, pageSize = 10) => {
         setLoading(true);
@@ -37,6 +77,9 @@ export default function MainView() {
             setHotels(data.hotels);
             setTotalPages(data.TotalPages);
             setPageNumber(newPageNumber);
+            if (user){
+                await fetchFavorites();
+            }
         } catch (err) {
             setError("Failed to load hotels.");
         } finally {
@@ -44,9 +87,15 @@ export default function MainView() {
         }
     };
     const AddToFavorite = async (hotelId: number) => {
+        setFavoriteLoading(hotelId);
         if (!user) {
-            localStorage.setItem("userId", JSON.stringify(user));
-            localStorage.setItem("hotelId", JSON.stringify(hotelId));
+            saveToLocalFavorites(hotelId);
+            setHotels(prev => prev?.map(hotel =>
+                hotel.hotelId === hotelId
+                    ? { ...hotel, isFavorite: true }
+                    : hotel
+            ));
+            return;
         }
         try {
             const response = await fetch(`http://localhost:5003/api/favorite`, {
@@ -61,12 +110,19 @@ export default function MainView() {
                 }),
             });
             if (response.ok) {
-                alert("Added to favorites.");
+                setHotels(prev => prev?.map(hotel =>
+                    hotel.hotelId === hotelId
+                        ? { ...hotel, isFavorite: true }
+                        : hotel
+                ));
             }
-            const data = await response.json();
+             const data = await response.json();
         } catch (err) {
             setError(err instanceof Error ? err.message : "Failed to add favorite");
         }
+        finally {
+        setFavoriteLoading(null);
+    }
     }
     return (
         <section className="hotels-section">

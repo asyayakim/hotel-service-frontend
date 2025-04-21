@@ -9,6 +9,7 @@ import UserPage from "./pages/UserPage.tsx";
 import HotelPage from "./pages/HotelPage.tsx";
 import PaymentPage from "./pages/PaymentPage.tsx";
 import ConfirmationPage from "./pages/ConfirmationPage.tsx";
+import FavoriteHotels from "./pages/FavoriteHotels.tsx";
 
 export default function App() {
     return (
@@ -18,6 +19,7 @@ export default function App() {
                     <Route index element={<MainView/>}/>
                     <Route path="signUp" element={<SignUp/>}/>
                     <Route path="login" element={<Login/>}/>
+                    <Route path="favorite" element={<FavoriteHotels/>}/>
                     <Route path="user" element={<UserPage />} />
                     <Route path="payment" element={<PaymentPage />} />
                     <Route path="confirmation" element={<ConfirmationPage />} />

@@ -1,11 +1,11 @@
 import {createContext, useState, useEffect, ReactNode} from "react";
 
 type User = {
-    token: string;
     id: number;
     username: string;
     email: string;
     role: string;
+    token: string;
 };
 
 type UserContextType = {

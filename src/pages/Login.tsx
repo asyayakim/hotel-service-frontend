@@ -4,11 +4,12 @@ import Button from "../components/Button.jsx";
 import {UserContext} from "../components/UserProvider";
 
 export default function Login() {
-    const { login } = useContext(UserContext)!;
+    const {login} = useContext(UserContext)!;
     const [userName, setUserName] = useState("");
     const [password, setPassword] = useState("");
     const [message, setMessage] = useState("");
     const navigate = useNavigate();
+
 
     const handleLogin = async (e: { preventDefault: () => void; }) => {
         e.preventDefault();
@@ -16,35 +17,38 @@ export default function Login() {
         try {
             const response = await fetch("http://localhost:5003/auth/login", {
                 method: "POST",
-                headers: { "Content-Type": "application/json" },
-                body: JSON.stringify({ userName: userName, password: password }),
+                headers: {"Content-Type": "application/json"},
+                body: JSON.stringify({userName: userName, password: password}),
             });
             const data = await response.json();
-            localStorage.setItem("token", data.token);
-            if (response.ok) {
-
-                if (!response.ok) {
-                    setMessage(data.message || `Login failed: ${response.status}`);
-                    return;
-                }
-                login(data);
-                console.log(data.user.role);
-                setMessage("Login successful!");
-                // if (data.user.role === "Admin") {
-                //     navigate("/admin");
-                // }
-                // else if (data.user.role === "User") {
-                //     navigate("/user");
-                // }
-                // else if (data.user.role === "Employee" ){
-                //     navigate("/employee");
-                // }
-            } else {
-                setMessage(data.message || "Login failed");
+            if (!response.ok) {
+                setMessage(data.message || `Login failed: ${response.status}`);
+                return;
             }
-        } catch (error) {
-            setMessage("Error logging in");
+            const user = {
+                id: data.user.id,
+                username: data.user.userName,
+                email: data.user.email,
+                role: data.user.role,
+                token: data.token,
+            };
+            login({ user, token: data.token });
+            navigate("/");
+            setMessage("Login successful!");
+            // if (data.user.role === "Admin") {
+            //     navigate("/admin");
+            // }
+            // else if (data.user.role === "User") {
+            //     navigate("/user");
+            // }
+            // else if (data.user.role === "Employee" ){
+            //     navigate("/employee");
+            // }
         }
+     catch (error) {
+        setMessage("Something went wrong. Please try again.");
+        console.error(error);
+    }
     };
 
     return (
@@ -79,15 +83,15 @@ export default function Login() {
                         required
                     />
                 </div>
-                <button type="submit"  onClick={() => navigate("/")}>Login</button>
+                <button type="submit" onClick={() => navigate("/")}>Login</button>
                 <div className="forget-password">
                     Forget your <Link to="/login/restorePassword">Password</Link>
                 </div>
             </form>
             <p>{message}</p>
             <div className="login-form">
-                <Button name="Register" onClick={() => navigate("/signUp")} />
-                <Button name="Back" onClick={() => navigate("/")} />
+                <Button name="Register" onClick={() => navigate("/signUp")}/>
+                <Button name="Back" onClick={() => navigate("/")}/>
             </div>
         </div>
     );
