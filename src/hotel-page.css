@@ -11,7 +11,7 @@
 
 .hotel-header h1 {
     font-size: 2.5rem;
-    color: var(--primary);
+    color: var(--secondary);
 }
 
 .description {
@@ -21,7 +21,7 @@
 .hotel-content {
     display: grid;
     grid-template-columns: 1fr 1fr;
-    gap: 2rem;
+    gap: 0.5rem;
 }
 
 .gallery {

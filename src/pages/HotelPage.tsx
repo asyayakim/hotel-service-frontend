@@ -138,13 +138,14 @@ export default function HotelPage() {
     return (
         
         <div className="hotel-page">
-            <div className="booking-section">
-            <div className="hotel-header">
-                <h1>{hotel.name}</h1>
-            </div>
-            </div>
+          
             <div className="hotel-content">
                 <div className="booking-section">
+                    <div className="header-container">
+                        <div className="hotel-header">
+                            <h1>{hotel.name}</h1>
+                        </div>
+                    </div>
                 <div className="gallery">
                     <img
                         src={hotel.thumbnailUrl || "/placeholder-hotel.jpg"}

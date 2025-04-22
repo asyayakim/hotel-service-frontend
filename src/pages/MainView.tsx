@@ -153,7 +153,7 @@ export default function MainView() {
                                             />
                                         </div>
                                         <div className="hotel-content">
-                                            <h4>{hotel.name || "Noname Hotel"}</h4>
+                                            <h2>{hotel.name || "Noname Hotel"}</h2>
                                             <div className="price-section">
                                                 <p className="price-label">Starting from</p>
                                                 <div className="price-value">
