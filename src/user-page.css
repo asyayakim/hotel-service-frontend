@@ -1,36 +1,100 @@
 .user-page {
-    display: flex;
-    width: 80%;
-    height: 100%;
-    margin: 20px auto;
-    justify-content: center;
-    flex-wrap: wrap;
-    flex-direction: column;
-}
-.user-page-section{
-    display: flex;
-    flex-direction: row;
-    align-items: center;
-    justify-content: center;
-    width: 100%;
-    height: 100%;
-}
-.avatar-section{
+    width: 90%;
+    max-width: 900px;
+    margin: 40px auto;
+    padding: 20px;
     display: flex;
     flex-direction: column;
-    width: 100%;
-    height: 100%;
-}
-.change-button{
-    background: var(--secondary-light);
-    color: var(--text-light);
-    transition: transform 0.2s ease;
-    border: none;
-    outline: none;
-    padding: 10px;
+    gap: 30px;
+    background: var(--primary-color);
+    box-shadow: var(--shadow);
     border-radius: 20px;
+}
+
+.page-title {
+    text-align: center;
+    font-size: 2rem;
+    color: var(--text-dark);
+}
+
+.avatar-section {
+    display: flex;
+    justify-content: center;
+}
+
+.avatar-label {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
     cursor: pointer;
 }
-.change-button:hover{
+
+.avatar {
+    width: 100px;
+    height: 100px;
+    border-radius: 50%;
+    object-fit: cover;
+    margin-bottom: 10px;
+}
+
+.user-form {
+    display: flex;
+    flex-direction: column;
+    gap: 20px;
+}
+
+.form-columns {
+    display: flex;
+    gap: 20px;
+    flex-wrap: wrap;
+}
+
+.form-column {
+    flex: 1;
+    min-width: 280px;
+    display: flex;
+    flex-direction: column;
+    gap: 15px;
+}
+
+.input-container {
+    position: relative;
+    display: flex;
+    align-items: center;
+}
+
+.icon {
+    position: absolute;
+    left: 10px;
+    width: 20px;
+    height: 20px;
+    pointer-events: none;
+}
+
+.button-container {
+    display: flex;
+    justify-content: center;
+}
+
+.change-button {
+    background: var(--secondary-light);
+    color: var(--text-light);
+    transition: transform 0.2s ease, background 0.3s ease;
+    border: none;
+    outline: none;
+    padding: 12px 30px;
+    font-size: 1rem;
+    border-radius: 25px;
+    cursor: pointer;
+}
+
+.change-button:hover {
     background: var(--secondary);
+    transform: scale(1.05);
+}
+
+.error-message {
+    text-align: center;
+    color: red;
+    margin-top: 10px;
 }

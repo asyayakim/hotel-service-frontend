@@ -58,7 +58,12 @@ header {
   align-items: center;
   gap: 0.5rem;
 }
-
+.logo-image{
+  background-color:var(--text-light);
+  border-radius: 5%;
+  height: 50px;
+  width: 50px;
+}
 nav ul {
   display: flex;
   list-style: none;

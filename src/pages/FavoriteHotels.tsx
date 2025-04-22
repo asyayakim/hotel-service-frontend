@@ -1,6 +1,6 @@
 import { useContext, useEffect, useState } from "react";
 import { UserContext } from "../components/UserProvider.tsx";
-import { Link } from "react-router-dom";
+import {Link, useNavigate} from "react-router-dom";
 
 type Hotel = {
     hotelId: number;
@@ -15,7 +15,8 @@ export default function FavoriteHotels() {
     const { user } = useContext(UserContext)!;
     const [hotels, setHotels] = useState<Hotel[]>([]);
     const [loading, setLoading] = useState<boolean>(true);
-    console.log(user?.token)
+    const navigate = useNavigate();
+
     const fetchAllHotels = async () => {
         const response = await fetch("http://localhost:5003/hotel/all-hotels?pageNumber=1&pageSize=100");
         const data = await response.json();
@@ -24,12 +25,36 @@ export default function FavoriteHotels() {
     
     const handleRemoveFromFavorites = (hotelId: number) => {
         removeFromLocal(hotelId);
+        if (user)
+            handleRemoveFromDb(hotelId);
         setHotels(prev =>
             prev?.map(hotel =>
                 hotel.hotelId === hotelId ? { ...hotel, isFavorite: false } : hotel
             )
         );
     };
+    const handleRemoveFromDb = async (hotelId: number) => {
+
+        try {
+            const customerResponse = await fetch("http://localhost:5003/api/favorite", {
+                method: "PATCH",
+                headers: {"Content-Type": "application/json",
+                    "Authorization": `Bearer ${user?.token}`,
+                },
+                body: JSON.stringify({
+                    hotelId,
+                    userId: user?.id,
+                })
+            });
+            if (customerResponse.ok) {
+                alert("Hotel removed!.");
+                navigate("/favorite")
+            }
+        } catch (error) {
+            setMessage("Error during update data");
+            console.error("Update error:", error);
+        } 
+    }
     const removeFromLocal = (hotelId: number) => {
         const favs: number[] = JSON.parse(localStorage.getItem("guestFavorites") || "[]");
         const updatedFavs = favs.filter(id => id !== hotelId);
