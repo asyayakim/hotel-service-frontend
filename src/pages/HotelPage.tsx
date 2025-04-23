@@ -75,7 +75,6 @@ export default function HotelPage() {
                     headers: {"Content-Type": "application/json"},
                 });
                 const reservations = await response.json();
-                console.log(reservations);
                 const allDates = reservations.flatMap((res: any) => {
                     const start = new Date(res.checkInDate);
                     const end = new Date(res.checkOutDate);
@@ -89,7 +88,6 @@ export default function HotelPage() {
                     return dates;
                 });
                 setDisabledDates(allDates);
-                console.log(allDates);
             } catch (err) {
                 console.error("Error fetching unavailable dates:", err);
             }

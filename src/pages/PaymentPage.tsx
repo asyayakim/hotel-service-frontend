@@ -80,7 +80,7 @@ console.log(reservationDetails.imageUrl);
                 throw new Error(errorData.message || "Reservation failed");
             }
             navigate("/")
-            Swal.fire({
+            await Swal.fire({
                 title: "Congratulations!",
                 text: `Get ready to the next trip to ${reservationDetails.hotelName}.`,
                 imageUrl: reservationDetails.imageUrl,

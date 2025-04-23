@@ -14,6 +14,7 @@ export default function UserPage() {
         dateOfBirth: "",
         confirmPassword: "",
     });
+    
     const handleUpdateData = async (e: React.FormEvent) => {
         e.preventDefault();
         if (formData.confirmPassword != formData.password)
@@ -59,7 +60,6 @@ export default function UserPage() {
                     <input type="file" onChange={handleUpdateData} />
                 </label>
             </div>
-
             <form className="user-form" onSubmit={handleUpdateData}>
                 <div className="form-columns">
                     <div className="form-column">

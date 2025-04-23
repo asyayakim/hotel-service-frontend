@@ -11,7 +11,6 @@
     padding: 30px;
     border: 1px solid var(--border);
 }
-
 .payment-title {
     color: var(--secondary);
     font-weight: 600;
@@ -96,7 +95,6 @@
     background: rgba(45, 155, 146, 0.05); /* --primary light bg */
 }
 
-/* Submit Button */
 .submit-btn {
     width: 100%;
     padding: 15px;

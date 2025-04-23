@@ -51,7 +51,6 @@ export default function FavoriteHotels() {
                 navigate("/favorite")
             }
         } catch (error) {
-            setMessage("Error during update data");
             console.error("Update error:", error);
         } 
     }
