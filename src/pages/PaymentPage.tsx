@@ -30,8 +30,8 @@ const navigate = useNavigate();
         billingAddress: "",
         cardType: "" 
     });
-console.log(reservationDetails);
-console.log(reservationDetails.imageUrl);
+
+
     const [loading, setLoading] = useState(false);
     const [error, setError] = useState("");
 
@@ -43,7 +43,8 @@ console.log(reservationDetails.imageUrl);
         try {
             const paymentResponse = await fetch("http://localhost:5003/api/payment", {
                 method: "POST",
-                headers: { "Content-Type": "application/json" },
+                headers: {   "Content-Type": "application/json",
+                    "Authorization": `Bearer ${user?.token}` },
                 body: JSON.stringify({
                     CustomerId: user?.id,
                     CardType: cardDetails.cardType,
@@ -63,19 +64,20 @@ console.log(reservationDetails.imageUrl);
 
             const reservationResponse = await fetch(`http://localhost:5003/reservation/hotel/${hotelId}`, { 
                 method: "POST",
-                headers: { "Content-Type": "application/json" },
+                headers: {   "Content-Type": "application/json",
+                    "Authorization": `Bearer ${user?.token}` },
                 body: JSON.stringify({
                     CustomerId: user?.id,
                     RoomId: reservationDetails.roomId,
                     CheckInDate: reservationDetails.checkInDate.toISOString().split('T')[0],
                     CheckOutDate: reservationDetails.checkOutDate.toISOString().split('T')[0],
+
                     TotalPrice: reservationDetails.totalPrice,
                     PaymentMethodId: paymentData.paymentMethodId,
                     AdultsCount: reservationDetails.adultsCount,
                 })
             });
-
-            if (!reservationResponse.ok) {
+                if (!reservationResponse.ok) {
                 const errorData = await reservationResponse.json();
                 throw new Error(errorData.message || "Reservation failed");
             }

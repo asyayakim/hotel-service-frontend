@@ -1,95 +1,112 @@
 import {useContext, useEffect, useState} from "react";
 import {UserContext} from "../components/UserProvider.tsx";
-import {useNavigate, useParams} from "react-router-dom";
-type Hotel = {
-    hotelId: number;
-    name: string;
-    description: string;
-    thumbnailUrl: string;
-    price: number;
-    room: Room[];
-}
-type Room = {
-    roomId: number;
-    roomType: string;
-    pricePerNight: number;
-    thumbnailRoom: string;
-}
+import {Link, useNavigate, useParams} from "react-router-dom";
 export default function ReservationsPage() {
-
+    type Reservation = {
+        reservationId: number;
+        reservationDate: string;
+        roomId: number;
+        customerId: number;
+        checkInDate: string;
+        checkOutDate: string;
+        totalPrice: number;
+        status: string;
+        paymentMethodId: number;
+        paymentMethod?: {
+            cardType: string;
+            cardNumber: string;
+        };
+        adultsCount: number;
+    }
+    const [reservation, setReservation] = useState<Reservation | null>(null);
     const {user} = useContext(UserContext)!;
     const {id} = useParams<{ id: string }>();
-    const hotelId = id && !isNaN(parseInt(id)) &&
-    parseInt(id) > 0 ? parseInt(id) : null;
     const [loading, setLoading] = useState<boolean>(true);
-    const [hotel, setHotel] = useState<Hotel | null>(null);
     const [error, setError] = useState<string | null>(null);
     const navigate = useNavigate();
+    const formattedCheckIn = reservation ? new Date(reservation.checkInDate).toLocaleDateString() : "";
+    const formattedCheckOut = reservation ? new Date(reservation.checkOutDate).toLocaleDateString() : "";
+    const formattedReservationDate = reservation ? new Date(reservation.reservationDate).toLocaleDateString() : "";
+
+    const nights = reservation
+        ? Math.ceil((new Date(reservation.checkOutDate).getTime() - new Date(reservation.checkInDate).getTime()) / (1000 * 60 * 60 * 24))
+        : 0;
+
+    const statusStyles: Record<string, string> = {
+        "confirmed": "badge-confirmed",
+        "cancelled": "badge-cancelled",
+        "pending": "badge-pending"
+    };
+
     useEffect(() => {
-        const fetchHotel = async () => {
+        const fetchReservation = async () => {
             setLoading(true);
             setError(null);
-
             try {
-                const response = await fetch(`http://localhost:5003/hotel/from-db/${hotelId}`, {
+                const response = await fetch(`http://localhost:5003/api/reservation/${id}`, {
                     method: "GET",
-                    headers: {"Content-Type": "application/json",
-                        "Authorization": `Bearer ${user?.token}`,
+                    headers: {
+                        "Content-Type": "application/json",
+                        "Authorization": `Bearer ${user?.token}`
                     }
                 });
-                const data: Hotel = await response.json();
-                setHotel(data);
-             
+                const data: Reservation = await response.json();
+                setReservation(data);
             } catch (err) {
-                setError(err instanceof Error ? err.message : "Failed to load hotel details");
-                console.error("Error fetching hotel:", err);
+                setError(err instanceof Error ? err.message : "Unknown error");
             } finally {
                 setLoading(false);
             }
         };
-        fetchHotel();
-    }, [hotelId]);
-    [];
+
+        if (id) {
+            fetchReservation();
+        }
+    }, [id]);
+
     if (loading) return <div className="loading">Loading hotel details...</div>;
     if (error) return <div className="error">{error}</div>;
     if (!hotel) return <div className="not-found">Hotel not found</div>;
+    if (!reservation) return <div className="not-found">Reservation not found</div>;
+
     return (
 
-        <div className="hotel-page">
+        <div className="reservation-card">
+            <div className="reservation-header">
+                <h3>Reservation #{reservation.reservationId}</h3>
+                <span className={`status-badge ${statusStyles[reservation.status.toLowerCase()] || ''}`}>
+          {reservation.status}
+        </span>
+            </div>
 
-            <div className="hotel-content">
-                <div className="booking-section">
-                    <div className="header-container">
-                        <div className="hotel-header">
-                            <h1>{hotel.name}</h1>
-                        </div>
-                    </div>
-                    <div className="gallery">
-                        <img
-                            src={hotel.thumbnailUrl || "/placeholder-hotel.jpg"}
-                            alt={hotel.name}
-                            className="main-image"
-                        />
-                    </div>
-                    <div className="text-section">
-                        <p className="description">{hotel.description}</p>
-                    </div>
+            <div className="reservation-details">
+                <div className="detail-row">
+                    <span className="detail-label">Dates:</span>
+                    <span>{formattedCheckIn} → {formattedCheckOut} ({nights} nights)</span>
                 </div>
 
-                <div className="booking-section">
+                <div className="detail-row">
+                    <span className="detail-label">Booked on:</span>
+                    <span>{formattedReservationDate}</span>
+                </div>
 
-                    <div className="guest-selection">
-                        <label>Guests:</label>
-                    </div>
-                        <div className="price-summary">
-                            <h3>Your Stay</h3>
-                            <div className="room-selected">
-                                <span>Total:</span>
-                            </div>
-                        </div>
-                    )
+                <div className="detail-row">
+                    <span className="detail-label">Guests:</span>
+                    <span>{reservation.adultsCount} adult{reservation.adultsCount !== 1 ? 's' : ''}</span>
+                </div>
+
+                <div className="detail-row">
+                    <span className="detail-label">Total:</span>
+                    <span className="price">${reservation.totalPrice.toLocaleString()}</span>
                 </div>
             </div>
+
+            {reservation.paymentMethod && (
+                <div className="payment-method">
+                    <span>Paid with: {reservation.paymentMethod.cardType} ending in {reservation.paymentMethod.cardNumber.slice(-4)}</span>
+                </div>
+            )}
+            <button>Cancel order</button>
         </div>
     );
 }

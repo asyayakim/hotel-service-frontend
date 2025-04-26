@@ -79,6 +79,7 @@ export default function HotelPage() {
                     const start = new Date(res.checkInDate);
                     const end = new Date(res.checkOutDate);
                     const dates = [];
+                    console.log(reservations)
 
                     let current = new Date(start);
                     while (current < end) {
