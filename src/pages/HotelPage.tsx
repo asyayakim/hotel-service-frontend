@@ -12,6 +12,10 @@ type Hotel = {
     description: string;
     thumbnailUrl: string;
     price: number;
+    address: string;
+    city: string;
+    country: string;
+    postalCode: string;
     rooms: Room[];
 };
 type Room = {
@@ -79,8 +83,6 @@ export default function HotelPage() {
                     const start = new Date(res.checkInDate);
                     const end = new Date(res.checkOutDate);
                     const dates = [];
-                    console.log(reservations)
-
                     let current = new Date(start);
                     while (current < end) {
                         dates.push(new Date(current));
@@ -95,8 +97,8 @@ export default function HotelPage() {
         };
         fetchUnavailableDates()
     }, [selectedRoom?.roomId]);
-    
-    
+
+
     const handleSelect = (ranges: RangeKeyDict) => {
         setDateRange([ranges.selection]);
     };
@@ -135,9 +137,9 @@ export default function HotelPage() {
     if (!hotel) return <div className="not-found">Hotel not found</div>;
 
     return (
-        
+
         <div className="hotel-page">
-          
+
             <div className="hotel-content">
                 <div className="booking-section">
                     <div className="header-container">
@@ -145,26 +147,31 @@ export default function HotelPage() {
                             <h1>{hotel.name}</h1>
                         </div>
                     </div>
-                <div className="gallery">
-                    <img
-                        src={hotel.thumbnailUrl || "/placeholder-hotel.jpg"}
-                        alt={hotel.name}
-                        className="main-image"
-                    />
-                    <div className="thumbnails">
-                        {hotel.rooms.map(room => (
-                            <img
-                                key={room.roomId}
-                                src={room.thumbnailRoom || "/placeholder-room.jpg"}
-                                alt={room.roomType}
-                                className={`thumbnail ${selectedRoom?.roomId === room.roomId ? 'active' : ''}`}
-                                onClick={() => setSelectedRoom(room)}
-                            />
-                        ))}
+                    <div className="gallery">
+                        <img
+                            src={hotel.thumbnailUrl || "/placeholder-hotel.jpg"}
+                            alt={hotel.name}
+                            className="main-image"
+                        />
+                        <div className="thumbnails">
+                            {hotel.rooms.map(room => (
+                                <img
+                                    key={room.roomId}
+                                    src={room.thumbnailRoom || "/placeholder-room.jpg"}
+                                    alt={room.roomType}
+                                    className={`thumbnail ${selectedRoom?.roomId === room.roomId ? 'active' : ''}`}
+                                    onClick={() => setSelectedRoom(room)}
+                                />
+                            ))}
+                        </div>
                     </div>
-                </div>
                     <div className="text-section">
-                    <p className="description">{hotel.description}</p>
+                        <h2>{hotel.country}</h2>
+                        <h3>{hotel.city}</h3>
+                        <p>{hotel.address}</p>
+                        <p>{hotel.postalCode}</p>
+                       
+                        <p className="description">{hotel.description}</p>
                     </div>
                 </div>
 
@@ -193,11 +200,11 @@ export default function HotelPage() {
                             minDate={new Date()}
                             rangeColors={["var(--primary)"]}
                             disabledDates={disabledDates}
-                            disabledDay={(date) =>
-                                disabledDates.some(disabledDate => 
-                                    date.toDateString() === disabledDate.toDateString(),
-                                )
-                            }
+                            // disabledDay={(date) =>
+                            //     disabledDates.some(disabledDate => 
+                            //         date.toDateString() === disabledDate.toDateString(),
+                            //     )
+                            // }
                         />
                     </div>
 
