@@ -11,6 +11,8 @@ type Hotel = {
     thumbnailUrl: string;
     price: number;
     isFavorite?: boolean;
+    city: string;
+    country: string;
 };
 
 export default function MainView() {
@@ -153,6 +155,8 @@ export default function MainView() {
                                             />
                                         </div>
                                         <div className="hotel-content">
+                                            <h3>{hotel.city}</h3>
+                                            <p>{hotel.country}</p>
                                             <h2>{hotel.name || "Noname Hotel"}</h2>
                                             <div className="price-section">
                                                 <p className="price-label">Starting from</p>

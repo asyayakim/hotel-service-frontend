@@ -115,8 +115,8 @@ main {
 }
 
 footer {
-  background-color: var(--accent);
-  color: var(--text-light);
+  background-color: var(--border);
+  color: var(--text-dark);
   padding: 0.4rem;
   margin-top: auto;
 }
@@ -157,7 +157,7 @@ footer {
   margin-top: 2rem;
   padding-top: 1.5rem;
   border-top: 1px solid rgba(255,255,255,0.2);
-  color: var(--sand);
+  color: var(--text-dark);
   font-size: 0.9rem;
 }
 
