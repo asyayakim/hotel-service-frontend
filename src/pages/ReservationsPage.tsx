@@ -29,6 +29,7 @@ export default function ReservationsPage() {
     const [loading, setLoading] = useState<boolean>(true);
     const [error, setError] = useState<string | null>(null);
 
+    const navigate = useNavigate();
     const statusStyles: Record<string, string> = {
         "confirmed": "badge-confirmed",
         "cancelled": "badge-cancelled",
@@ -37,9 +38,48 @@ export default function ReservationsPage() {
         "paid": "badge-paid"
 
     };
+    const handleCancelReservation = async (reservationId: number) => {
+        try {
+            const result = await Swal.fire({
+                title: "Cancel Reservation?",
+                text: "You won't be able to revert this!",
+                icon: "warning",
+                showCancelButton: true,
+                confirmButtonColor: "var(--accent)",
+                cancelButtonColor: "var(--border)",
+                confirmButtonText: "Yes, cancel it!"
+            });
+
+            if (result.isConfirmed) {
+                const response = await fetch(
+                    `http://localhost:5003/reservation/reservation?userId=${user?.id}&reservationId=${reservationId}`,
+                    {
+                        method: "DELETE",
+                        headers: {
+                            "Content-Type": "application/json",
+                            "Authorization": `Bearer ${user?.token}`
+                        },
+                    }
+                );
+                
+                if (response.ok) {
+                    console.log(reservationId);
+                    Swal.fire("Cancelled!", "Your reservation has been canceled.", "success");
+                    navigate("/reservation");
+                } else {
+                    throw new Error("Failed to cancel reservation");
+                }
+            }
+        } catch (error) {
+            Swal.fire("Error!", error instanceof Error ? error.message : "Cancellation failed", "error");
+        }
+    }
 
     useEffect(() => {
-        if (!user) return;
+        if (!user) {
+            setLoading(false);
+            return;
+        }
         const fetchReservation = async () => {
             setLoading(true);
             setError(null);
@@ -134,7 +174,7 @@ export default function ReservationsPage() {
                                     </div>
                                 )}
                             </div>
-                            <button className="button-universal">Cancel order</button>
+                            <button className="button-universal"   onClick={() => handleCancelReservation(reservation.reservationId)}>Cancel order</button>
                         </div>
                     );
                 })
