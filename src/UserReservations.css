@@ -1,10 +1,11 @@
 .reservation-card {
-    background: white;
+    background: var(--text-light);
     border-radius: 12px;
-    box-shadow: 0 4px 12px rgba(0,0,0,0.08);
+    box-shadow: 0 2px 3px rgba(45, 55, 72, 0.08);
     padding: 1.5rem;
     margin-bottom: 1.5rem;
     max-width: 600px;
+    border: 1px solid var(--border);
 }
 
 .reservation-header {
@@ -12,7 +13,7 @@
     justify-content: space-between;
     align-items: center;
     margin-bottom: 1rem;
-    border-bottom: 1px solid #eee;
+    border-bottom: 1px solid var(--border);
     padding-bottom: 0.75rem;
 }
 
@@ -20,6 +21,7 @@
     margin: 0;
     font-size: 1.25rem;
     font-weight: 600;
+    color: var(--secondary);
 }
 
 .status-badge {
@@ -28,11 +30,14 @@
     font-size: 0.875rem;
     font-weight: 500;
     text-transform: capitalize;
+    background-color: var(--primary);
+    color: var(--text-light);
 }
 
 .reservation-details {
     display: grid;
     gap: 0.75rem;
+    color: var(--text-dark);
 }
 
 .detail-row {
@@ -42,19 +47,46 @@
 
 .detail-label {
     font-weight: 500;
-    color: #666;
+    color: var(--secondary-light);
 }
 
 .price {
     font-weight: 600;
-    color: #2e7d32;
+    color: var(--earth-green);
     font-size: 1.1em;
 }
 
 .payment-method {
     margin-top: 1rem;
     padding-top: 1rem;
-    border-top: 1px dashed #ddd;
+    border-top: 1px dashed var(--border);
     font-size: 0.9rem;
-    color: #555;
+    color: var(--secondary-light);
+}
+
+.badge-confirmed { background-color: var(--earth-green); }
+.badge-cancelled { background-color: var(--accent); }
+.badge-pending { background-color: var(--highlight); }
+.badge-rejected { background-color: var(--secondary-light); }
+.badge-paid { background-color: var(--primary); }
+
+
+.button-universal {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    padding: 6px 14px;
+    font-family: -apple-system, BlinkMacSystemFont, 'Roboto', sans-serif;
+    border-radius: 6px;
+    color:var(--text-light);
+    background: #b5b5b5;
+    border: none;
+    box-shadow: 0px 0.5px 1px rgba(0, 0, 0, 0.1);
+    user-select: none;
+    -webkit-user-select: none;
+    touch-action: manipulation;
+}
+.button-universal:hover {
+    box-shadow: var(--secondary-light);
+    outline: 1.5px solid var(--secondary-light);
 }
