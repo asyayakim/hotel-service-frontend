@@ -69,6 +69,7 @@
 .badge-pending { background-color: var(--highlight); }
 .badge-rejected { background-color: var(--secondary-light); }
 .badge-paid { background-color: var(--primary); }
+.badge-completed { background-color: var(--sky-blue); }
 
 
 .button-universal {

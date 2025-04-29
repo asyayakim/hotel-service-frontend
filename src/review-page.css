@@ -1,0 +1,70 @@
+.review-page {
+    max-width: 600px;
+    margin: 2rem auto;
+    padding: 2rem;
+}
+
+.review-form {
+    background: white;
+    padding: 2rem;
+    border-radius: 8px;
+    box-shadow: 0 2px 2px rgba(0,0,0,0.1);
+}
+
+.form-group {
+    margin-bottom: 1.5rem;
+}
+
+label {
+    display: block;
+    margin-bottom: 0.5rem;
+    font-weight: 500;
+    color: var(--text-dark);
+}
+
+select {
+    width: 100%;
+    padding: 0.8rem;
+    border: 1px solid var(--border);
+    border-radius: 4px;
+    background: white;
+}
+
+textarea {
+    width: 100%;
+    padding: 0.8rem;
+    border: 1px solid var(--border);
+    border-radius: 4px;
+    resize: vertical;
+}
+
+.character-count {
+    display: block;
+    text-align: right;
+    color: var(--text-dark);
+    opacity: 0.7;
+}
+
+.submit-button {
+    background-color: var(--primary);
+    color: white;
+    padding: 1rem 2rem;
+    border: none;
+    border-radius: 4px;
+    cursor: pointer;
+    transition: background-color 0.2s;
+}
+
+.submit-button:disabled {
+    background-color: var(--border);
+    cursor: not-allowed;
+}
+
+.submit-button:hover:not(:disabled) {
+    background-color: var(--primary-dark);
+}
+
+.error-message {
+    color: var(--accent);
+    margin: 1rem 0;
+}

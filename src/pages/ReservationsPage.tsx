@@ -3,6 +3,7 @@ import {UserContext} from "../components/UserProvider.tsx";
 import {useNavigate} from "react-router-dom";
 import Swal from "sweetalert2";
 
+
 export default function ReservationsPage() {
     type Reservation = {
         reservationId: number;
@@ -35,9 +36,17 @@ export default function ReservationsPage() {
         "cancelled": "badge-cancelled",
         "pending": "badge-pending",
         "rejected": "badge-rejected",
-        "paid": "badge-paid"
+        "paid": "badge-paid",
+        "completed": "badge-completed",
 
     };
+    const handleLeaveReview = async (reservationId: number) => {
+        navigate("/write-review", {
+            state: {
+                reservationId: reservationId,
+            }
+        }); 
+    }
     const handleCancelReservation = async (reservationId: number) => {
         try {
             const result = await Swal.fire({
@@ -181,9 +190,17 @@ export default function ReservationsPage() {
                             </div>
 
                             {reservation.status.toLowerCase() !== 'cancelled' &&
-                                reservation.status.toLowerCase() !== 'rejected' && (
+                                reservation.status.toLowerCase() !== 'rejected' &&
+                                reservation.status.toLowerCase() !== 'completed' && (
                             <button className="button-universal"   onClick={() => handleCancelReservation(reservation.reservationId)}>Cancel order</button>
                                 )}
+                            {reservation.status.toLowerCase() === 'completed' && (
+                                <button
+                                    className="button-universal"
+                                    onClick={() =>  handleLeaveReview(reservation.reservationId)}>
+                                    Write Review
+                                </button>
+                            )}
                         </div>
                     );
                 })

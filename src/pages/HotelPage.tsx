@@ -200,11 +200,6 @@ export default function HotelPage() {
                             minDate={new Date()}
                             rangeColors={["var(--primary)"]}
                             disabledDates={disabledDates}
-                            // disabledDay={(date) =>
-                            //     disabledDates.some(disabledDate => 
-                            //         date.toDateString() === disabledDate.toDateString(),
-                            //     )
-                            // }
                         />
                     </div>
 

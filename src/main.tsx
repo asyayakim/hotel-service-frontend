@@ -7,6 +7,7 @@ import './login-register.css'
 import './payment-form.css'
 import './user-page.css'
 import './UserReservations.css'
+import './review-page.css'
 import App from './App.tsx'
 import {BrowserRouter} from "react-router-dom";
 
