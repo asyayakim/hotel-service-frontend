@@ -1,7 +1,7 @@
 import {useContext, useEffect, useState} from "react";
 import {UserContext} from "../components/UserProvider.tsx";
-import {Link, useNavigate} from "react-router-dom";
-import {useParams} from "react-router-dom";
+import {useNavigate} from "react-router-dom";
+import Swal from "sweetalert2";
 
 export default function ReservationsPage() {
     type Reservation = {
@@ -63,9 +63,14 @@ export default function ReservationsPage() {
                 );
                 
                 if (response.ok) {
-                    console.log(reservationId);
-                    Swal.fire("Cancelled!", "Your reservation has been canceled.", "success");
-                    navigate("/reservation");
+                    await Swal.fire("Cancelled!", "Your reservation has been canceled.", "success");
+                    setReservations(prev =>
+                        prev.map(res =>
+                            res.reservationId === reservationId
+                                ? { ...res, status: 'cancelled' }
+                                : res
+                        )
+                    );
                 } else {
                     throw new Error("Failed to cancel reservation");
                 }
@@ -174,7 +179,11 @@ export default function ReservationsPage() {
                                     </div>
                                 )}
                             </div>
+
+                            {reservation.status.toLowerCase() !== 'cancelled' &&
+                                reservation.status.toLowerCase() !== 'rejected' && (
                             <button className="button-universal"   onClick={() => handleCancelReservation(reservation.reservationId)}>Cancel order</button>
+                                )}
                         </div>
                     );
                 })

@@ -11,8 +11,6 @@ import PaymentPage from "./pages/PaymentPage.tsx";
 import ConfirmationPage from "./pages/ConfirmationPage.tsx";
 import FavoriteHotels from "./pages/FavoriteHotels.tsx";
 import ReservationsPage from "./pages/ReservationsPage.tsx";
-
-
 export default function App() {
     return (
         <UserProvider>
