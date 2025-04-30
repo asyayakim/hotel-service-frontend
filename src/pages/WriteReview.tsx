@@ -2,7 +2,9 @@ import Swal from "sweetalert2";
 import {useContext, useState} from "react";
 import {UserContext} from "../components/UserProvider.tsx";
 import * as React from "react";
-import { useLocation } from "react-router-dom";
+import {useLocation, useNavigate} from "react-router-dom";
+import {StarRating} from "../components/StarRating.tsx";
+
 interface ReservationState {
     reservationId: number;
 }
@@ -11,17 +13,23 @@ interface ReviewFormData {
     comment: string;
 }
 export default function WriteReviewPage() {
-    
+
+    const navigate = useNavigate();
     const location = useLocation();
     const { user } = useContext(UserContext)!;
     const reservationDetails = location.state as ReservationState;
     const [formData, setFormData] = useState<ReviewFormData>({
-        rating: 10,
+        rating: 0,
         comment: ""
     });
     const [loading, setLoading] = useState(false);
     const [error, setError] = useState<string | null>(null);
-
+    const handleRatingChange = (newRating: number) => {
+        setFormData(prev => ({
+            ...prev,
+            rating: newRating
+        }));
+    };
     if (!reservationDetails) {
         navigate("/");
         return null;
@@ -60,6 +68,7 @@ export default function WriteReviewPage() {
         navigate("/");
         } catch (err) {
             setError(err instanceof Error ? err.message : "Submission failed");
+            navigate("/reservation");
             Swal.fire({
                 title: "Error!",
                 text: error || "Failed to submit review",
@@ -76,22 +85,11 @@ export default function WriteReviewPage() {
                 <h1>Write a Review</h1>
                 <div className="form-group">
                     <label htmlFor="rating">Rating:</label>
-                    <select
-                        id="rating"
-                        value={formData.rating}
-                        onChange={(e) => setFormData({
-                            ...formData,
-                            rating: Number(e.target.value)
-                        })}
-                        required
-                        disabled={loading}
-                    >
-                        {[10, 9, 8, 7, 6, 5, 4, 3, 2, 1].map((num) => (
-                            <option key={num} value={num}>
-                                {num} Star{num !== 1 ? 's' : ''}
-                            </option>
-                        ))}
-                    </select>
+                    <StarRating
+                        rating={formData.rating}
+                        onChange={handleRatingChange}
+                        editable={!loading}
+                    />
                 </div>
 
                 <div className="form-group">

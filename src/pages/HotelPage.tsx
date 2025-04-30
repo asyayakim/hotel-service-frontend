@@ -5,6 +5,7 @@ import "react-date-range/dist/theme/default.css";
 import {addDays} from "date-fns";
 import {useNavigate, useParams} from "react-router-dom";
 import {UserContext} from "../components/UserProvider.tsx";
+import { StarRating } from "../components/StarRating.tsx";
 
 type Hotel = {
     hotelId: number;
@@ -17,12 +18,22 @@ type Hotel = {
     country: string;
     postalCode: string;
     rooms: Room[];
-};
+}
 type Room = {
     roomId: number;
     roomType: string;
     pricePerNight: number;
     thumbnailRoom: string;
+}
+type Review = {
+    reviewId: number;
+    comment: string;
+    rating: number;
+    createdAt: Date;
+    customer: Customer[];
+}
+type Customer = {
+    firstName: string;
 }
 
 export default function HotelPage() {
@@ -46,6 +57,8 @@ export default function HotelPage() {
     const [guests, setGuests] = useState<number>(1);
     const [showConfirmation, setShowConfirmation] = useState<boolean>(false);
     const [disabledDates, setDisabledDates] = useState<Date[]>([]);
+    const [reviews, setReviews] = useState<Review[]>([]);
+
     useEffect(() => {
         const fetchHotel = async () => {
             setLoading(true);
@@ -96,8 +109,24 @@ export default function HotelPage() {
             }
         };
         fetchUnavailableDates()
-    }, [selectedRoom?.roomId]);
 
+    }, [selectedRoom?.roomId]);
+    useEffect(() => {
+        const fetchReviews = async () => {
+            try {
+                const response = await fetch(`http://localhost:5003/review/hotel/${hotelId}`, {
+                    method: "GET",
+                    headers: {"Content-Type": "application/json"},
+                });
+                const data: Review[] = await response.json();
+                setReviews(data);
+            } catch (err) {
+                console.error("Error fetching reviews:", err);
+            }
+        };
+
+        if (hotelId) fetchReviews();
+    }, [hotelId]);
 
     const handleSelect = (ranges: RangeKeyDict) => {
         setDateRange([ranges.selection]);
@@ -140,7 +169,7 @@ export default function HotelPage() {
 
         <div className="hotel-page">
 
-            <div className="hotel-content">
+            <div className="hotel-content-main">
                 <div className="booking-section">
                     <div className="header-container">
                         <div className="hotel-header">
@@ -170,7 +199,7 @@ export default function HotelPage() {
                         <h3>{hotel.city}</h3>
                         <p>{hotel.address}</p>
                         <p>{hotel.postalCode}</p>
-                       
+
                         <p className="description">{hotel.description}</p>
                     </div>
                 </div>
@@ -255,6 +284,28 @@ export default function HotelPage() {
                     </div>
                 </div>
             )}
+            <div className="reviews-section">
+                <h2>Hotel Reviews</h2>
+                {reviews.length === 0 ? (
+                    <p>No reviews yet</p>
+                ) : (
+                    reviews.map((review) => (
+                        <div key={review.reviewId} className="review-card">
+                            <div className="review-header">
+                                <h4>{review.customer?.[0]?.firstName || 'Anonymous'}</h4>
+                                <StarRating
+                                    rating={review.rating}
+                                    editable={false}
+                                />
+                                <span className="review-date">
+                                    {new Date(review.createdAt).toLocaleDateString()}
+                                </span>
+                            </div>
+                            <p className="review-comment">{review.comment}</p>
+                        </div>
+                    ))
+                )}
+            </div>
         </div>
-    );
-}
+    )
+};
