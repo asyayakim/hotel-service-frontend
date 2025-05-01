@@ -66,9 +66,6 @@ export default function Header() {
                                 <Link to="/" className="nav-link">Hotels</Link>
                             </li>
                             <li className="nav-item">
-                                <Link to="/apartments" className="nav-link">Apartments</Link>
-                            </li>
-                            <li className="nav-item">
                                 <Link to="/favorite" className="nav-link">Favorite</Link>
                             </li>
                             <li className="nav-item auth-section">

@@ -127,6 +127,7 @@ export default function MainView() {
     }
     }
     return (
+<main>
         <section className="hotels-section">
             <div className="hotels-container">
                 {loading ? (
@@ -197,5 +198,6 @@ export default function MainView() {
                 )}
             </div>
         </section>
+</main>
     );
 }

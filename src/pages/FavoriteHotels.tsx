@@ -105,6 +105,7 @@ export default function FavoriteHotels() {
     }, [user]);
 
     return (
+        <main>
         <section className="hotels-section">
             <div className="hotels-container">
                 {loading ? (
@@ -155,6 +156,7 @@ export default function FavoriteHotels() {
                 )}
             </div>
         </section>
+        </main>
     );
 }
 

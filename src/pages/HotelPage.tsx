@@ -166,6 +166,7 @@ export default function HotelPage() {
     if (!hotel) return <div className="not-found">Hotel not found</div>;
 
     return (
+        <main className="hotel-main">
 
         <div className="hotel-page">
 
@@ -292,20 +293,31 @@ export default function HotelPage() {
                     reviews.map((review) => (
                         <div key={review.reviewId} className="review-card">
                             <div className="review-header">
-                                <h4>{review.customer?.[0]?.firstName || 'Anonymous'}</h4>
-                                <StarRating
-                                    rating={review.rating}
-                                    editable={false}
-                                />
-                                <span className="review-date">
-                                    {new Date(review.createdAt).toLocaleDateString()}
-                                </span>
+                                <div className="review-meta">
+                                    <h4 className="review-author">
+                                        {review.customer?.[0]?.firstName || 'Anonymous Guest'}
+                                    </h4>
+                                    <span className="review-date">
+                    {new Date(review.createdAt).toLocaleDateString('en-US', {
+                        year: 'numeric',
+                        month: 'long',
+                        day: 'numeric'
+                    })}
+                </span>
+                                </div>
+                                <div className="rating-badge">
+                                    <span className="rating-number">{review.rating}</span>
+                                    <span className="rating-max">/10</span>
+                                </div>
                             </div>
-                            <p className="review-comment">{review.comment}</p>
+                            {review.comment && (
+                                <p className="review-comment">"{review.comment}"</p>
+                            )}
                         </div>
                     ))
                 )}
             </div>
         </div>
+        </main>
     )
 };

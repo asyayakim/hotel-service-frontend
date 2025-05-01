@@ -25,6 +25,14 @@ export default function ReservationsPage() {
         };
         adultsCount: number;
     }
+    type Review = {
+        reviewId: number;
+        reservationId: number;
+        comment: string;
+        rating: number;
+        createdAt: Date;
+    }
+    const [reviews, setReviews] = useState<Review[]>([]);
     const [reservations, setReservations] = useState<Reservation[]>([]);
     const {user} = useContext(UserContext)!;
     const [loading, setLoading] = useState<boolean>(true);
@@ -40,6 +48,26 @@ export default function ReservationsPage() {
         "completed": "badge-completed",
 
     };
+    useEffect(() => {
+        const fetchReviews = async () => {
+            try {
+                const response = await fetch(`http://localhost:5003/review/user/${user?.id}`, {
+                    method: "GET",
+                    headers: {"Content-Type": "application/json",
+                        "Authorization": `Bearer ${user?.token}`},
+                });
+                const data: Review[] = await response.json();
+                setReviews(data);
+            } catch (err) {
+                console.error("Error fetching reviews:", err);
+            }
+        };
+
+        if (user?.id) fetchReviews();
+    }, [user?.id]);
+    
+
+
     const handleLeaveReview = async (reservationId: number) => {
         navigate("/write-review", {
             state: {
@@ -47,6 +75,7 @@ export default function ReservationsPage() {
             }
         }); 
     }
+    
     const handleCancelReservation = async (reservationId: number) => {
         try {
             const result = await Swal.fire({
@@ -146,6 +175,9 @@ export default function ReservationsPage() {
                             (1000 * 60 * 60 * 24)
                         )
                         : 0;
+                    const existingReview = reviews.find(
+                        review => review.reservationId === reservation.reservationId
+                    );
 
                     return (
                         <div key={reservation.reservationId} className="reservation-card">
@@ -178,6 +210,23 @@ export default function ReservationsPage() {
                                     <span className="detail-label">Total:</span>
                                     <span className="price">${reservation.totalPrice.toLocaleString()}</span>
                                 </div>
+                                
+                                {existingReview && (
+                                    <div className="existing-review">
+                                        <div className="review-header">
+                                            <h4>Your Review</h4>
+                                            <div className="review-rating">
+                                                <span className="rating">{existingReview.rating}/10</span>
+                                            </div>
+                                        </div>
+                                        {existingReview.comment && (
+                                            <p className="review-comment">"{existingReview.comment}"</p>
+                                        )}
+                                        <small className="review-date">
+                                            Reviewed on {new Date(existingReview.createdAt).toLocaleDateString()}
+                                        </small>
+                                    </div>
+                                )}
 
                                 {reservation.paymentMethod && (
                                     <div className="payment-method">
@@ -194,7 +243,10 @@ export default function ReservationsPage() {
                                 reservation.status.toLowerCase() !== 'completed' && (
                             <button className="button-universal"   onClick={() => handleCancelReservation(reservation.reservationId)}>Cancel order</button>
                                 )}
-                            {reservation.status.toLowerCase() === 'completed' && (
+
+
+                            {reservation.status.toLowerCase() === 'completed' && !existingReview && (
+
                                 <button
                                     className="button-universal"
                                     onClick={() =>  handleLeaveReview(reservation.reservationId)}>

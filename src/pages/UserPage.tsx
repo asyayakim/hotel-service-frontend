@@ -47,6 +47,7 @@ export default function UserPage() {
         }
     }
     return (
+<main>
         <div className="user-page">
             <h2 className="page-title">Account Settings</h2>
 
@@ -122,5 +123,6 @@ export default function UserPage() {
 
             {message && <p className="error-message">{message}</p>}
         </div>
+</main>
     );
 }
