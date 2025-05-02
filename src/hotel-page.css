@@ -1,20 +1,23 @@
 .hotel-page {
     max-width: 1200px;
     margin: 2rem auto;
-    padding: 0 1rem;
+    padding: 1rem;
     display: grid;
     grid-template-rows: auto 1fr;
+    background: white;
+    border-radius: 5px;
     /*gap: 1rem;*/
 }
 
 .hotel-header {
     text-align: center;
-    padding: 1rem 1rem;
+    padding: 0 1rem;
 }
 
 .hotel-header h1 {
     font-size: 2.5rem;
     color: var(--secondary);
+    
 }
 
 .description {
@@ -38,7 +41,6 @@
     height: 400px;
     object-fit: cover;
     border-radius: 12px;
-    box-shadow: 0 4px 4px rgba(0,0,0,0.1);
 }
 
 .thumbnails {
@@ -67,8 +69,9 @@
 .booking-section {
     background: white;
     padding: 2rem;
-    border-radius: 12px;
-    box-shadow: 0 2px 2px 2px rgba(0,0,0,0.08);
+    border-bottom: 1px solid var(--border);
+    border-left: 1px solid var(--border);
+    border-right: 1px solid var(--border);
 }
 
 .room-options {
@@ -188,13 +191,15 @@
     text-align: center;
 }
 /*rating*/
-
+.reviews-section {
+    padding-top: 2rem;
+}
 .review-card {
     background: white;
     padding: 1.5rem;
     margin-bottom: 1.5rem;
-    border-radius: 12px;
-    box-shadow: 0 2px 8px rgba(0,0,0,0.08);
+    border-radius: 5px;
+    border: 1px solid var(--border);
     position: relative;
 }
 
