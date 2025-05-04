@@ -1,9 +1,13 @@
 import {useContext, useState} from "react";
 import {UserContext} from "../components/UserProvider.tsx";
+import * as React from "react";
 
 export default function UserPage() {
-    const {user} = useContext(UserContext)!;
+    const [avatarUrl, setAvatarUrl] = useState<string>("");
+    const {user} = useContext(UserContext)|| {};
     const [message, setMessage] = useState("");
+    const [loading, setLoading] = useState(false);
+    const [avatarError, setAvatarError] = useState("");
     const [formData, setFormData] = useState({
         email: "",
         password: "",
@@ -17,13 +21,16 @@ export default function UserPage() {
     
     const handleUpdateData = async (e: React.FormEvent) => {
         e.preventDefault();
-        if (formData.confirmPassword != formData.password)
-            alert("Passwords do not match");
+        if (formData.confirmPassword != formData.password) {
+            setMessage("Passwords do not match");
+            return;
+        }
 
         try {
             const customerResponse = await fetch("http://localhost:5003/customer/changeData", {
                 method: "PATCH",
-                headers: {"Content-Type": "application/json",
+                headers: {
+                    "Content-Type": "application/json",
                     "Authorization": `Bearer ${user?.token}`,
                 },
                 body: JSON.stringify({
@@ -40,12 +47,44 @@ export default function UserPage() {
             if (customerResponse.ok) {
                 alert("Data was changed successfully!.");
             }
-            console.log(formData);
         } catch (error) {
             setMessage("Error during update data");
             console.error("Update error:", error);
         }
-    }
+    };
+        const handleUpdateImage = async (e: React.ChangeEvent<HTMLInputElement>) => {
+            const file = e.target.files?.[0];
+            if (!file || !file.type.startsWith("image/")) {
+                setMessage("Only image files are allowed.");
+                return;
+            }
+            try {
+                setLoading(true);
+                const formData = new FormData();
+                formData.append("image", file);
+                formData.append("userId", user?.id);
+                
+                const customerResponse = await fetch("http://localhost:5003/customer/uploadImage", {
+                    method: "PATCH",
+                    headers: {
+                        "Authorization": `Bearer ${user?.token}`, 
+                    },
+                    body: formData
+                });
+                if (customerResponse.ok) {
+                    alert("Data was changed!.");
+                    const data = await customerResponse.json();
+                    console.log(data);
+                    setAvatarUrl(data.imageUrl);
+                    alert("Avatar updated successfully!");
+                }
+            } catch (error) {
+                setMessage("Error during update data");
+                console.error("Update error:", error);
+            } finally {
+                setLoading(false);
+            }
+    };
     return (
 <main>
         <div className="user-page">
@@ -53,13 +92,20 @@ export default function UserPage() {
 
             <div className="avatar-section">
                 <label className="avatar-label">
+                    {avatarUrl ? (
+                        <img src={avatarUrl} alt="User avatar" />
+                    ) : (
                     <img
                         src="https://img.icons8.com/?size=100&id=77883&format=png&color=000000"
                         alt="User Avatar"
                         className="avatar"
-                    />
-                    <input type="file" onChange={handleUpdateData} />
+                    />   )}
+                    <input type="file" 
+                           accept="image/*"
+                           onChange={handleUpdateImage}
+                           disabled={loading}/>
                 </label>
+                {avatarError && <div className="error-message">{avatarError}</div>}
             </div>
             <form className="user-form" onSubmit={handleUpdateData}>
                 <div className="form-columns">
