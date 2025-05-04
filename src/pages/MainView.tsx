@@ -161,9 +161,6 @@ export default function MainView() {
                     onChange={handleSearchChange}
                     className="search-input"
                 />
-                <button type="submit" className="search-button">
-                    Search
-                </button>
             </form>
             <section className="hotels-section">
 

@@ -206,6 +206,7 @@ footer {
 .search-icon {
   position: absolute;
   left: 1rem;
+  right: 1rem;
   top: 50%;
   transform: translateY(-50%);
   width: 20px;
@@ -216,14 +217,13 @@ footer {
 
 .search-input {
   flex: 1;
-  padding: 0.8rem 0.8rem 0.8rem 2.5rem;
+  padding: 0.8rem 0.8rem 0.9rem 2.5rem;
   border: 1px solid var(--border);
-  border-radius: 8px;
+  border-radius: 24px;
   font-size: 1rem;
 }
-
 .search-button {
-  background: var(--primary);
+  background: var(--secondary-light);
   color: white;
   padding: 0 2rem;
   border: none;
