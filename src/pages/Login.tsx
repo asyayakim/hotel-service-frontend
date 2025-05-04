@@ -26,12 +26,14 @@ export default function Login() {
                 return;
             }
             const user = {
-                id: data.user.id,
-                username: data.user.userName,
-                email: data.user.email,
-                role: data.user.role,
+                id: data.userDto.id,
+                username: data.userDto.userName,
+                email: data.userDto.email,
+                role: data.userDto.role,
                 token: data.token,
+                imageUrl: data.userDto.imageUrl,
             };
+            console.log(user);
             login({ user, token: data.token });
             navigate("/");
             setMessage("Login successful!");

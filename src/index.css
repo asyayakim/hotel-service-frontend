@@ -35,6 +35,8 @@ body {
   display: flex;
   flex-direction: column;
 }
+
+/*header and image*/
 header {
   background-color: var(--primary);
   color: var(--text-light);
@@ -82,6 +84,38 @@ nav a:hover {
   opacity: 0.9;
   color: var(--highlight);
 }
+.user-profile-container {
+  display: flex;
+}
+.default-avatar {
+  background-color: #fff;
+}
+.avatar-link {
+  margin: 0 1rem;
+}
+.avatar-logout-container {
+  position: relative;
+  display: flex;
+  align-items: center;
+  gap: 10px;
+}
+.avatar-overlay {
+  background-color: var(--background);
+  width: 40px;
+  height: 40px;
+  border-radius: 50%;
+  object-fit: cover;
+  border: 2px solid var(--text-light);
+  cursor: pointer;
+  transition: all 0.3s ease;
+}
+
+.avatar-overlay:hover {
+  transform: scale(1.1);
+  box-shadow: 0 2px 8px rgba(0,0,0,0.2);
+}
+
+
 
 main {
   flex: 1;

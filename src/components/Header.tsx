@@ -15,8 +15,7 @@ export default function Header() {
                             alt="Travel accommodation logo"
                             className="logo-image"
                         />
-                        <h1 className="logo-text">
-                            Hotels.</h1>
+                        <h1 className="logo-text">Hotels.</h1>
                     </Link>
                     <nav aria-label="Main navigation">
                         <ul className="nav-list">
@@ -29,10 +28,23 @@ export default function Header() {
                             <li className="nav-item">
                                 <Link to="/favorite" className="nav-link">Favorite</Link>
                             </li>
-                            <li className="nav-item">
-                                <Link to="/user" className="nav-link">User Page</Link>
-                            </li>
                             <li className="nav-item auth-section">
+                                <div className="user-profile-container">
+                                    <Link to="/user" className="avatar-link">
+                                        {user?.imageUrl ? (
+                                            <img
+                                                src={user.imageUrl}
+                                                alt="User avatar"
+                                                className="avatar-overlay"
+                                            />
+                                        ) : (
+                                            <img
+                                                src="https://img.icons8.com/?size=100&id=77883&format=png&color=000000"
+                                                alt="Default Avatar"
+                                                className="avatar-overlay default-avatar"
+                                            />
+                                        )}
+                                    </Link>
                                     <button
                                         onClick={logout}
                                         className="btn btn-primary logout-button"
@@ -40,13 +52,14 @@ export default function Header() {
                                     >
                                         Logout
                                     </button>
+                                </div>
                             </li>
                         </ul>
                     </nav>
                 </div>
             </header>
-        ); 
-    }
+        );
+    };
     const renderCommonHeader = () => {
         return (
             <header className="main-header">

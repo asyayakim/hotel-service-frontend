@@ -7,7 +7,7 @@ export default function UserPage() {
     const {user} = useContext(UserContext)|| {};
     const [message, setMessage] = useState("");
     const [loading, setLoading] = useState(false);
-    const [avatarError, setAvatarError] = useState("");
+    const [avatarError] = useState("");
     const [formData, setFormData] = useState({
         email: "",
         password: "",
@@ -89,23 +89,34 @@ export default function UserPage() {
 <main>
         <div className="user-page">
             <h2 className="page-title">Account Settings</h2>
-
-            <div className="avatar-section">
-                <label className="avatar-label">
-                    {avatarUrl ? (
-                        <img src={avatarUrl} alt="User avatar" />
+            <div className="user-page-avatar-section">
+                <label className="user-page-avatar-label">
+                    {avatarUrl || user?.imageUrl ? (
+                        <img
+                            src={avatarUrl || user.imageUrl}
+                            alt="User avatar"
+                            className="user-page-avatar-image"
+                        />
                     ) : (
-                    <img
-                        src="https://img.icons8.com/?size=100&id=77883&format=png&color=000000"
-                        alt="User Avatar"
-                        className="avatar"
-                    />   )}
-                    <input type="file" 
-                           accept="image/*"
-                           onChange={handleUpdateImage}
-                           disabled={loading}/>
+                        <img
+                            src="https://img.icons8.com/?size=100&id=77883&format=png&color=000000"
+                            alt="Default Avatar"
+                            className="user-page-default-avatar"
+                        />
+                    )}
+                    <input
+                        type="file"
+                        accept="image/*"
+                        onChange={handleUpdateImage}
+                        disabled={loading}
+                        className="user-page-avatar-input"
+                    />
                 </label>
-                {avatarError && <div className="error-message">{avatarError}</div>}
+                {avatarError && (
+                    <div className="user-page-avatar-error">
+                        {avatarError}
+                    </div>
+                )}
             </div>
             <form className="user-form" onSubmit={handleUpdateData}>
                 <div className="form-columns">
