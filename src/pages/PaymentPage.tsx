@@ -39,6 +39,7 @@ const navigate = useNavigate();
         e.preventDefault();
         setLoading(true);
         setError("");
+    
 
         try {
             const paymentResponse = await fetch("http://localhost:5003/api/payment", {

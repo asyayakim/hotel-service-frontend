@@ -39,7 +39,7 @@ export default function Header() {
                                             />
                                         ) : (
                                             <img
-                                                src="https://img.icons8.com/?size=100&id=77883&format=png&color=000000"
+                                                src="https://img.icons8.com/?size=100&id=77883&format=png&color=2A4B6F"
                                                 alt="Default Avatar"
                                                 className="avatar-overlay default-avatar"
                                             />

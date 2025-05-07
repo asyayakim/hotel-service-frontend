@@ -80,7 +80,6 @@ export default function WriteReviewPage() {
     };
     return (
         <main className="review-page">
-           
             <form onSubmit={handleSubmit} className="review-form">
                 <h1>Write a Review</h1>
                 <div className="form-group">

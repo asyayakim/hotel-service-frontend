@@ -1,4 +1,4 @@
-import {useContext, useState} from "react";
+import {useContext, useEffect, useState} from "react";
 import {UserContext} from "../components/UserProvider.tsx";
 import * as React from "react";
 
@@ -18,7 +18,28 @@ export default function UserPage() {
         dateOfBirth: "",
         confirmPassword: "",
     });
-    
+ 
+    const [userData, setUserData] = useState({
+        loyalityPoints: "",
+    });
+        
+    useEffect(() => {
+        const fetchUserInfo = async () => {
+            try {
+                const response = await fetch(`http://localhost:5003/customer/user`, {
+                    method: "GET",
+                    headers: {"Content-Type": "application/json",
+                        "Authorization": `Bearer ${user?.token}`},
+                });
+                const data = await response.json();
+                setUserData(data);
+            } catch (err) {
+                console.error("Error fetching reviews:", err);
+            }
+        };
+
+        if (user?.id) fetchUserInfo();
+    }, [user?.id]);
     const handleUpdateData = async (e: React.FormEvent) => {
         e.preventDefault();
         if (formData.confirmPassword != formData.password) {
@@ -90,16 +111,21 @@ export default function UserPage() {
         <div className="user-page">
             <h2 className="page-title">Account Settings</h2>
             <div className="user-page-avatar-section">
+                <img 
+                    src="https://img.icons8.com/?size=100&id=102544&format=png&color=000000"
+                    alt="Add symbol"
+                    className="add-symbol"
+                />
                 <label className="user-page-avatar-label">
                     {avatarUrl || user?.imageUrl ? (
                         <img
-                            src={avatarUrl || user.imageUrl}
+                            src={avatarUrl || user?.imageUrl}
                             alt="User avatar"
                             className="user-page-avatar-image"
                         />
                     ) : (
                         <img
-                            src="https://img.icons8.com/?size=100&id=77883&format=png&color=000000"
+                            src="https://img.icons8.com/?size=100&id=77883&format=png&color=2A4B6F"
                             alt="Default Avatar"
                             className="user-page-default-avatar"
                         />
@@ -117,6 +143,10 @@ export default function UserPage() {
                         {avatarError}
                     </div>
                 )}
+            </div>
+            <div className="loyality">
+                <p>You have {userData?.loyalityPoints} points.</p>
+                <p>Your membership plan is Bronze</p>
             </div>
             <form className="user-form" onSubmit={handleUpdateData}>
                 <div className="form-columns">
@@ -148,13 +178,13 @@ export default function UserPage() {
 
                     <div className="form-column">
                         <div className="input-container">
-                            <img src="https://img.icons8.com/name-tag" alt="First Name" className="icon" />
+                            <img src="https://img.icons8.com/?size=100&id=11730&format=png&color=000000" alt="First Name" className="icon" />
                             <input type="text" placeholder="First Name" value={formData.firstName}
                                    onChange={(e) => setFormData({...formData, firstName: e.target.value})} />
                         </div>
 
                         <div className="input-container">
-                            <img src="https://img.icons8.com/name-tag" alt="Last Name" className="icon" />
+                            <img src="https://img.icons8.com/?size=100&id=11730&format=png&color=000000" alt="Last Name" className="icon" />
                             <input type="text" placeholder="Last Name" value={formData.lastName}
                                    onChange={(e) => setFormData({...formData, lastName: e.target.value})} />
                         </div>

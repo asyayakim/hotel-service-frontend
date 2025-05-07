@@ -108,7 +108,7 @@ export default function Signup() {
 
                 <div className="input-container">
                     <img
-                        src="https://img.icons8.com/name-tag"
+                        src="https://img.icons8.com/?size=100&id=11730&format=png&color=000000"
                         alt="First Name"
                         className="icon"
                     />
@@ -123,7 +123,7 @@ export default function Signup() {
 
                 <div className="input-container">
                     <img
-                        src="https://img.icons8.com/name-tag"
+                        src="https://img.icons8.com/?size=100&id=11730&format=png&color=000000"
                         alt="Last Name"
                         className="icon"
                     />

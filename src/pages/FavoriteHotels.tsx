@@ -1,6 +1,6 @@
 import { useContext, useEffect, useState } from "react";
 import { UserContext } from "../components/UserProvider.tsx";
-import {Link, useNavigate} from "react-router-dom";
+import {Link} from "react-router-dom";
 
 type Hotel = {
     hotelId: number;
@@ -15,8 +15,7 @@ export default function FavoriteHotels() {
     const { user } = useContext(UserContext)!;
     const [hotels, setHotels] = useState<Hotel[]>([]);
     const [loading, setLoading] = useState<boolean>(true);
-    const navigate = useNavigate();
-
+    
     const fetchAllHotels = async () => {
         const response = await fetch("http://localhost:5003/hotel/all-hotels?pageNumber=1&pageSize=100");
         const data = await response.json();
@@ -36,7 +35,7 @@ export default function FavoriteHotels() {
     const handleRemoveFromDb = async (hotelId: number) => {
 
         try {
-            const customerResponse = await fetch("http://localhost:5003/api/favorite", {
+             await fetch("http://localhost:5003/api/favorite", {
                 method: "PATCH",
                 headers: {"Content-Type": "application/json",
                     "Authorization": `Bearer ${user?.token}`,
@@ -46,10 +45,6 @@ export default function FavoriteHotels() {
                     userId: user?.id,
                 })
             });
-            if (customerResponse.ok) {
-                alert("Hotel removed!.");
-                navigate("/favorite")
-            }
         } catch (error) {
             console.error("Update error:", error);
         } 

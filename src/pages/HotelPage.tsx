@@ -5,7 +5,6 @@ import "react-date-range/dist/theme/default.css";
 import {addDays} from "date-fns";
 import {useNavigate, useParams} from "react-router-dom";
 import {UserContext} from "../components/UserProvider.tsx";
-import { StarRating } from "../components/StarRating.tsx";
 
 type Hotel = {
     hotelId: number;
@@ -295,7 +294,7 @@ export default function HotelPage() {
                             <div className="review-header">
                                 <div className="review-meta">
                                     <h4 className="review-author">
-                                        {review.customer?.[0]?.firstName || 'Anonymous Guest'}
+                                        {review.customer?.firstName || 'Anonymous Guest'}
                                     </h4>
                                     <span className="review-date">
                     {new Date(review.createdAt).toLocaleDateString('en-US', {

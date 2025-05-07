@@ -74,3 +74,9 @@
     background: var(--text-dark);
     border-radius: 50%;
 }
+.add-symbol{
+    position: absolute;
+    height: 20px;
+    pointer-events: none;
+    z-index: 2;
+}
