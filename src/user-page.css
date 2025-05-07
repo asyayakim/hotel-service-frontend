@@ -2,7 +2,7 @@
     width: 90%;
     max-width: 900px;
     margin: 40px auto;
-    padding: 20px;
+    padding: 3rem;
     display: flex;
     flex-direction: column;
     gap: 5px;
@@ -12,7 +12,6 @@
 }
 
 .page-title {
-    text-align: center;
     font-size: 2rem;
     color: var(--text-dark);
 }
@@ -31,10 +30,8 @@
 
 .form-column {
     flex: 1;
-    min-width: 280px;
     display: flex;
     flex-direction: column;
-    gap: 15px;
 }
 
 .input-container {

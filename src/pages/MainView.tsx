@@ -125,7 +125,7 @@ export default function MainView() {
                         : hotel
                 ));
             }
-            const data = await response.json();
+             await response.json();
         } catch (err) {
             setError(err instanceof Error ? err.message : "Failed to add favorite");
         } finally {
@@ -138,7 +138,8 @@ export default function MainView() {
         fetchHotels(1, 10); 
     };
     return (
-        <main>
+        <main className="main-view-section">
+            <div className="background-for-input">
             <form onSubmit={handleSearchSubmit} className="search-bar">
                 <svg
                     className="search-icon"
@@ -162,6 +163,7 @@ export default function MainView() {
                     className="search-input"
                 />
             </form>
+            </div>
             <section className="hotels-section">
 
                 <div className="hotels-container">

@@ -101,7 +101,7 @@ export default function FavoriteHotels() {
 
     return (
         <main>
-        <section className="hotels-section">
+        <section className="hotels-section-favorite">
             <div className="hotels-container">
                 {loading ? (
                     <p>Loading hotels...</p>
