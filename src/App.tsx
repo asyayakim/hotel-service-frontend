@@ -12,6 +12,8 @@ import ConfirmationPage from "./pages/ConfirmationPage.tsx";
 import FavoriteHotels from "./pages/FavoriteHotels.tsx";
 import ReservationsPage from "./pages/ReservationsPage.tsx";
 import WriteReviewPage from "./pages/WriteReview.tsx";
+import RestorePassword from "./pages/RestorePassword.tsx";
+
 export default function App() {
     return (
         <UserProvider>
@@ -21,8 +23,9 @@ export default function App() {
                     <Route path="signUp" element={<SignUp/>}/>
                     <Route path="login" element={<Login/>}/>
                     <Route path="favorite" element={<FavoriteHotels/>}/>
-                    <Route path="user" element={<UserPage />} />
                     <Route path="write-review" element={<WriteReviewPage />} />
+                    <Route path="user" element={<UserPage />} />
+                    <Route path="/login/restorePassword" element={<RestorePassword />} />
                     <Route path="reservation" element={<ReservationsPage />} />
                     <Route path="payment" element={<PaymentPage />} />
                     <Route path="confirmation" element={<ConfirmationPage />} />
