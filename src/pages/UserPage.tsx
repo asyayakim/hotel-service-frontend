@@ -21,6 +21,7 @@ export default function UserPage() {
  
     const [userData, setUserData] = useState({
         loyalityPoints: "",
+        tier: "",
     });
         
     useEffect(() => {
@@ -144,9 +145,11 @@ export default function UserPage() {
                     </div>
                 )}
             </div>
-            <div className="loyality">
-                <p>You have {userData?.loyalityPoints} points.</p>
-                <p>Your membership plan is Bronze</p>
+            <div className="loyalty">
+                <p>You have {userData.loyalityPoints} points.</p>
+                <p className={`loyalty-tier-bronze`}>
+                    Your membership plan is {userData?.tier || "bronze"}
+                </p>
             </div>
             <form className="user-form" onSubmit={handleUpdateData}>
                 <div className="form-columns">

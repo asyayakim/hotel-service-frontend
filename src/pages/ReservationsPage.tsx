@@ -159,7 +159,14 @@ export default function ReservationsPage() {
 
             {reservations.length === 0 ? (
                 <div className="no-reservations">
-                    <p>No reservations found</p>
+                    <div className="no-results-container">
+                        <p className="no-results">No reservations found.
+                            <img
+                                className="no-results-img"
+                                src="https://img.icons8.com/?size=100&id=o5o2xsP3V7kK&format=png&color=000000"
+                                alt="No results"/>
+                        </p>
+                    </div>
                     <button onClick={() => navigate('/hotels')}>Browse Hotels</button>
                 </div>
             ) : (
