@@ -6,7 +6,7 @@ The Hotel Service Frontend is a modern web application designed to help users se
 
 
 
-![Project Preview](https://res.cloudinary.com/dlsmxoyd9/image/upload/v1747387714/project-preview.png)
+![Project Preview](https://res.cloudinary.com/dlsmxoyd9/image/upload/v1747389326/your_image_name.png)
 
 
 
