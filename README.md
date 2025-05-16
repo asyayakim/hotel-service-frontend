@@ -4,6 +4,12 @@
 
 The Hotel Service Frontend is a modern web application designed to help users search for, filter, and book hotels in a user-friendly interface. Built with the latest technologies in web development, the app delivers a fast, responsive, and modular design that adapts to various devices and screen sizes.
 
+
+
+![Project Preview](https://res.cloudinary.com/dlsmxoyd9/image/upload/v1747387714/project-preview.png)
+
+
+
 ## Features
 
 - **User-friendly Interface:** Simple and interactive design to browse and book hotels.
