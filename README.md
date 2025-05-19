@@ -5,12 +5,32 @@
 The Hotel Service Frontend is a modern web application designed to help users search for, filter, and book hotels in a user-friendly interface. Built with the latest technologies in web development, the app delivers a fast, responsive, and modular design that adapts to various devices and screen sizes.
 
 
+<div style="margin-bottom: 20px;">
+  <img 
+    src="https://res.cloudinary.com/dlsmxoyd9/image/upload/v1747389326/Skjermbilde_2025-05-16_115400_qms16m.png" 
+    alt="Order Page Preview" 
+    style="width: 600px; display: block;" 
+  />
+  <div><strong>Order Page</strong></div>
+</div>
 
-![Project Preview](https://res.cloudinary.com/dlsmxoyd9/image/upload/v1747389326/Skjermbilde_2025-05-16_115400_qms16m.png)
-![Project Preview](https://res.cloudinary.com/dlsmxoyd9/image/upload/v1747685478/Screenshot_2025-05-19_at_21.58.03_yorvgv.png)
-![Project Preview](https://res.cloudinary.com/dlsmxoyd9/image/upload/v1747685049/Screenshot_2025-05-19_at_22.02.46_u2zryw.png)
+<div style="margin-bottom: 20px;">
+  <img 
+    src="https://res.cloudinary.com/dlsmxoyd9/image/upload/v1747685478/Screenshot_2025-05-19_at_21.58.03_yorvgv.png" 
+    alt="Search Page Preview" 
+    style="width: 600px; display: block;" 
+  />
+  <div><strong>Search Page</strong></div>
+</div>
 
-
+<div style="margin-bottom: 20px;">
+  <img 
+    src="https://res.cloudinary.com/dlsmxoyd9/image/upload/v1747685049/Screenshot_2025-05-19_at_22.02.46_u2zryw.png" 
+    alt="Reservations Page Preview" 
+    style="width: 600px; display: block;" 
+  />
+  <div><strong>Reservations Page</strong></div>
+</div>
 
 ## Features
 
