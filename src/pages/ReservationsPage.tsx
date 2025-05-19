@@ -154,8 +154,9 @@ export default function ReservationsPage() {
     if (error) return <div className="error">{error}</div>;
 
     return (
-        <main className="reservations-container">
+        <main className="">
             <h1>Your Reservations</h1>
+            <div className="reservations-container">
 
             {reservations.length === 0 ? (
                 <div className="no-reservations">
@@ -264,6 +265,7 @@ export default function ReservationsPage() {
                     );
                 })
             )}
+            </div>
         </main>
     );
 }
