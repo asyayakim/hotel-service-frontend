@@ -155,7 +155,9 @@ export default function ReservationsPage() {
 
     return (
         <main className="">
+            <div className="header-text">
             <h1>Your Reservations</h1>
+            </div>
             <div className="reservations-container">
 
             {reservations.length === 0 ? (
