@@ -23,11 +23,11 @@ export default function MainView() {
         setSearchText(e.target.value);
     };
     const [hotels, setHotels] = useState<Hotel[]>();
-    const [error, setError] = useState<string | null>(null);
+    const [ setError] = useState<string | null>(null);
     const [loading, setLoading] = useState<boolean>(true);
     const [pageNumber, setPageNumber] = useState<number>(1);
     const [totalPages, setTotalPages] = useState<number>(1);
-    const [favoriteLoading, setFavoriteLoading] = useState<number | null>(null);
+    const [setFavoriteLoading] = useState<number | null>(null);
 
     useEffect(() => {
 

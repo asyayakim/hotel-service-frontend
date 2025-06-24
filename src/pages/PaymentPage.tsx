@@ -62,7 +62,7 @@ const navigate = useNavigate();
             }
 
             const paymentData = await paymentResponse.json();
-// CustomerId: user?.id, not sure
+
             const reservationResponse = await fetch(`http://localhost:5003/reservation/hotel/${hotelId}`, { 
                 method: "POST",
                 headers: {   "Content-Type": "application/json",
