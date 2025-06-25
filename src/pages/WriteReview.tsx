@@ -4,6 +4,7 @@ import {UserContext} from "../components/UserProvider.tsx";
 import * as React from "react";
 import {useLocation, useNavigate} from "react-router-dom";
 import {StarRating} from "../components/StarRating.tsx";
+export const API_BASE_URL = "https://hotelservice-1.onrender.com";
 
 interface ReservationState {
     reservationId: number;
@@ -42,7 +43,7 @@ export default function WriteReviewPage() {
             if (!formData.rating) {
                 throw new Error("Please select a rating");
             }
-        const reviewResponse = await fetch(`http://localhost:5003/review`, {
+        const reviewResponse = await fetch(`${API_BASE_URL}/review`, {
             method: "POST",
             headers: {
                 "Content-Type": "application/json",

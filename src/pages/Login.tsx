@@ -2,6 +2,7 @@ import {useContext, useState} from "react";
 import {Link, useNavigate} from "react-router-dom";
 import Button from "../components/Button.jsx";
 import {UserContext} from "../components/UserProvider";
+export const API_BASE_URL = "https://hotelservice-1.onrender.com";
 
 export default function Login() {
     const {login} = useContext(UserContext)!;
@@ -15,7 +16,7 @@ export default function Login() {
         e.preventDefault();
 
         try {
-            const response = await fetch("http://localhost:5003/auth/login", {
+            const response = await fetch(`${API_BASE_URL}/auth/login`, {
                 method: "POST",
                 headers: {"Content-Type": "application/json"},
                 body: JSON.stringify({userName: userName, password: password}),

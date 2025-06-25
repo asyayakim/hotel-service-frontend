@@ -1,6 +1,7 @@
 import {useContext, useEffect, useState} from "react";
 import {UserContext} from "../components/UserProvider.tsx";
 import * as React from "react";
+export const API_BASE_URL = "https://hotelservice-1.onrender.com";
 
 export default function UserPage() {
     const [avatarUrl, setAvatarUrl] = useState<string>("");
@@ -27,7 +28,7 @@ export default function UserPage() {
     useEffect(() => {
         const fetchUserInfo = async () => {
             try {
-                const response = await fetch(`http://localhost:5003/customer/user`, {
+                const response = await fetch(`${API_BASE_URL}/customer/user`, {
                     method: "GET",
                     headers: {"Content-Type": "application/json",
                         "Authorization": `Bearer ${user?.token}`},
@@ -49,7 +50,7 @@ export default function UserPage() {
         }
 
         try {
-            const customerResponse = await fetch("http://localhost:5003/customer/changeData", {
+            const customerResponse = await fetch(`${API_BASE_URL}/customer/changeData`, {
                 method: "PATCH",
                 headers: {
                     "Content-Type": "application/json",
@@ -86,7 +87,7 @@ export default function UserPage() {
                 formData.append("image", file);
                 formData.append("userId", user?.id);
                 
-                const customerResponse = await fetch("http://localhost:5003/customer/uploadImage", {
+                const customerResponse = await fetch(`${API_BASE_URL}/customer/uploadImage`, {
                     method: "PATCH",
                     headers: {
                         "Authorization": `Bearer ${user?.token}`, 

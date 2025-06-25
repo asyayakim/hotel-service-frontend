@@ -2,6 +2,7 @@ import {useLocation, useNavigate} from "react-router-dom";
 import {useContext, useState} from "react";
 import {UserContext} from "../components/UserProvider.tsx";
 import Swal from 'sweetalert2';
+export const API_BASE_URL = "https://hotelservice-1.onrender.com";
 
 interface ReservationState {
     hotelId: number;
@@ -42,7 +43,7 @@ const navigate = useNavigate();
     
 
         try {
-            const paymentResponse = await fetch("http://localhost:5003/api/payment", {
+            const paymentResponse = await fetch(`${API_BASE_URL}/api/payment`, {
                 method: "POST",
                 headers: {   "Content-Type": "application/json",
                     "Authorization": `Bearer ${user?.token}` },
@@ -63,7 +64,7 @@ const navigate = useNavigate();
 
             const paymentData = await paymentResponse.json();
 
-            const reservationResponse = await fetch(`http://localhost:5003/reservation/hotel/${hotelId}`, { 
+            const reservationResponse = await fetch(`${API_BASE_URL}/reservation/hotel/${hotelId}`, { 
                 method: "POST",
                 headers: {   "Content-Type": "application/json",
                     "Authorization": `Bearer ${user?.token}` },

@@ -1,6 +1,7 @@
 import { useNavigate } from "react-router-dom";
 import { useState } from "react";
 import Button from "../components/Button.tsx";
+export const API_BASE_URL = "https://hotelservice-1.onrender.com";
 
 export default function Signup() {
     const [message, setMessage] = useState("");
@@ -19,7 +20,7 @@ export default function Signup() {
         e.preventDefault();
 
         try {
-            const authResponse = await fetch("http://localhost:5003/auth/register", {
+            const authResponse = await fetch(`${API_BASE_URL}/auth/register`, {
                 method: "POST",
                 headers: { "Content-Type": "application/json" },
                 body: JSON.stringify({
@@ -36,7 +37,7 @@ export default function Signup() {
                 setMessage(authData.message || "Registration failed");
                 return;
             }
-            const customerResponse = await fetch("http://localhost:5003/Customer", {
+            const customerResponse = await fetch(`${API_BASE_URL}/Customer`, {
                 method: "POST",
                 headers: { "Content-Type": "application/json" },
                 body: JSON.stringify({

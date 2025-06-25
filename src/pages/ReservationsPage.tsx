@@ -3,6 +3,7 @@ import {UserContext} from "../components/UserProvider.tsx";
 import {useNavigate} from "react-router-dom";
 import Swal from "sweetalert2";
 
+export const API_BASE_URL = "https://hotelservice-1.onrender.com";
 
 export default function ReservationsPage() {
     type Reservation = {
@@ -51,7 +52,7 @@ export default function ReservationsPage() {
     useEffect(() => {
         const fetchReviews = async () => {
             try {
-                const response = await fetch(`http://localhost:5003/review/user/${user?.id}`, {
+                const response = await fetch(`${API_BASE_URL}/review/user/${user?.id}`, {
                     method: "GET",
                     headers: {"Content-Type": "application/json",
                         "Authorization": `Bearer ${user?.token}`},
@@ -90,7 +91,7 @@ export default function ReservationsPage() {
 
             if (result.isConfirmed) {
                 const response = await fetch(
-                    `http://localhost:5003/reservation/reservation?userId=${user?.id}&reservationId=${reservationId}`,
+                    `${API_BASE_URL}/reservation/reservation?userId=${user?.id}&reservationId=${reservationId}`,
                     {
                         method: "DELETE",
                         headers: {
@@ -127,7 +128,7 @@ export default function ReservationsPage() {
             setLoading(true);
             setError(null);
             try {
-                const response = await fetch(`http://localhost:5003/reservation/reservations-by-userId/${user?.id}`, {
+                const response = await fetch(`${API_BASE_URL}/reservation/reservations-by-userId/${user?.id}`, {
                     method: "GET",
                     headers: {
                         "Content-Type": "application/json",

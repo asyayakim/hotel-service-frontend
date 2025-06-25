@@ -5,7 +5,7 @@ import "react-date-range/dist/theme/default.css";
 import {addDays} from "date-fns";
 import {useNavigate, useParams} from "react-router-dom";
 import {UserContext} from "../components/UserProvider.tsx";
-
+export const API_BASE_URL = "https://hotelservice-1.onrender.com";
 type Hotel = {
     hotelId: number;
     name: string;
@@ -64,7 +64,7 @@ export default function HotelPage() {
             setError(null);
 
             try {
-                const response = await fetch(`http://localhost:5003/hotel/from-db/${hotelId}`, {
+                const response = await fetch(`${API_BASE_URL}/hotel/from-db/${hotelId}`, {
                     method: "GET",
                     headers: {"Content-Type": "application/json"},
                 });
@@ -86,7 +86,7 @@ export default function HotelPage() {
         const fetchUnavailableDates = async () => {
             try {
                 if (!selectedRoom?.roomId) return;
-                const response = await fetch(`http://localhost:5003/reservation/available-date/${selectedRoom?.roomId}`, {
+                const response = await fetch(`${API_BASE_URL}/reservation/available-date/${selectedRoom?.roomId}`, {
                     method: "GET",
                     headers: {"Content-Type": "application/json"},
                 });
@@ -113,7 +113,7 @@ export default function HotelPage() {
     useEffect(() => {
         const fetchReviews = async () => {
             try {
-                const response = await fetch(`http://localhost:5003/review/hotel/${hotelId}`, {
+                const response = await fetch(`${API_BASE_URL}/review/hotel/${hotelId}`, {
                     method: "GET",
                     headers: {"Content-Type": "application/json"},
                 });

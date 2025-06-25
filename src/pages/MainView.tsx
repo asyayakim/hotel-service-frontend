@@ -3,6 +3,7 @@ import { ChangeEvent } from "react";
 
 import {Link} from "react-router-dom";
 import {UserContext} from "../components/UserProvider.tsx";
+export const API_BASE_URL = "https://hotelservice-1.onrender.com";
 
 
 type Hotel = {
@@ -54,7 +55,7 @@ export default function MainView() {
         return JSON.parse(localStorage.getItem("guestFavorites") || "[]");
     };
     const fetchFavorites = async () => {
-        const response = await fetch(`http://localhost:5003/api/favorite/all-by-user`, {
+        const response = await fetch(`${API_BASE_URL}/api/favorite/all-by-user`, {
             headers: {
                 "Content-Type": "application/json",
                 "Authorization": `Bearer ${user?.token}`
@@ -75,7 +76,7 @@ export default function MainView() {
     const fetchHotels = async (newPageNumber = 1, pageSize = 10) => {
         try {
             const response = await fetch(
-                `http://localhost:5003/hotel/all-hotels?pageNumber=${newPageNumber}` +
+                `${API_BASE_URL}/hotel/all-hotels?pageNumber=${newPageNumber}` +
                 `&pageSize=${pageSize}&SearchText=${encodeURIComponent(searchText)}`,
                 {
                 method: "GET",
@@ -107,7 +108,7 @@ export default function MainView() {
             return;
         }
         try {
-            const response = await fetch(`http://localhost:5003/api/favorite`, {
+            const response = await fetch(`${API_BASE_URL}/api/favorite`, {
                 method: "POST",
                 headers: {
                     "Content-Type": "application/json",

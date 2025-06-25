@@ -1,6 +1,7 @@
 import { useContext, useEffect, useState } from "react";
 import { UserContext } from "../components/UserProvider.tsx";
 import {Link} from "react-router-dom";
+export const API_BASE_URL = "https://hotelservice-1.onrender.com";
 
 type Hotel = {
     hotelId: number;
@@ -17,7 +18,7 @@ export default function FavoriteHotels() {
     const [loading, setLoading] = useState<boolean>(true);
     
     const fetchAllHotels = async () => {
-        const response = await fetch("http://localhost:5003/hotel/all-hotels?pageNumber=1&pageSize=100");
+        const response = await fetch(`${API_BASE_URL}/hotel/all-hotels?pageNumber=1&pageSize=100`);
         const data = await response.json();
         return data.hotels;
     };
@@ -35,7 +36,7 @@ export default function FavoriteHotels() {
     const handleRemoveFromDb = async (hotelId: number) => {
 
         try {
-             await fetch("http://localhost:5003/api/favorite", {
+             await fetch(`${API_BASE_URL}/api/favorite`, {
                 method: "PATCH",
                 headers: {"Content-Type": "application/json",
                     "Authorization": `Bearer ${user?.token}`,
@@ -55,7 +56,7 @@ export default function FavoriteHotels() {
         localStorage.setItem("guestFavorites", JSON.stringify(updatedFavs));
     };
     const fetchFavoriteIdsFromAPI = async (): Promise<number[]> => {
-        const response = await fetch(`http://localhost:5003/api/favorite/all-by-user`, {
+        const response = await fetch(`API_BASE_URL/api/favorite/all-by-user`, {
             headers: {
                 "Content-Type": "application/json",
                 "Authorization": `Bearer ${user?.token}`

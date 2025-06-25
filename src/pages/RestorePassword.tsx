@@ -1,6 +1,7 @@
 import { useNavigate} from "react-router-dom";
 import Button from "../components/Button.tsx";
 import {useState} from "react";
+export const API_BASE_URL = "https://hotelservice-1.onrender.com";
 
 export default function RestorePassword(){
     const [userName, setUserName] = useState("");
