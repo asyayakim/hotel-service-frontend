@@ -24,11 +24,11 @@ export default function MainView() {
         setSearchText(e.target.value);
     };
     const [hotels, setHotels] = useState<Hotel[]>();
-    const [ setError] = useState<string | null>(null);
+    const [ error,setError] = useState<string | null>(null);
     const [loading, setLoading] = useState<boolean>(true);
     const [pageNumber, setPageNumber] = useState<number>(1);
     const [totalPages, setTotalPages] = useState<number>(1);
-    const [setFavoriteLoading] = useState<number | null>(null);
+    const [favoriteLoading, setFavoriteLoading] = useState<number | null>(null);
 
     useEffect(() => {
 
@@ -84,7 +84,7 @@ export default function MainView() {
             });
             const data = await response.json();
             setHotels(data.hotels);
-            setTotalPages(data.TotalPages);
+            setTotalPages(data.totalPages);
             setPageNumber(newPageNumber);
             if (user) {
                 await fetchFavorites();
