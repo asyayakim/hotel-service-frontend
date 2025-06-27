@@ -105,7 +105,14 @@ export default function FavoriteHotels() {
         <section className="hotels-section-favorite">
             <div className="hotels-container">
                 {loading ? (
-                    <p>Loading hotels...</p>
+                    <div className="loading">
+                    <div className="cheerful-loader">
+                    <div className="bounce bounce1"></div>
+                    <div className="bounce bounce2"></div>
+                    <div className="bounce bounce3"></div>
+                    </div>
+                    <div>Loading reservations...</div>
+                    </div>
                 ) : hotels.length ? (
                     <div className="hotels-grid">
                         {hotels.map((hotel) => (
