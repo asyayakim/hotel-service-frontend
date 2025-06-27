@@ -159,11 +159,19 @@ export default function HotelPage() {
             }
         });
     }
-
-    if (loading) return <div className="loading">Loading hotel details...</div>;
+    
     if (error) return <div className="error">{error}</div>;
     if (!hotel) return <div className="not-found">Hotel not found</div>;
-
+    if (loading) return (
+        <div className="loading">
+            <div className="cheerful-loader">
+                <div className="bounce bounce1"></div>
+                <div className="bounce bounce2"></div>
+                <div className="bounce bounce3"></div>
+            </div>
+            <div>Loading hotel details...</div>
+        </div>
+    );
     return (
         <main className="hotel-main">
 

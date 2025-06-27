@@ -56,7 +56,7 @@ export default function FavoriteHotels() {
         localStorage.setItem("guestFavorites", JSON.stringify(updatedFavs));
     };
     const fetchFavoriteIdsFromAPI = async (): Promise<number[]> => {
-        const response = await fetch(`API_BASE_URL/api/favorite/all-by-user`, {
+        const response = await fetch(`${API_BASE_URL}/api/favorite/all-by-user`, {
             headers: {
                 "Content-Type": "application/json",
                 "Authorization": `Bearer ${user?.token}`
