@@ -169,7 +169,15 @@ export default function MainView() {
 
                 <div className="hotels-container">
                     {loading ? (
-                        <p>Loading hotels...</p>
+                        <div className="loading">
+                        <div className="cheerful-loader">
+                        <div className="bounce bounce1"></div>
+                        <div className="bounce bounce2"></div>
+                        <div className="bounce bounce3"></div>
+                        </div>
+                        <div>Loading hotels...</div>
+                        </div>
+                        
                     ) : (
                         <>
                             <div className="hotels-grid">

@@ -150,8 +150,16 @@ export default function ReservationsPage() {
         };
         fetchReservation();
     }, [user]);
-
-    if (loading) return <div className="loading">Loading hotel details...</div>;
+    if (loading) return (
+        <div className="loading">
+            <div className="cheerful-loader">
+                <div className="bounce bounce1"></div>
+                <div className="bounce bounce2"></div>
+                <div className="bounce bounce3"></div>
+            </div>
+            <div>Loading reservations...</div>
+        </div>
+    );
     if (error) return <div className="error">{error}</div>;
 
     return (
