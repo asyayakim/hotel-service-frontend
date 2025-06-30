@@ -312,6 +312,7 @@ footer {
     width: 18px;
     height: 18px;
     border-radius: 50%;
+    background: red;
     margin: 0 5px;
     animation: bounce 1.4s infinite ease-in-out both;
   }
