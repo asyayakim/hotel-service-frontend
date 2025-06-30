@@ -85,7 +85,8 @@ export default function UserPage() {
                 setLoading(true);
                 const formData = new FormData();
                 formData.append("image", file);
-                formData.append("userId", user?.id);
+                // formData.append("userId", user?.id);
+                formData.append("publicId", `user_${user?.id}_avatar`);
                 
                 const customerResponse = await fetch(`${API_BASE_URL}/customer/uploadImage`, {
                     method: "PATCH",

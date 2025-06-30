@@ -34,7 +34,6 @@ export default function Login() {
                 token: data.token,
                 imageUrl: data.userDto.imageUrl,
             };
-            console.log(user);
             login({ user, token: data.token });
             navigate("/");
             setMessage("Login successful!");
