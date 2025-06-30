@@ -177,7 +177,6 @@ export default function MainView() {
                         </div>
                         <div>Loading hotels...</div>
                         </div>
-                        
                     ) : (
                         <>
                             <div className="hotels-grid">
