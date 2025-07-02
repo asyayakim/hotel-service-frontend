@@ -16,7 +16,7 @@
     gap: 1rem;
     margin-bottom: 2rem;
     width: 70%;
-    border: 1px solid var(--accent);
+    border: 1.5px solid var(--accent);
     border-radius: 30px;
 }
 

@@ -52,8 +52,8 @@ header {
   margin: 0 auto;
 }
 .logo-text {
-  color: var(--text-dark);
-  font-size: 1.8rem;
+  color: var(  --secondary);
+  font-size: 3rem;
 }
 
 .logo {
@@ -80,10 +80,8 @@ nav ul {
 nav a {
   color: var(--secondary);
   font-size: 1.1rem;
-  text-transform: uppercase;
-  padding: 0.5rem 0;
+  /* padding: 0.5rem 0; */
   border-bottom: 2px solid transparent;
-
   text-decoration: none;
   font-weight: 500;
   transition: opacity 0.2s;
