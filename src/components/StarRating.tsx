@@ -35,20 +35,25 @@ export function StarRating({ rating = 0, onChange, editable = true }: StarRating
                     <button
                         key={starNumber}
                         type="button"
-                          className={`p-1 transition-colors duration-200 bg-transparent border-none focus:outline-none ${
-                        editable ? "cursor-pointer" : "cursor-default"
-                        }`}
+                        style={{
+                            background: "transparent",
+                            border: "none",
+                            padding: "4px",
+                            cursor: editable ? "pointer" : "default",
+                        }}
                         onClick={() => handleClick(starNumber)}
                         onMouseEnter={() => handleMouseEnter(starNumber)}
                         onMouseLeave={handleMouseLeave}
                         disabled={!editable}
                     >
                         <img
-                            src={isFilled ? "https://img.icons8.com/?size=100&id=qdQpy48X3Rjv&format=png&color=000000" : "https://img.icons8.com/?size=100&id=104&format=png&color=000000"}
+                            src={
+                                isFilled
+                                    ? "https://img.icons8.com/?size=100&id=qdQpy48X3Rjv&format=png&color=000000"
+                                    : "https://img.icons8.com/?size=100&id=104&format=png&color=000000"
+                            }
                             alt={`${starNumber} star`}
-                            className="w-8 h-8"
-                            width="24px"
-                            height="24px"
+                            style={{ width: "32px", height: "32px", display: "block" }}
                         />
                     </button>
                 );
