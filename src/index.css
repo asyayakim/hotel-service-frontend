@@ -51,6 +51,10 @@ header {
   max-width: 1200px;
   margin: 0 auto;
 }
+.logo-text {
+  color: var(--text-dark);
+  font-size: 1.8rem;
+}
 
 .logo {
   font-size: 1.8rem;
@@ -74,7 +78,12 @@ nav ul {
 }
 
 nav a {
-  color: var(--text-light);
+  color: var(--secondary);
+  font-size: 1.1rem;
+  text-transform: uppercase;
+  padding: 0.5rem 0;
+  border-bottom: 2px solid transparent;
+
   text-decoration: none;
   font-weight: 500;
   transition: opacity 0.2s;
@@ -82,7 +91,7 @@ nav a {
 
 nav a:hover {
   opacity: 0.9;
-  border-bottom: var(--accent) 1px solid;
+  border-bottom: var(--accent) 1.5px solid;
   color: var(  --secondary-light);
 }
 .user-profile-container {
