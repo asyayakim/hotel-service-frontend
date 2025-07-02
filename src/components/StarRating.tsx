@@ -26,8 +26,9 @@ export function StarRating({ rating = 0, onChange, editable = true }: StarRating
         }
     };
 
+    
     return (
-        <div className="flex items-center gap-1">
+        <div style={{ display: "flex", alignItems: "center", gap: "4px" }}>
             {[1, 2, 3, 4, 5, 6, 7, 8, 9, 10].map((starNumber) => {
                 const isFilled = starNumber <= (hoverRating || rating);
 
@@ -53,7 +54,12 @@ export function StarRating({ rating = 0, onChange, editable = true }: StarRating
                                     : "https://img.icons8.com/?size=100&id=104&format=png&color=000000"
                             }
                             alt={`${starNumber} star`}
-                            style={{ width: "32px", height: "32px", display: "block" }}
+                            style={{
+                                width: "32px",
+                                height: "32px",
+                                display: "block",
+                                pointerEvents: "none",
+                            }}
                         />
                     </button>
                 );
