@@ -26,7 +26,7 @@ export function StarRating({ rating = 0, onChange, editable = true }: StarRating
         }
     };
 
-    
+
     return (
         <div style={{ display: "flex", alignItems: "center", gap: "4px" }}>
             {[1, 2, 3, 4, 5, 6, 7, 8, 9, 10].map((starNumber) => {
@@ -41,6 +41,9 @@ export function StarRating({ rating = 0, onChange, editable = true }: StarRating
                             border: "none",
                             padding: "4px",
                             cursor: editable ? "pointer" : "default",
+                            outline: "none",
+                            boxShadow: "none",
+                            filter: "none",
                         }}
                         onClick={() => handleClick(starNumber)}
                         onMouseEnter={() => handleMouseEnter(starNumber)}
