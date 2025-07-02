@@ -12,6 +12,8 @@ type Hotel = {
     isFavorite?: boolean;
 };
 
+
+
 export default function FavoriteHotels() {
     const { user } = useContext(UserContext)!;
     const [hotels, setHotels] = useState<Hotel[]>([]);
