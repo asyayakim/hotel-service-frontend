@@ -112,16 +112,15 @@ export default function Header() {
             //     return renderAdminHeader();
             case "guest":
                 return  (
-                    <header>
-                        {renderCommonHeader()}
-                    </header> 
-                    )
+                 
+                        renderCommonHeader()
+                    );
             case "User":
             default:
                 return (
-                    <header>
-                        {renderUserHeader()}
-                    </header>
+               
+                        renderUserHeader()
+                 
                 );
                 
         }

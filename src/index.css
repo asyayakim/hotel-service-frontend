@@ -38,8 +38,8 @@ body {
 
 /*header and image*/
 header {
-  background-color: var(--primary);
-  color: var(--text-light);
+  /* background-color: var(--primary); */
+  color: var(- --text-dark);
   padding: 1rem 2rem;
   position: sticky;
 }
@@ -56,13 +56,13 @@ header {
   font-size: 1.8rem;
   font-weight: bold;
   text-decoration: none;
-  color: var(--text-light);
+  /* color: var(--text-light); */
   display: flex;
   align-items: center;
   gap: 0.5rem;
 }
 .logo-image{
-  background-color:var(--text-light);
+  /* background-color:var(--text-light); */
   border-radius: 5%;
   height: 50px;
   width: 50px;
@@ -82,7 +82,8 @@ nav a {
 
 nav a:hover {
   opacity: 0.9;
-  color: var(--highlight);
+  border-bottom: var(--accent) 1px solid;
+  color: var(  --secondary-light);
 }
 .user-profile-container {
   display: flex;
@@ -105,7 +106,7 @@ nav a:hover {
   height: 40px;
   border-radius: 50%;
   object-fit: cover;
-  border: 2px solid var(--text-light);
+  border: 1px solid var(--accent);
   cursor: pointer;
   transition: all 0.3s ease;
 }
