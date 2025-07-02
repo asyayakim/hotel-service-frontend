@@ -35,8 +35,8 @@ export function StarRating({ rating = 0, onChange, editable = true }: StarRating
                     <button
                         key={starNumber}
                         type="button"
-                        className={`p-1 transition-colors duration-200 ${
-                            editable ? "cursor-pointer" : "cursor-default"
+                          className={`p-1 transition-colors duration-200 bg-transparent border-none focus:outline-none ${
+                        editable ? "cursor-pointer" : "cursor-default"
                         }`}
                         onClick={() => handleClick(starNumber)}
                         onMouseEnter={() => handleMouseEnter(starNumber)}
