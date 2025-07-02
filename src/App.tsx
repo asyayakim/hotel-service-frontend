@@ -1,5 +1,13 @@
 import {Route, Routes} from "react-router-dom";
-import './App.css'
+import './index.css'
+import './hotel-display.css'
+import './hotel-page.css'
+import './hotel-card.css'
+import './login.css'
+import './main-view.css'
+import './user-page.css'
+import './write-review.css'
+import './hotel-card.css'
 import Layout from "./pages/Layout";
 import MainView from "./pages/MainView.tsx";
 import Login from "./pages/Login.tsx";
