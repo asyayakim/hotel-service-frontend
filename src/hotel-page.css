@@ -266,4 +266,9 @@
     .main-image {
         height: 300px;
     }
+    .booking-section {
+        border-left: none;
+        border-right: none;
+        padding: none;
+    }
 }
