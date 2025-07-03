@@ -149,3 +149,9 @@
     margin-top: 1rem;
     margin-left: 7rem;
 }
+@media (max-width: 768px) {
+    .header-text {
+        margin-left: 0;
+        justify-content: center;
+    }
+}
