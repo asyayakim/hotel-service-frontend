@@ -150,7 +150,8 @@ export default function UserPage() {
             <p className={`loyalty-tier-bronze`}>
               Your membership plan is {userData?.tier || "bronze"}
             </p>
-            <p> You have 5% discount</p>
+            <p 
+            > You have 5% discount</p>
           </div>
           <form className="user-form" onSubmit={handleUpdateData}>
             <div className="form-columns">
