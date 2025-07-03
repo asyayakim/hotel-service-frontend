@@ -110,111 +110,195 @@ export default function UserPage() {
             }
     };
     return (
-<main>
+      <main>
         <div className="user-page">
-            <h2 className="page-title">Account Settings</h2>
-            <div className="user-page-avatar-section">
-                <img 
-                    src="https://img.icons8.com/?size=100&id=102544&format=png&color=000000"
-                    alt="Add symbol"
-                    className="add-symbol"
+          <h2 className="page-title">Account Settings</h2>
+          <div className="user-page-avatar-section">
+            <img
+              src="https://img.icons8.com/?size=100&id=102544&format=png&color=000000"
+              alt="Add symbol"
+              className="add-symbol"
+            />
+            <label className="user-page-avatar-label">
+              {avatarUrl || user?.imageUrl ? (
+                <img
+                  src={avatarUrl || user?.imageUrl}
+                  alt="User avatar"
+                  className="user-page-avatar-image"
                 />
-                <label className="user-page-avatar-label">
-                    {avatarUrl || user?.imageUrl ? (
-                        <img
-                            src={avatarUrl || user?.imageUrl}
-                            alt="User avatar"
-                            className="user-page-avatar-image"
-                        />
-                    ) : (
-                        <img
-                            src="https://img.icons8.com/?size=100&id=77883&format=png&color=2A4B6F"
-                            alt="Default Avatar"
-                            className="user-page-default-avatar"
-                        />
-                    )}
-                    <input
-                        type="file"
-                        accept="image/*"
-                        onChange={handleUpdateImage}
-                        disabled={loading}
-                        className="user-page-avatar-input"
-                    />
-                </label>
-                {avatarError && (
-                    <div className="user-page-avatar-error">
-                        {avatarError}
-                    </div>
-                )}
-            </div>
-            <div className="loyalty">
-                <p>You have {userData.loyalityPoints} points.</p>
-                <p className={`loyalty-tier-bronze`}>
-                    Your membership plan is {userData?.tier || "bronze"}
-                </p>
-            </div>
-            <form className="user-form" onSubmit={handleUpdateData}>
-                <div className="form-columns">
-                    <div className="form-column">
-                        <div className="input-container">
-                            <img src="https://img.icons8.com/email" alt="Email" className="icon" />
-                            <input type="email" placeholder="Email" value={formData.email}
-                                   onChange={(e) => setFormData({...formData, email: e.target.value})} />
-                        </div>
-
-                        <div className="input-container">
-                            <img src="https://img.icons8.com/password" alt="Password" className="icon" />
-                            <input type="password" placeholder="Password" value={formData.password}
-                                   onChange={(e) => setFormData({...formData, password: e.target.value})} />
-                        </div>
-
-                        <div className="input-container">
-                            <img src="https://img.icons8.com/password" alt="Confirm Password" className="icon" />
-                            <input type="password" placeholder="Confirm Password" value={formData.confirmPassword}
-                                   onChange={(e) => setFormData({...formData, confirmPassword: e.target.value})} />
-                        </div>
-
-                        <div className="input-container">
-                            <img src="https://img.icons8.com/user" alt="Username" className="icon" />
-                            <input type="text" placeholder="Username" value={formData.username}
-                                   onChange={(e) => setFormData({...formData, username: e.target.value})} />
-                        </div>
-                    </div>
-
-                    <div className="form-column">
-                        <div className="input-container">
-                            <img src="https://img.icons8.com/?size=100&id=11730&format=png&color=000000" alt="First Name" className="icon" />
-                            <input type="text" placeholder="First Name" value={formData.firstName}
-                                   onChange={(e) => setFormData({...formData, firstName: e.target.value})} />
-                        </div>
-
-                        <div className="input-container">
-                            <img src="https://img.icons8.com/?size=100&id=11730&format=png&color=000000" alt="Last Name" className="icon" />
-                            <input type="text" placeholder="Last Name" value={formData.lastName}
-                                   onChange={(e) => setFormData({...formData, lastName: e.target.value})} />
-                        </div>
-
-                        <div className="input-container">
-                            <img src="https://img.icons8.com/phone" alt="Phone Number" className="icon" />
-                            <input type="text" placeholder="Phone Number" value={formData.phoneNumber}
-                                   onChange={(e) => setFormData({...formData, phoneNumber: e.target.value})} />
-                        </div>
-
-                        <div className="input-container">
-                            <img src="https://img.icons8.com/calendar" alt="Date of Birth" className="icon" />
-                            <input type="date" placeholder="Date of Birth" value={formData.dateOfBirth}
-                                   onChange={(e) => setFormData({...formData, dateOfBirth: e.target.value})} />
-                        </div>
-                    </div>
+              ) : (
+                <img
+                  src="https://img.icons8.com/?size=100&id=77883&format=png&color=2A4B6F"
+                  alt="Default Avatar"
+                  className="user-page-default-avatar"
+                />
+              )}
+              <input
+                type="file"
+                accept="image/*"
+                onChange={handleUpdateImage}
+                disabled={loading}
+                className="user-page-avatar-input"
+              />
+            </label>
+            {avatarError && (
+              <div className="user-page-avatar-error">{avatarError}</div>
+            )}
+          </div>
+          <div className="loyalty">
+            <p>You have {userData.loyalityPoints} points.</p>
+            <p className={`loyalty-tier-bronze`}>
+              Your membership plan is {userData?.tier || "bronze"}
+            </p>
+            <p> You have 5% discount</p>
+          </div>
+          <form className="user-form" onSubmit={handleUpdateData}>
+            <div className="form-columns">
+              <div className="form-column">
+                <div className="input-container">
+                  <img
+                    src="https://img.icons8.com/email"
+                    alt="Email"
+                    className="icon"
+                  />
+                  <input
+                    type="email"
+                    placeholder="Email"
+                    value={formData.email}
+                    onChange={(e) =>
+                      setFormData({ ...formData, email: e.target.value })
+                    }
+                  />
                 </div>
 
-                <div className="button-container">
-                    <button type="submit" className="change-button">Update</button>
+                <div className="input-container">
+                  <img
+                    src="https://img.icons8.com/password"
+                    alt="Password"
+                    className="icon"
+                  />
+                  <input
+                    type="password"
+                    placeholder="Password"
+                    value={formData.password}
+                    onChange={(e) =>
+                      setFormData({ ...formData, password: e.target.value })
+                    }
+                  />
                 </div>
-            </form>
 
-            {message && <p className="error-message">{message}</p>}
+                <div className="input-container">
+                  <img
+                    src="https://img.icons8.com/password"
+                    alt="Confirm Password"
+                    className="icon"
+                  />
+                  <input
+                    type="password"
+                    placeholder="Confirm Password"
+                    value={formData.confirmPassword}
+                    onChange={(e) =>
+                      setFormData({
+                        ...formData,
+                        confirmPassword: e.target.value,
+                      })
+                    }
+                  />
+                </div>
+
+                <div className="input-container">
+                  <img
+                    src="https://img.icons8.com/user"
+                    alt="Username"
+                    className="icon"
+                  />
+                  <input
+                    type="text"
+                    placeholder="Username"
+                    value={formData.username}
+                    onChange={(e) =>
+                      setFormData({ ...formData, username: e.target.value })
+                    }
+                  />
+                </div>
+              </div>
+
+              <div className="form-column">
+                <div className="input-container">
+                  <img
+                    src="https://img.icons8.com/?size=100&id=11730&format=png&color=000000"
+                    alt="First Name"
+                    className="icon"
+                  />
+                  <input
+                    type="text"
+                    placeholder="First Name"
+                    value={formData.firstName}
+                    onChange={(e) =>
+                      setFormData({ ...formData, firstName: e.target.value })
+                    }
+                  />
+                </div>
+
+                <div className="input-container">
+                  <img
+                    src="https://img.icons8.com/?size=100&id=11730&format=png&color=000000"
+                    alt="Last Name"
+                    className="icon"
+                  />
+                  <input
+                    type="text"
+                    placeholder="Last Name"
+                    value={formData.lastName}
+                    onChange={(e) =>
+                      setFormData({ ...formData, lastName: e.target.value })
+                    }
+                  />
+                </div>
+
+                <div className="input-container">
+                  <img
+                    src="https://img.icons8.com/phone"
+                    alt="Phone Number"
+                    className="icon"
+                  />
+                  <input
+                    type="text"
+                    placeholder="Phone Number"
+                    value={formData.phoneNumber}
+                    onChange={(e) =>
+                      setFormData({ ...formData, phoneNumber: e.target.value })
+                    }
+                  />
+                </div>
+
+                <div className="input-container">
+                  <img
+                    src="https://img.icons8.com/calendar"
+                    alt="Date of Birth"
+                    className="icon"
+                  />
+                  <input
+                    type="date"
+                    placeholder="Date of Birth"
+                    value={formData.dateOfBirth}
+                    onChange={(e) =>
+                      setFormData({ ...formData, dateOfBirth: e.target.value })
+                    }
+                  />
+                </div>
+              </div>
+            </div>
+
+            <div className="button-container">
+              <button type="submit" className="change-button">
+                Update
+              </button>
+            </div>
+          </form>
+
+          {message && <p className="error-message">{message}</p>}
         </div>
-</main>
+      </main>
     );
 }
