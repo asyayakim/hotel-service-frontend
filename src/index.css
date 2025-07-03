@@ -294,7 +294,7 @@ footer {
     gap: 1rem;
   }
   main {
-    padding: none;
+    padding: 1px;
   }
   
   .auth-section {

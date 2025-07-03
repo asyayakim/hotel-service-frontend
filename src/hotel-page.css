@@ -259,8 +259,15 @@
 }
 @media (max-width: 768px) {
     .hotel-content-main {
+        grid-template-columns: 1fr;   
+    }
+    .hotel-section {
+        padding: 1rem;
+    }
+    .hotels-grid {
         grid-template-columns: 1fr;
-        
+        gap: 1rem;
+        padding: none;
     }
 
     .main-image {
