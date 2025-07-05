@@ -187,6 +187,16 @@ export default function MainView() {
                                     </span>
                                 </div>
                             )}
+                            :
+                            {
+                                user && (
+                                    <div className="info-banner">
+                                    <span className="info-text">
+                                         Book your next journey with our service!
+                                    </span>
+                                    </div> 
+                                )
+                            }
                             <div className="hotels-grid">
                                 {hotels?.length ? (
                                     hotels.map((hotel) => (

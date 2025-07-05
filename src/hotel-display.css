@@ -14,7 +14,6 @@
     position: relative;
     display: flex;
     gap: 1rem;
-    margin-bottom: 2rem;
     width: 70%;
     border: 1.5px solid var(--accent);
     border-radius: 30px;
@@ -195,7 +194,22 @@
 }
 
 .discount-text {
-    color: var(--adventure-orange);
+    color: var( --accent-dark);
+    font-weight: 500;
+    font-size: 1.1rem;
+}
+.info-banner {
+    background-color: var(--background);
+    border: 1px solid var(--sky-blue);
+    border-radius: 8px;
+    padding: 12px 20px;
+    margin: 20px 0;
+    text-align: center;
+    box-shadow: 0 2px 4px rgba(0,0,0,0.05);
+}
+
+.info-text {
+    color: var( --accent-color-dark);
     font-weight: 500;
     font-size: 1.1rem;
 }
