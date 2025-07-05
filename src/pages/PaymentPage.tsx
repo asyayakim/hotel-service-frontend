@@ -2,7 +2,7 @@ import {useLocation, useNavigate} from "react-router-dom";
 import {useContext, useState} from "react";
 import {UserContext} from "../components/UserProvider.tsx";
 import Swal from 'sweetalert2';
-export const API_BASE_URL = "https://hotelservice-1.onrender.com";
+export const API_BASE_URL = "https://hotelservice-2cw7.onrender.com";
 
 interface ReservationState {
     hotelId: number;

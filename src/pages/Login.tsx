@@ -2,7 +2,7 @@ import {useContext, useState} from "react";
 import {Link, useNavigate} from "react-router-dom";
 import Button from "../components/Button.jsx";
 import {UserContext} from "../components/UserProvider";
-export const API_BASE_URL = "https://hotelservice-1.onrender.com";
+export const API_BASE_URL = "https://hotelservice-2cw7.onrender.com";
 
 export default function Login() {
     const {login} = useContext(UserContext)!;

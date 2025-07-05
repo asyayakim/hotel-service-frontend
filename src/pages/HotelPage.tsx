@@ -5,7 +5,7 @@ import "react-date-range/dist/theme/default.css";
 import {addDays} from "date-fns";
 import {useNavigate, useParams} from "react-router-dom";
 import {UserContext} from "../components/UserProvider.tsx";
-export const API_BASE_URL = "https://hotelservice-1.onrender.com";
+export const API_BASE_URL = "https://hotelservice-2cw7.onrender.com";
 type Hotel = {
     hotelId: number;
     name: string;

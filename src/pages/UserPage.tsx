@@ -1,7 +1,7 @@
 import {useContext, useEffect, useState} from "react";
 import {UserContext} from "../components/UserProvider.tsx";
 import * as React from "react";
-export const API_BASE_URL = "https://hotelservice-1.onrender.com";
+export const API_BASE_URL = "https://hotelservice-2cw7.onrender.com";
 
 export default function UserPage() {
     const [avatarUrl, setAvatarUrl] = useState<string>("");

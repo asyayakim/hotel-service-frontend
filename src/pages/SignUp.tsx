@@ -1,7 +1,7 @@
 import { useNavigate } from "react-router-dom";
 import { useState } from "react";
 import Button from "../components/Button.tsx";
-export const API_BASE_URL = "https://hotelservice-1.onrender.com";
+export const API_BASE_URL = "https://hotelservice-2cw7.onrender.com";
 
 export default function Signup() {
     const [message, setMessage] = useState("");

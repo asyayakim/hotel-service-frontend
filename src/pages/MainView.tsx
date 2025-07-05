@@ -3,7 +3,7 @@ import { ChangeEvent } from "react";
 
 import {Link} from "react-router-dom";
 import {UserContext} from "../components/UserProvider.tsx";
-export const API_BASE_URL = "https://hotelservice-1.onrender.com";
+export const API_BASE_URL = "https://hotelservice-2cw7.onrender.com";
 
 
 type Hotel = {

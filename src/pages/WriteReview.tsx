@@ -4,7 +4,7 @@ import {UserContext} from "../components/UserProvider.tsx";
 import * as React from "react";
 import {useLocation, useNavigate} from "react-router-dom";
 import {StarRating} from "../components/StarRating.tsx";
-export const API_BASE_URL = "https://hotelservice-1.onrender.com";
+export const API_BASE_URL = "https://hotelservice-2cw7.onrender.com";
 
 interface ReservationState {
     reservationId: number;

@@ -1,7 +1,7 @@
 import { useNavigate} from "react-router-dom";
 import Button from "../components/Button.tsx";
 import {useState} from "react";
-export const API_BASE_URL = "https://hotelservice-1.onrender.com";
+export const API_BASE_URL = "https://hotelservice-2cw7.onrender.com";
 
 export default function RestorePassword(){
     const [userName, setUserName] = useState("");
@@ -11,7 +11,7 @@ export default function RestorePassword(){
     
     const handleLogin = async (e: { preventDefault: () => void; }) => {
         e.preventDefault();
-        const response = await fetch("http://localhost:5003/auth/login", {
+        const response = await fetch(`${API_BASE_URL}/auth/login`, {
             method: "POST",
             headers: {"Content-Type": "application/json"},
             body: JSON.stringify({userName: userName, password: password}),
