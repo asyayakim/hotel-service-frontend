@@ -1,8 +1,9 @@
 import {useContext, useEffect, useState} from "react";
-import { ChangeEvent } from "react";
+import {ChangeEvent} from "react";
 
 import {Link} from "react-router-dom";
 import {UserContext} from "../components/UserProvider.tsx";
+
 export const API_BASE_URL = "https://hotelservice-2cw7.onrender.com";
 
 
@@ -24,7 +25,7 @@ export default function MainView() {
         setSearchText(e.target.value);
     };
     const [hotels, setHotels] = useState<Hotel[]>();
-    const [ error,setError] = useState<string | null>(null);
+    const [error, setError] = useState<string | null>(null);
     const [loading, setLoading] = useState<boolean>(true);
     const [pageNumber, setPageNumber] = useState<number>(1);
     const [totalPages, setTotalPages] = useState<number>(1);
@@ -79,9 +80,9 @@ export default function MainView() {
                 `${API_BASE_URL}/hotel/all-hotels?pageNumber=${newPageNumber}` +
                 `&pageSize=${pageSize}&SearchText=${encodeURIComponent(searchText)}`,
                 {
-                method: "GET",
-                headers: {"Content-Type": "application/json"},
-            });
+                    method: "GET",
+                    headers: {"Content-Type": "application/json"},
+                });
             const data = await response.json();
             setHotels(data.hotels);
             setTotalPages(data.totalPages);
@@ -126,59 +127,66 @@ export default function MainView() {
                         : hotel
                 ));
             }
-             await response.json();
+            await response.json();
         } catch (err) {
             setError(err instanceof Error ? err.message : "Failed to add favorite");
         } finally {
             setFavoriteLoading(null);
         }
-        
+
     }
     const handleSearchSubmit = (e: React.FormEvent) => {
         e.preventDefault();
-        fetchHotels(1, 10); 
+        fetchHotels(1, 10);
     };
     return (
         <main className="main-view-section">
             <div className="background-for-input">
-            <form onSubmit={handleSearchSubmit} className="search-bar">
-                <svg
-                    className="search-icon"
-                    xmlns="http://www.w3.org/2000/svg"
-                    fill="none"
-                    viewBox="0 0 24 24"
-                    stroke="currentColor"
-                >
-                    <path
-                        strokeLinecap="round"
-                        strokeLinejoin="round"
-                        strokeWidth={2}
-                        d="M21 21l-6-6m2-5a7 7 0 11-14 0 7 7 0 0114 0z"
+                <form onSubmit={handleSearchSubmit} className="search-bar">
+                    <svg
+                        className="search-icon"
+                        xmlns="http://www.w3.org/2000/svg"
+                        fill="none"
+                        viewBox="0 0 24 24"
+                        stroke="currentColor"
+                    >
+                        <path
+                            strokeLinecap="round"
+                            strokeLinejoin="round"
+                            strokeWidth={2}
+                            d="M21 21l-6-6m2-5a7 7 0 11-14 0 7 7 0 0114 0z"
+                        />
+                    </svg>
+                    <input
+                        type="text"
+                        placeholder="Search hotels by name or city..."
+                        value={searchText}
+                        onChange={handleSearchChange}
+                        className="search-input"
                     />
-                </svg>
-                <input
-                    type="text"
-                    placeholder="Search hotels by name or city..."
-                    value={searchText}
-                    onChange={handleSearchChange}
-                    className="search-input"
-                />
-            </form>
+                </form>
             </div>
             <section className="hotels-section">
 
                 <div className="hotels-container">
                     {loading ? (
                         <div className="loading">
-                        <div className="cheerful-loader">
-                        <div className="bounce bounce1"></div>
-                        <div className="bounce bounce2"></div>
-                        <div className="bounce bounce3"></div>
-                        </div>
-                        <div>Loading hotels...</div>
+                            <div className="cheerful-loader">
+                                <div className="bounce bounce1"></div>
+                                <div className="bounce bounce2"></div>
+                                <div className="bounce bounce3"></div>
+                            </div>
+                            <div>Loading hotels...</div>
                         </div>
                     ) : (
                         <>
+                            {!user && (
+                                <div className="discount-banner">
+                                    <span className="discount-text">
+                                         Register now to get 5% discount on your first booking!
+                                    </span>
+                                </div>
+                            )}
                             <div className="hotels-grid">
                                 {hotels?.length ? (
                                     hotels.map((hotel) => (

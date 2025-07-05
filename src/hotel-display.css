@@ -184,3 +184,18 @@
     max-width: 740px;
     margin: 0 auto;
 }
+.discount-banner {
+    background-color: var(--sand);
+    border: 1px solid var(--highlight);
+    border-radius: 8px;
+    padding: 12px 20px;
+    margin: 20px 0;
+    text-align: center;
+    box-shadow: 0 2px 4px rgba(0,0,0,0.05);
+}
+
+.discount-text {
+    color: var(--adventure-orange);
+    font-weight: 500;
+    font-size: 1.1rem;
+}

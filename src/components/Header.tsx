@@ -5,7 +5,7 @@ import {useContext} from "react";
 export default function Header() {
     const { user, logout } = useContext(UserContext)!;
     const userRole = user?.role ?? 'guest';
-    console.log(user?.imageUrl);
+    
     const renderUserHeader = () => {
         return (
             <header className="main-header">

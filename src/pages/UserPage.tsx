@@ -24,8 +24,6 @@ export default function UserPage() {
         loyalityPoints: "",
         tier: "",
     });
-        console.log(avatarUrl);
-        console.log(user.imageUrl);
     useEffect(() => {
         const fetchUserInfo = async () => {
             try {
@@ -87,7 +85,6 @@ export default function UserPage() {
                 const formData = new FormData();
                 formData.append("image", file);
                 formData.append("userId", user?.id);
-               console.log(formData);
                 
                 const customerResponse = await fetch(`${API_BASE_URL}/customer/uploadImage`, {
                     method: "PATCH",
@@ -101,6 +98,8 @@ export default function UserPage() {
                     const data = await customerResponse.json();
                     console.log(data);
                     setAvatarUrl(data.imageUrl);
+                    user.imageUrl = data.imageUrl;
+                    
                     alert("Avatar updated successfully!");
                 }
             } catch (error) {
