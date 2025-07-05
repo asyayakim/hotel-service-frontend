@@ -24,7 +24,8 @@ export default function UserPage() {
         loyalityPoints: "",
         tier: "",
     });
-        
+        console.log(avatarUrl);
+        console.log(user.imageUrl);
     useEffect(() => {
         const fetchUserInfo = async () => {
             try {
