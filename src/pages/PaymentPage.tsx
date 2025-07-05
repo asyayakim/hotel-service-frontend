@@ -130,7 +130,7 @@ const navigate = useNavigate();
                                 placeholder="1234 5678 9012 3456"
                                 value={cardDetails.cardNumber}
                                 onChange={(e) => setCardDetails({...cardDetails, cardNumber: e.target.value})}
-                                maxLength="19"
+                                // max={16}
                             />
                         </div>
                     </div>
@@ -145,7 +145,8 @@ const navigate = useNavigate();
                                     placeholder="MM/YY"
                                     value={cardDetails.expiry}
                                     onChange={(e) => setCardDetails({...cardDetails, expiry: e.target.value})}
-                                    maxLength="5"
+                                    // max="5"
+                                    // pattern="\d{2}/\d{2}"
                                 />
                             </div>
                         </div>
@@ -159,7 +160,7 @@ const navigate = useNavigate();
                                     placeholder="123"
                                     value={cardDetails.cvv}
                                     onChange={(e) => setCardDetails({...cardDetails, cvv: e.target.value})}
-                                    maxLength="3"
+                                    // max="3"
                                 />
                             </div>
                         </div>

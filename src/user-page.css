@@ -77,7 +77,7 @@
 }
 
 .loyalty {
-    background: linear-gradient(135deg, #f5f5f5 0%, #ffffff 100%);
+    background: linear-gradient(135deg, #f5f5f5 0%, #fefcf4 100%);
     border-radius: 12px;
     padding: 1.5rem;
     margin: 1rem 0;
@@ -122,5 +122,11 @@
 
     .loyalty p {
         font-size: 1rem;
+    }
+    user-page {
+        padding: 1rem;
+        margin: none;
+        width: 100%;
+        border-radius: none;
     }
 }
