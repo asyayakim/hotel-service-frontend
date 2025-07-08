@@ -176,7 +176,7 @@ export default function MainView() {
                                 <div className="bounce bounce2"></div>
                                 <div className="bounce bounce3"></div>
                             </div>
-                            <div>Loading hotels...</div>
+                            <div className="loading-text">Loading hotels...</div>
                         </div>
                     ) : (
                         <>

@@ -215,6 +215,7 @@ footer {
 .btn-primary {
   background: var(--accent);
   color: var(--text-light);
+  font-size: 1rem;
   transition: transform 0.2s ease;
 }
 
@@ -279,7 +280,10 @@ footer {
 .no-results-img {
   animation: bounce 2s ease-in-out infinite;
 }
-
+.loading-text{
+  font-size: 2rem;
+  font-weight: bold;
+}
 @media (max-width: 768px) {
   .header-container {
     flex-direction: column;

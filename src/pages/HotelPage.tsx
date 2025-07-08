@@ -288,7 +288,7 @@ export default function HotelPage() {
 
                                 {!user && (
                                     <div className="login-reminder">
-                                        <p>🔓 Register/login to get 5% discount!</p>
+                                        <p> Register/login to get 5% discount!</p>
                                     </div>
                                 )}
                             </div>

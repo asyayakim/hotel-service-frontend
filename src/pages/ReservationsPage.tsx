@@ -157,7 +157,7 @@ export default function ReservationsPage() {
                 <div className="bounce bounce2"></div>
                 <div className="bounce bounce3"></div>
             </div>
-            <div>Loading reservations...</div>
+            <div className="loading-text">Loading reservations...</div>
         </div>
     );
     if (error) return <div className="error">{error}</div>;
