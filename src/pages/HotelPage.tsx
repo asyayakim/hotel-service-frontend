@@ -132,12 +132,19 @@ export default function HotelPage() {
         setDateRange([ranges.selection]);
     };
 
-    const calculateTotal = (): number => {
-        if (!selectedRoom || !dateRange[0].startDate || !dateRange[0].endDate) return 0;
+    const calculateBasePrice = (): { basePrice: number, days: number } => {
+        if (!selectedRoom || !dateRange[0].startDate || !dateRange[0].endDate)
+            return { basePrice: 0, days: 0 };
 
         const diffTime = Math.abs(dateRange[0].endDate.getTime() - dateRange[0].startDate.getTime());
-        const diffDays = Math.ceil(diffTime / (1000 * 60 * 60 * 24));
-        const basePrice = diffDays * selectedRoom.pricePerNight;
+        const days = Math.ceil(diffTime / (1000 * 60 * 60 * 24));
+        const basePrice = days * selectedRoom.pricePerNight;
+
+        return { basePrice, days };
+    };
+
+    const calculateTotal = (): number => {
+        const { basePrice } = calculateBasePrice();
         return user ? basePrice * 0.95 : basePrice;
     };
 
@@ -264,26 +271,28 @@ export default function HotelPage() {
                                 <div className="dates-selected">
                                     {dateRange[0].startDate?.toLocaleDateString()} - {dateRange[0].endDate?.toLocaleDateString()}
                                 </div>
+
                                 {user && (
                                     <div className="discount-notice">
                                         <span>Member Discount (5%):</span>
                                         <span className="discount-amount">
-                                            -${(diffDays * selectedRoom.pricePerNight * 0.05).toFixed(2)}
-                                        </span>
+                            -${(calculateBasePrice().basePrice * 0.05).toFixed(2)}
+                        </span>
                                     </div>
                                 )}
-                            
+
                                 <div className="total-price">
                                     <span>Total:</span>
                                     <span>${calculateTotal().toFixed(2)}</span>
                                 </div>
+
                                 {!user && (
                                     <div className="login-reminder">
                                         <p>🔓 Register/login to get 5% discount!</p>
                                     </div>
                                 )}
                             </div>
-                        )}
+                            )}
 
                         <button
                             className="reserve-button"
