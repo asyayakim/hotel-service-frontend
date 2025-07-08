@@ -183,11 +183,10 @@ export default function MainView() {
                             {!user && (
                                 <div className="discount-banner">
                                     <span className="discount-text">
-                                         Register now to get 5% discount on your first booking!
+                                         Register now to get 5% discount on your bookings!
                                     </span>
                                 </div>
                             )}
-                            :
                             {
                                 user && (
                                     <div className="info-banner">

@@ -5,6 +5,7 @@ import "react-date-range/dist/theme/default.css";
 import {addDays} from "date-fns";
 import {useNavigate, useParams} from "react-router-dom";
 import {UserContext} from "../components/UserProvider.tsx";
+
 export const API_BASE_URL = "https://hotelservice-2cw7.onrender.com";
 type Hotel = {
     hotelId: number;
@@ -133,9 +134,11 @@ export default function HotelPage() {
 
     const calculateTotal = (): number => {
         if (!selectedRoom || !dateRange[0].startDate || !dateRange[0].endDate) return 0;
+
         const diffTime = Math.abs(dateRange[0].endDate.getTime() - dateRange[0].startDate.getTime());
         const diffDays = Math.ceil(diffTime / (1000 * 60 * 60 * 24));
-        return diffDays * selectedRoom.pricePerNight;
+        const basePrice = diffDays * selectedRoom.pricePerNight;
+        return user ? basePrice * 0.95 : basePrice;
     };
 
     const startReservation = async () => {
@@ -159,7 +162,7 @@ export default function HotelPage() {
             }
         });
     }
-    
+
     if (error) return <div className="error">{error}</div>;
     if (!hotel) return <div className="not-found">Hotel not found</div>;
     if (loading) return (
@@ -175,156 +178,170 @@ export default function HotelPage() {
     return (
         <main className="hotel-main">
 
-        <div className="hotel-page">
+            <div className="hotel-page">
 
-            <div className="hotel-content-main">
-                <div className="booking-section">
-                    <div className="header-container">
-                        <div className="hotel-header">
-                            <h1>{hotel.name}</h1>
+                <div className="hotel-content-main">
+                    <div className="booking-section">
+                        <div className="header-container">
+                            <div className="hotel-header">
+                                <h1>{hotel.name}</h1>
+                            </div>
+                        </div>
+                        <div className="gallery">
+                            <img
+                                src={hotel.thumbnailUrl || "/placeholder-hotel.jpg"}
+                                alt={hotel.name}
+                                className="main-image"
+                            />
+                            <div className="thumbnails">
+                                {hotel.rooms.map(room => (
+                                    <img
+                                        key={room.roomId}
+                                        src={room.thumbnailRoom || "/placeholder-room.jpg"}
+                                        alt={room.roomType}
+                                        className={`thumbnail ${selectedRoom?.roomId === room.roomId ? 'active' : ''}`}
+                                        onClick={() => setSelectedRoom(room)}
+                                    />
+                                ))}
+                            </div>
+                        </div>
+                        <div className="text-section">
+                            <h2>{hotel.country}</h2>
+                            <h3>{hotel.city}</h3>
+                            <p>{hotel.address}</p>
+                            <p>{hotel.postalCode}</p>
+
+                            <p className="description">{hotel.description}</p>
                         </div>
                     </div>
-                    <div className="gallery">
-                        <img
-                            src={hotel.thumbnailUrl || "/placeholder-hotel.jpg"}
-                            alt={hotel.name}
-                            className="main-image"
-                        />
-                        <div className="thumbnails">
+
+                    <div className="booking-section">
+                        <h2>Available Rooms</h2>
+                        <div className="room-options">
                             {hotel.rooms.map(room => (
-                                <img
+                                <div
                                     key={room.roomId}
-                                    src={room.thumbnailRoom || "/placeholder-room.jpg"}
-                                    alt={room.roomType}
-                                    className={`thumbnail ${selectedRoom?.roomId === room.roomId ? 'active' : ''}`}
+                                    className={`room-card ${selectedRoom?.roomId === room.roomId ? 'selected' : ''}`}
                                     onClick={() => setSelectedRoom(room)}
-                                />
+                                >
+                                    <h3>{room.roomType}</h3>
+                                    <p>${room.pricePerNight.toFixed(2)} per night</p>
+                                </div>
                             ))}
                         </div>
-                    </div>
-                    <div className="text-section">
-                        <h2>{hotel.country}</h2>
-                        <h3>{hotel.city}</h3>
-                        <p>{hotel.address}</p>
-                        <p>{hotel.postalCode}</p>
 
-                        <p className="description">{hotel.description}</p>
-                    </div>
-                </div>
-
-                <div className="booking-section">
-                    <h2>Available Rooms</h2>
-                    <div className="room-options">
-                        {hotel.rooms.map(room => (
-                            <div
-                                key={room.roomId}
-                                className={`room-card ${selectedRoom?.roomId === room.roomId ? 'selected' : ''}`}
-                                onClick={() => setSelectedRoom(room)}
-                            >
-                                <h3>{room.roomType}</h3>
-                                <p>${room.pricePerNight.toFixed(2)} per night</p>
-                            </div>
-                        ))}
-                    </div>
-
-                    <div className="date-selection">
-                        <h2>Select Dates</h2>
-                        <DateRange
-                            editableDateInputs={true}
-                            onChange={handleSelect}
-                            moveRangeOnFirstSelection={false}
-                            ranges={dateRange}
-                            minDate={new Date()}
-                            rangeColors={["var(--primary)"]}
-                            disabledDates={disabledDates}
-                        />
-                    </div>
-
-                    <div className="guest-selection">
-                        <label>Guests:</label>
-                        <input
-                            type="number"
-                            min="1"
-                            max="4"
-                            value={guests}
-                            onChange={(e) => setGuests(Math.max(1, parseInt(e.target.value) || 1))}
-                        />
-                    </div>
-
-                    {selectedRoom && (
-                        <div className="price-summary">
-                            <h3>Your Stay</h3>
-                            <div className="room-selected">
-                                <span>{selectedRoom.roomType}</span>
-                                <span> ${selectedRoom.pricePerNight.toFixed(2)}/night</span>
-                            </div>
-                            <div className="dates-selected">
-                                {dateRange[0].startDate?.toLocaleDateString()} - {dateRange[0].endDate?.toLocaleDateString()}
-                            </div>
-                            <div className="total-price">
-                                <span>Total:</span>
-                                <span>${calculateTotal().toFixed(2)}</span>
-                            </div>
+                        <div className="date-selection">
+                            <h2>Select Dates</h2>
+                            <DateRange
+                                editableDateInputs={true}
+                                onChange={handleSelect}
+                                moveRangeOnFirstSelection={false}
+                                ranges={dateRange}
+                                minDate={new Date()}
+                                rangeColors={["var(--primary)"]}
+                                disabledDates={disabledDates}
+                            />
                         </div>
-                    )}
 
-                    <button
-                        className="reserve-button"
-                        onClick={startReservation}
-                        disabled={!selectedRoom || !dateRange[0].startDate || !dateRange[0].endDate}
-                    >
-                        Reserve Now
-                    </button>
-                </div>
-            </div>
+                        <div className="guest-selection">
+                            <label>Guests:</label>
+                            <input
+                                type="number"
+                                min="1"
+                                max="4"
+                                value={guests}
+                                onChange={(e) => setGuests(Math.max(1, parseInt(e.target.value) || 1))}
+                            />
+                        </div>
 
-            {showConfirmation && selectedRoom && (
-                <div className="confirmation-modal">
-                    <div className="modal-content">
-                        <h3>Booking Confirmed!</h3>
-                        <p>Your reservation for {selectedRoom.roomType} at {hotel.name} has been confirmed.</p>
+                        {selectedRoom && (
+                            <div className="price-summary">
+                                <h3>Your Stay</h3>
+                                <div className="room-selected">
+                                    <span>{selectedRoom.roomType}</span>
+                                    <span> ${selectedRoom.pricePerNight.toFixed(2)}/night</span>
+                                </div>
+                                <div className="dates-selected">
+                                    {dateRange[0].startDate?.toLocaleDateString()} - {dateRange[0].endDate?.toLocaleDateString()}
+                                </div>
+                                {user && (
+                                    <div className="discount-notice">
+                                        <span>Member Discount (5%):</span>
+                                        <span className="discount-amount">
+                                            -${(diffDays * selectedRoom.pricePerNight * 0.05).toFixed(2)}
+                                        </span>
+                                    </div>
+                                )}
+                            
+                                <div className="total-price">
+                                    <span>Total:</span>
+                                    <span>${calculateTotal().toFixed(2)}</span>
+                                </div>
+                                {!user && (
+                                    <div className="login-reminder">
+                                        <p>🔓 Register/login to get 5% discount!</p>
+                                    </div>
+                                )}
+                            </div>
+                        )}
+
                         <button
-                            className="close-button"
-                            onClick={() => setShowConfirmation(false)}
+                            className="reserve-button"
+                            onClick={startReservation}
+                            disabled={!selectedRoom || !dateRange[0].startDate || !dateRange[0].endDate}
                         >
-                            Close
+                            Reserve Now
                         </button>
                     </div>
                 </div>
-            )}
-            <div className="reviews-section">
-                <h2>Hotel Reviews</h2>
-                {reviews.length === 0 ? (
-                    <p>No reviews yet</p>
-                ) : (
-                    reviews.map((review) => (
-                        <div key={review.reviewId} className="review-card">
-                            <div className="review-header">
-                                <div className="review-meta">
-                                    <h4 className="review-author">
-                                        {review.customer?.firstName || 'Anonymous Guest'}
-                                    </h4>
-                                    <span className="review-date">
+
+                {showConfirmation && selectedRoom && (
+                    <div className="confirmation-modal">
+                        <div className="modal-content">
+                            <h3>Booking Confirmed!</h3>
+                            <p>Your reservation for {selectedRoom.roomType} at {hotel.name} has been confirmed.</p>
+                            <button
+                                className="close-button"
+                                onClick={() => setShowConfirmation(false)}
+                            >
+                                Close
+                            </button>
+                        </div>
+                    </div>
+                )}
+                <div className="reviews-section">
+                    <h2>Hotel Reviews</h2>
+                    {reviews.length === 0 ? (
+                        <p>No reviews yet</p>
+                    ) : (
+                        reviews.map((review) => (
+                            <div key={review.reviewId} className="review-card">
+                                <div className="review-header">
+                                    <div className="review-meta">
+                                        <h4 className="review-author">
+                                            {review.customer?.firstName || 'Anonymous Guest'}
+                                        </h4>
+                                        <span className="review-date">
                     {new Date(review.createdAt).toLocaleDateString('en-US', {
                         year: 'numeric',
                         month: 'long',
                         day: 'numeric'
                     })}
                 </span>
+                                    </div>
+                                    <div className="rating-badge">
+                                        <span className="rating-number">{review.rating}</span>
+                                        <span className="rating-max">/10</span>
+                                    </div>
                                 </div>
-                                <div className="rating-badge">
-                                    <span className="rating-number">{review.rating}</span>
-                                    <span className="rating-max">/10</span>
-                                </div>
+                                {review.comment && (
+                                    <p className="review-comment">"{review.comment}"</p>
+                                )}
                             </div>
-                            {review.comment && (
-                                <p className="review-comment">"{review.comment}"</p>
-                            )}
-                        </div>
-                    ))
-                )}
+                        ))
+                    )}
+                </div>
             </div>
-        </div>
         </main>
     )
 };
