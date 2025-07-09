@@ -7,6 +7,7 @@ type User = {
     role: string;
     token: string;
     imageUrl?: string;
+    loyaltyPoints: number;
 };
 
 type UserContextType = {

@@ -21,7 +21,7 @@ export default function UserPage() {
     });
  
     const [userData, setUserData] = useState({
-        loyalityPoints: "",
+        loyaltyPoints: "",
         tier: "",
     });
     useEffect(() => {
@@ -146,7 +146,7 @@ export default function UserPage() {
             )}
           </div>
           <div className="loyalty">
-            <p>You have {userData.loyalityPoints} points.</p>
+            <p>You have {userData.loyaltyPoints} points.</p>
             <p className={`loyalty-tier-bronze`}>
               Your membership plan is {userData?.tier || "bronze"}
             </p>
