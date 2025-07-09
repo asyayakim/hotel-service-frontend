@@ -33,7 +33,7 @@ console.log(user?.loyaltyPoints);
 
     const [loading, setLoading] = useState(false);
     const [error, setError] = useState("");
-    const [usePoints, setUsePoints] = useState(false);
+    const [usePoints, setUsePoints] = useState(true);
     const [pointsToUse, setPointsToUse] = useState(0);
 
     const maxUsablePoints = Math.min(
@@ -135,7 +135,17 @@ console.log(user?.loyaltyPoints);
             <div className="payment-container">
                 <div className="payment-card">
                     <h2 className="payment-title">Payment Information</h2>
-                    
+                    {user ? (
+                        <div style={{ padding: '10px', background: '#ff0' }}>
+                            <p>User exists: YES</p>
+                            <p>Loyalty points: {user.loyaltyPoints}</p>
+                            <p>Condition: {user.loyaltyPoints > 0 ? 'TRUE' : 'FALSE'}</p>
+                        </div>
+                    ) : (
+                        <div style={{ padding: '10px', background: '#f00', color: '#fff' }}>
+                            User is NULL or UNDEFINED
+                        </div>
+                    )}
                     {user && user.loyaltyPoints > 0 && (
                         <div className="points-section">
                             <div className="points-info">

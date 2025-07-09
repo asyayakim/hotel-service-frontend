@@ -27,6 +27,7 @@ export default function UserProvider({ children }: Props) {
         if (storedUser) {
             setUser(JSON.parse(storedUser).user);
         }
+        console.log(user?.loyaltyPoints)
     }, []);
 
     const login = (userData: { user: User; token: string }) => {
