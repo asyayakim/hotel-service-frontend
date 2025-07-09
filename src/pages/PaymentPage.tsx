@@ -4,7 +4,7 @@ import {UserContext} from "../components/UserProvider.tsx";
 import Swal from 'sweetalert2';
 
 export const API_BASE_URL = "https://hotelservice-2cw7.onrender.com";
-const POINTS_PER_DOLLAR = 10;
+const POINTS_PER_DOLLAR = 100;
 
 interface ReservationState {
     hotelId: number;
@@ -22,7 +22,7 @@ export default function PaymentPage() {
     const { user } = useContext(UserContext)!;
     const location = useLocation();
     const reservationDetails = location.state as ReservationState;
-
+console.log(user?.loyaltyPoints);
     const [cardDetails, setCardDetails] = useState({
         cardNumber: "",
         expiry: "",
@@ -205,8 +205,7 @@ export default function PaymentPage() {
                                         ))}
                                     </div>
                                 </div>
-
-                                {/* Card Number */}
+                                
                                 <div className="form-group">
                                     <label>Card Number</label>
                                     <div className="input-field">
@@ -221,7 +220,6 @@ export default function PaymentPage() {
                                 </div>
 
                                 <div className="form-row">
-                                    {/* Expiry Date */}
                                     <div className="form-group">
                                         <label>Expiration Date</label>
                                         <div className="input-field">
