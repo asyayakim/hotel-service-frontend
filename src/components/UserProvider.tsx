@@ -25,9 +25,9 @@ export default function UserProvider({ children }: Props) {
     useEffect(() => {
         const storedUser = localStorage.getItem("userdata");
         if (storedUser) {
-            setUser(JSON.parse(storedUser).user);
+            setUser(JSON.parse(storedUser));
+            // setUser(JSON.parse(storedUser).user);
         }
-        console.log(user?.loyaltyPoints)
     }, []);
 
     const login = (userData: { user: User; token: string }) => {
