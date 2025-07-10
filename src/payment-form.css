@@ -125,16 +125,16 @@
 }
 /*points section*/
 .points-section {
-    background-color: #f1f9ff;
+    background-color: var(--border);
     padding: 20px;
-    border: 1px solid #cce5ff;
+    border: 1px solid var(--sky-blue);
     border-radius: 10px;
     margin-bottom: 25px;
 }
 
 .points-section h3 {
     margin-top: 0;
-    color: #007bff;
+    color: var(--secondary);
 }
 
 .toggle-points {
@@ -178,7 +178,7 @@
 }
 
 input:checked + .slider {
-    background-color: #28a745;
+    background-color: var(--earth-green);
 }
 
 input:checked + .slider:before {
