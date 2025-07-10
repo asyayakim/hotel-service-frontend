@@ -23,6 +23,7 @@ export default function UserPage() {
     const [userData, setUserData] = useState({
         loyaltyPoints: "",
         tier: "",
+        registrationDate: "",
     });
     useEffect(() => {
         const fetchUserInfo = async () => {
@@ -145,8 +146,13 @@ export default function UserPage() {
               <div className="user-page-avatar-error">{avatarError}</div>
             )}
           </div>
+            <div>
+                <strong>Registration Date:</strong>
+                <p>{userData.registrationDate}</p>
+            </div>
           <div className="loyalty">
             <p>You have {userData.loyaltyPoints} points.</p>
+              <strong> 5 points = 1$ </strong>
             <p className={`loyalty-tier-bronze`}>
               Your membership plan is {userData?.tier || "bronze"}
             </p>

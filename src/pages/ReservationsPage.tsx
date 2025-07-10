@@ -139,7 +139,6 @@ export default function ReservationsPage() {
                     throw new Error(`HTTP error! status: ${response.status}`);
                 }
                 const data: Reservation[] = await response.json();
-                console.log(data);
 
                 setReservations(data);
             } catch (err) {

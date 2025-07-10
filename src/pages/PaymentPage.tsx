@@ -22,7 +22,7 @@ export default function PaymentPage() {
     const { user } = useContext(UserContext)!;
     const location = useLocation();
     const reservationDetails = location.state as ReservationState;
-console.log(user?.loyaltyPoints);
+
     const [cardDetails, setCardDetails] = useState({
         cardNumber: "",
         expiry: "",

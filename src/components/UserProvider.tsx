@@ -27,8 +27,6 @@ export default function UserProvider({ children }: Props) {
         const storedUser = localStorage.getItem("userdata");
         if (storedUser) {
             setUser(JSON.parse(storedUser));
-            console.log(JSON.parse(storedUser));
-            // setUser(JSON.parse(storedUser).user);
         }
     }, []);
 
