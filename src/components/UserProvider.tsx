@@ -8,6 +8,7 @@ type User = {
     token: string;
     imageUrl?: string;
     loyaltyPoints: number;
+    registrationDate: Date;
 };
 
 type UserContextType = {

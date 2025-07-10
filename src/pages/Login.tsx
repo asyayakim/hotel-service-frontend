@@ -33,6 +33,8 @@ export default function Login() {
                 role: data.userDto.role,
                 token: data.token,
                 imageUrl: data.userDto.imageUrl,
+                loyaltyPoints: data.loyaltyPoints,
+                registrationDate: data.registrationDate,
             };
             login({ user, token: data.token });
             navigate("/");
