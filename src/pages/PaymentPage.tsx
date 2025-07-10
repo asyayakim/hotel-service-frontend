@@ -4,7 +4,7 @@ import {UserContext} from "../components/UserProvider.tsx";
 import Swal from 'sweetalert2';
 
 export const API_BASE_URL = "https://hotelservice-2cw7.onrender.com";
-const POINTS_PER_DOLLAR = 100;
+const POINTS_PER_DOLLAR = 5;
 
 interface ReservationState {
     hotelId: number;
@@ -135,44 +135,40 @@ console.log(user?.loyaltyPoints);
             <div className="payment-container">
                 <div className="payment-card">
                     <h2 className="payment-title">Payment Information</h2>
-                    {user ? (
-                        <div style={{ padding: '10px', background: '#ff0' }}>
-                            <p>User exists: YES</p>
-                            <p>Loyalty points: {user.loyaltyPoints}</p>
-                            <p>Condition: {user.loyaltyPoints > 0 ? 'TRUE' : 'FALSE'}</p>
-                        </div>
-                    ) : (
-                        <div style={{ padding: '10px', background: '#f00', color: '#fff' }}>
-                            User is NULL or UNDEFINED
-                        </div>
-                    )}
                     {user && user.loyaltyPoints > 0 && (
                         <div className="points-section">
-                            <div className="points-info">
-                                <label>
+                            <h3>Use Your Loyalty Points</h3>
+                            <p>You have <strong>{user.loyaltyPoints}</strong> points (${(user.loyaltyPoints / POINTS_PER_DOLLAR).toFixed(2)} value).</p>
+
+                            <div className="toggle-points">
+                                <label className="switch">
                                     <input
                                         type="checkbox"
                                         checked={usePoints}
                                         onChange={(e) => setUsePoints(e.target.checked)}
                                     />
-                                    Use loyalty points
+                                    <span className="slider"></span>
                                 </label>
-                                <span>Available: {user.loyaltyPoints} points</span>
+                                <span>{usePoints ? "Using points" : "Not using points"}</span>
                             </div>
 
                             {usePoints && (
                                 <div className="points-control">
+                                    <label>
+                                        Use up to: <strong>{maxUsablePoints} points</strong> (${(maxUsablePoints / POINTS_PER_DOLLAR).toFixed(2)})
+                                    </label>
                                     <input
                                         type="range"
                                         min="0"
                                         max={maxUsablePoints}
-                                        step={POINTS_PER_DOLLAR}
+                                        step={1}
                                         value={pointsToUse}
                                         onChange={(e) => setPointsToUse(Number(e.target.value))}
                                     />
                                     <div className="points-details">
-                                        <span>Using: {pointsToUse} points</span>
-                                        <span>Discount: ${(pointsToUse / POINTS_PER_DOLLAR).toFixed(2)}</span>
+                                        <span>Points used: <strong>{pointsToUse}</strong></span>
+                                        <span>Discount: <strong>${(pointsToUse / POINTS_PER_DOLLAR).toFixed(2)}</strong></span>
+                                        <span>New total: <strong>${amountToPay.toFixed(2)}</strong></span>
                                     </div>
                                 </div>
                             )}
