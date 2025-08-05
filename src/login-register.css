@@ -1,200 +1,137 @@
-
+.login-container {
+    max-width: 400px;
+    margin: 100px auto;
+    padding: 30px;
+    background: var(--primary-color);
+    box-shadow: var(--shadow);
+    border-radius: 10px;
+    text-align: center;
+}
 :root {
+    --secondary: #1A3657;
+    --secondary-light: #2A4B6F;
     --primary-color: #ffffff;
     --secondary-color: #f5f7fa;
-    --accent-color: #0b77e6;
-    --accent-color-dark: #0054a6;
+    --accent-color: #2D9B92;
+    --accent-color-dark: #0a7569;
     --text-color: #333333;
     --shadow: 0 1px 3px rgba(0, 0, 0, 0.1);
     --hover-shadow: 0 8px 16px rgba(0, 0, 0, 0.15);
 }
-.login-container {
-    max-width: 500px;
-    width: 100%;
-    padding: 40px;
-    background: var(--primary-color);
-    box-shadow: var(--shadow);
-    border-radius: 16px;
-    text-align: center;
-    animation: fadeIn 0.5s ease-in-out;
-    border: 1px solid var(--border-color);
-    position: relative;
-    overflow: hidden;
-}
-
-.login-container::before {
-    content: '';
-    position: absolute;
-    top: 0;
-    left: 0;
-    right: 0;
-    height: 6px;
-    background: linear-gradient(90deg, var(--accent-color) 0%, var(--accent-color-dark) 100%);
-}
-
 .login-container h2 {
-    margin-bottom: 30px;
+    margin-bottom: 20px;
     color: var(--accent-color-dark);
-    font-size: 28px;
-    position: relative;
-    padding-bottom: 15px;
-}
-
-.login-container h2::after {
-    content: '';
-    position: absolute;
-    bottom: 0;
-    left: 50%;
-    transform: translateX(-50%);
-    width: 80px;
-    height: 4px;
-    background: var(--accent-color);
-    border-radius: 2px;
+    font-size: 1.8rem;
 }
 
 .input-container {
     position: relative;
-    margin: 15px 0;
+    margin: 10px 0;
 }
 
 .input-container input {
     width: 100%;
-    padding: 14px 14px 14px 45px;
-    border: 1px solid var(--border-color);
-    border-radius: 8px;
-    font-size: 16px;
-    transition: all 0.3s;
-    background-color: var(--primary-color);
-    color: var(--text-color);
-    box-shadow: var(--shadow);
+    padding: 12px 12px 12px 40px;
+    border: 1px solid #ccc;
+    border-radius: 5px;
+    font-size: 1rem;
+    transition: border-color 0.3s;
 }
 
 .input-container input:focus {
     border-color: var(--accent-color);
     outline: none;
-    box-shadow: 0 0 0 3px rgba(11, 119, 230, 0.2);
 }
 
 .input-container .icon {
     position: absolute;
-    left: 15px;
+    left: 10px;
     top: 50%;
     transform: translateY(-50%);
-    font-size: 18px;
-    color: var(--accent-color);
+    width: 24px;
+    height: 24px;
 }
 
-.button-group {
-    display: flex;
-    gap: 15px;
-    margin-top: 25px;
-}
-
-.button-group button {
-    flex: 1;
-    padding: 14px;
-    border: none;
-    border-radius: 8px;
-    font-size: 16px;
-    font-weight: 600;
-    cursor: pointer;
-    transition: all 0.3s;
-    box-shadow: var(--shadow);
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    gap: 8px;
-}
-
-.button-group button:first-child {
+.login-container button {
+    margin: 10px 0;
+    width: 100%;
+    padding: 12px;
     background: var(--accent-color);
     color: white;
+    border: none;
+    border-radius: 5px;
+    font-size: 1rem;
+    cursor: pointer;
+    transition: background-color 0.3s, transform 0.3s;
 }
 
-.button-group button:first-child:hover {
+.login-container button:hover {
     background: var(--accent-color-dark);
     transform: translateY(-2px);
-    box-shadow: var(--hover-shadow);
 }
 
-.button-group button:last-child {
-    background: var(--secondary-color);
+.forget-password {
+    margin: 15px 0;
+    font-size: 0.9rem;
     color: var(--text-color);
 }
 
-.button-group button:last-child:hover {
-    background: #e0e0e0;
+.forget-password button {
+    background: none;
+    border: none;
+    color: var(--accent-color);
+    font-size: 0.9rem;
+    cursor: pointer;
+    text-decoration: underline;
+    transition: color 0.3s;
+}
+
+.forget-password button:hover {
+    color: var(--accent-color-dark);
+}
+
+.login-form {
+    display: flex;
+    gap: 10px;
+    margin: 20px 0;
+}
+
+.login-form button {
+    flex: 1;
+    padding: 12px;
+    background: var(--accent-color);
+    color: white;
+    border: none;
+    border-radius: 5px;
+    font-size: 1rem;
+    cursor: pointer;
+    transition: background-color 0.3s, transform 0.3s;
+}
+
+.login-form button:hover {
+    background: var(--accent-color-dark);
     transform: translateY(-2px);
-    box-shadow: var(--hover-shadow);
 }
 
-.error-message {
+.message {
     margin-top: 15px;
-    padding: 12px;
-    background: rgba(239, 68, 68, 0.1);
-    border-radius: 8px;
-    color: var(--error-color);
-    font-size: 15px;
-    text-align: center;
-    border: 1px solid rgba(239, 68, 68, 0.2);
+    color: var(--accent-color-dark);
+    font-size: 0.9rem;
 }
-
-.success-message {
-    margin-top: 15px;
-    padding: 12px;
-    background: rgba(16, 185, 129, 0.1);
-    border-radius: 8px;
-    color: var(--success-color);
-    font-size: 15px;
-    text-align: center;
-    border: 1px solid rgba(16, 185, 129, 0.2);
-}
-
 @keyframes fadeIn {
     from { opacity: 0; transform: translateY(-20px); }
     to { opacity: 1; transform: translateY(0); }
 }
-
-.form-header {
-    display: flex;
-    justify-content: center;
-    margin-bottom: 20px;
+.login-container {
+    animation: fadeIn 0.5s ease-in-out;
 }
-
-.form-header i {
-    font-size: 48px;
-    color: var(--accent-color);
-    background: rgba(11, 119, 230, 0.1);
-    width: 80px;
-    height: 80px;
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    border-radius: 50%;
-}
-
 @media (max-width: 768px) {
     .login-container {
-        padding: 30px 20px;
-        margin: 20px;
+        padding: 20px;
+        margin: 50px auto;
     }
-
     .login-container h2 {
-        font-size: 24px;
+        font-size: 1.5rem;
     }
 
-    .button-group {
-        flex-direction: column;
-        gap: 10px;
-    }
-}
-
-@media (max-width: 480px) {
-    .login-container {
-        padding: 25px 15px;
-    }
-
-    .login-container h2 {
-        font-size: 22px;
-    }
 }
