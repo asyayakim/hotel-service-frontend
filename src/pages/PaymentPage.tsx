@@ -30,7 +30,24 @@ export default function PaymentPage() {
         billingAddress: "",
         cardType: ""
     });
+    const currentDate = new Date();
+    const minExpiryDate = new Date(
+        currentDate.getFullYear(),
+        currentDate.getMonth(),
+        1  
+    );
+    const maxExpiryDate = new Date(
+        currentDate.getFullYear() + 10, 
+        currentDate.getMonth(),
+        1
+    );
 
+    const formatDate = (date: Date) => {
+        const year = date.getFullYear();
+        const month = String(date.getMonth() + 1).padStart(2, '0');
+        const day = String(date.getDate()).padStart(2, '0');
+        return `${year}-${month}-${day}`;
+    };
     const [loading, setLoading] = useState(false);
     const [error, setError] = useState("");
     const [usePoints, setUsePoints] = useState(true);
@@ -240,29 +257,9 @@ export default function PaymentPage() {
                                                 type="date"
                                                 placeholder="MM/YY"
                                                 value={cardDetails.expiry}
-                                                onChange={(e) => {
-                                                    const selectedDate = e.target.value;
-                                                    const [year, month] = selectedDate.split('-');
-                                                    
-                                                    const currentYear = new Date().getFullYear();
-                                                    const currentMonth = new Date().getMonth() + 1; 
-                                                    const selectedYearNum = parseInt(year, 10);
-                                                    const selectedMonthNum = parseInt(month, 10);
-
-                                                    if (
-                                                        selectedYearNum > currentYear + 10 ||
-                                                        (selectedYearNum === currentYear && selectedMonthNum < currentMonth)
-                                                    ) {
-                                                        setError("Please select a valid expiration date (within next 10 years)");
-                                                        return;
-                                                    }
-
-                                                    setCardDetails({...cardDetails, expiry: selectedDate});
-                                                }}
-                                                min={new Date().toISOString().slice(0, 7)} 
-                                                max={new Date(new Date().setFullYear(new Date().getFullYear() + 10))
-                                                    .toISOString()
-                                                    .slice(0, 7)} 
+                                                onChange={(e) => setCardDetails({...cardDetails, expiry: e.target.value})}
+                                                min={formatDate(minExpiryDate)}
+                                                max={formatDate(maxExpiryDate)}
                                             />
                                         </div>
                                     </div>
