@@ -156,7 +156,7 @@ export default function PaymentPage() {
                     {user && user.loyaltyPoints > 0 && (
                         <div className="points-section">
                             <h3>Use Your Loyalty Points</h3>
-                            <p>You have <strong>{user.loyaltyPoints}</strong> points (${(user.loyaltyPoints / POINTS_PER_DOLLAR).toFixed(2)} value).</p>
+                            <p>You have <strong>{user.loyaltyPoints}</strong> points <strong>(${(user.loyaltyPoints / POINTS_PER_DOLLAR).toFixed(2)} value)</strong>.</p>
 
                             <div className="toggle-points">
                                 <label className="switch">
@@ -173,6 +173,7 @@ export default function PaymentPage() {
                             {usePoints && (
                                 <div className="points-control">
                                     <label>
+                                        <i className="bi bi-sliders"></i>
                                         Use up to: <strong>{maxUsablePoints} points</strong> (${(maxUsablePoints / POINTS_PER_DOLLAR).toFixed(2)})
                                     </label>
                                     <input
@@ -212,7 +213,7 @@ export default function PaymentPage() {
                                 <span>${amountToPay.toFixed(2)}</span>
                             </div>
                         </div>
-                        
+
                         {amountToPay > 0 ? (
                             <>
                                 <div className="form-group">
@@ -229,7 +230,7 @@ export default function PaymentPage() {
                                         ))}
                                     </div>
                                 </div>
-                                
+
                                 <div className="form-group">
                                     <label>Card Number</label>
                                     <div className="input-field">
@@ -258,15 +259,18 @@ export default function PaymentPage() {
                                                 type="date"
                                                 placeholder="MM/YY"
                                                 value={cardDetails.expiry}
-                                                onChange={(e) => setCardDetails({...cardDetails, expiry: e.target.value})}
+                                                onChange={(e) => setCardDetails({
+                                                    ...cardDetails,
+                                                    expiry: e.target.value
+                                                })}
                                                 min={formatDate(minExpiryDate)}
                                                 max={formatDate(maxExpiryDate)}
                                             />
                                         </div>
                                     </div>
-                                    
+
                                     <div className="form-group">
-                                        <label>CVV</label>
+                                        <label><i className="bi bi-shield-lock"></i> CVV</label>
                                         <div className="input-field">
                                             <i className="bi bi-lock"></i>
                                             <input
@@ -285,16 +289,19 @@ export default function PaymentPage() {
                                         </div>
                                     </div>
                                 </div>
-                                
+
                                 <div className="form-group">
-                                    <label>Billing Address</label>
+                                    <label><i className="bi bi-house"></i> Billing Address</label>
                                     <div className="input-field">
                                         <i className="bi bi-geo-alt"></i>
                                         <input
                                             type="text"
                                             placeholder="123 Main St, City, Country"
                                             value={cardDetails.billingAddress}
-                                            onChange={(e) => setCardDetails({...cardDetails, billingAddress: e.target.value})}
+                                            onChange={(e) => setCardDetails({
+                                                ...cardDetails,
+                                                billingAddress: e.target.value
+                                            })}
                                         />
                                     </div>
                                 </div>
@@ -310,9 +317,13 @@ export default function PaymentPage() {
                             type="submit"
                             className="submit-btn"
                             disabled={loading || (amountToPay > 0 && !cardDetails.cardType)}
+
                         >
-                            {loading ? 'Processing...' : 'Complete Booking'}
+                            <i className="bi bi-lock"></i> {loading ? 'Processing...' : 'Complete Booking'}
                         </button>
+                        <div className="security-note">
+                            <i className="bi bi-shield-check"></i> Your payment information is securely encrypted
+                        </div>
 
                         {error && <div className="error-message">{error}</div>}
                     </form>
