@@ -15,7 +15,20 @@ export default function Signup() {
         phoneNumber: "",
         dateOfBirth: ""
     });
+    const today = new Date();
+    const minDate = new Date(
+        today.getFullYear() - 100,
+        today.getMonth(),
+        today.getDate()
+    );
+    const maxDate = today;
 
+    const formatDate = (date: Date) => {
+        const year = date.getFullYear();
+        const month = String(date.getMonth() + 1).padStart(2, '0');
+        const day = String(date.getDate()).padStart(2, '0');
+        return `${year}-${month}-${day}`;
+    };
     const handleRegister = async (e: React.FormEvent) => {
         e.preventDefault();
 
@@ -163,6 +176,8 @@ export default function Signup() {
                         placeholder="Date of Birth"
                         value={formData.dateOfBirth}
                         onChange={(e) => setFormData({...formData, dateOfBirth: e.target.value})}
+                        min={formatDate(minDate)}
+                        max={formatDate(maxDate)}
                         required
                     />
                 </div>
