@@ -217,10 +217,16 @@ export default function PaymentPage() {
                                     <div className="input-field">
                                         <i className="bi bi-credit-card"></i>
                                         <input
-                                            type="number"
+                                            type="text"
+                                            inputMode="numeric"
                                             placeholder="1234 5678 9012 3456"
                                             value={cardDetails.cardNumber}
-                                            onChange={(e) => setCardDetails({...cardDetails, cardNumber: e.target.value})}
+                                            onChange={(e) => {
+                                                const value = e.target.value.replace(/\D/g, '');
+                                                if (value.length <= 16) {
+                                                    setCardDetails({...cardDetails, cardNumber: value});
+                                                }
+                                            }}
                                         />
                                     </div>
                                 </div>
@@ -234,7 +240,29 @@ export default function PaymentPage() {
                                                 type="date"
                                                 placeholder="MM/YY"
                                                 value={cardDetails.expiry}
-                                                onChange={(e) => setCardDetails({...cardDetails, expiry: e.target.value})}
+                                                onChange={(e) => {
+                                                    const selectedDate = e.target.value;
+                                                    const [year, month] = selectedDate.split('-');
+                                                    
+                                                    const currentYear = new Date().getFullYear();
+                                                    const currentMonth = new Date().getMonth() + 1; 
+                                                    const selectedYearNum = parseInt(year, 10);
+                                                    const selectedMonthNum = parseInt(month, 10);
+
+                                                    if (
+                                                        selectedYearNum > currentYear + 10 ||
+                                                        (selectedYearNum === currentYear && selectedMonthNum < currentMonth)
+                                                    ) {
+                                                        setError("Please select a valid expiration date (within next 10 years)");
+                                                        return;
+                                                    }
+
+                                                    setCardDetails({...cardDetails, expiry: selectedDate});
+                                                }}
+                                                min={new Date().toISOString().slice(0, 7)} 
+                                                max={new Date(new Date().setFullYear(new Date().getFullYear() + 10))
+                                                    .toISOString()
+                                                    .slice(0, 7)} 
                                             />
                                         </div>
                                     </div>
@@ -244,10 +272,17 @@ export default function PaymentPage() {
                                         <div className="input-field">
                                             <i className="bi bi-lock"></i>
                                             <input
-                                                type="number"
+                                                type="text"
+                                                inputMode="numeric"
                                                 placeholder="123"
                                                 value={cardDetails.cvv}
-                                                onChange={(e) => setCardDetails({...cardDetails, cvv: e.target.value})}
+                                                onChange={(e) => {
+                                                    const value = e.target.value.replace(/\D/g, '');
+                                                    if (value.length <= 3) {
+                                                        setCardDetails({...cardDetails, cvv: value});
+                                                    }
+                                                }}
+                                                maxLength={3}
                                             />
                                         </div>
                                     </div>
