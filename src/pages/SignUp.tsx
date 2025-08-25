@@ -6,6 +6,7 @@ export const API_BASE_URL = "https://hotelservice-2cw7.onrender.com";
 export default function Signup() {
     const [message, setMessage] = useState("");
     const navigate = useNavigate();
+    const [isLoading, setIsLoading] = useState(false);
     const [formData, setFormData] = useState({
         email: "",
         password: "",
@@ -31,7 +32,10 @@ export default function Signup() {
     };
     const handleRegister = async (e: React.FormEvent) => {
         e.preventDefault();
+        if (isLoading) return;
 
+        setIsLoading(true);
+        setMessage("");
         try {
             const authResponse = await fetch(`${API_BASE_URL}/auth/register`, {
                 method: "POST",
@@ -44,7 +48,6 @@ export default function Signup() {
             });
 
             const authData = await authResponse.json();
-            console.log(authData);
 
             if (!authResponse.ok) {
                 setMessage(authData.message || "Registration failed");
@@ -54,7 +57,7 @@ export default function Signup() {
                 method: "POST",
                 headers: { "Content-Type": "application/json" },
                 body: JSON.stringify({
-                    userId: Number(authData), 
+                    userId: Number(authData),
                     firstName: formData.firstName,
                     lastName: formData.lastName,
                     phoneNumber: formData.phoneNumber,
@@ -65,10 +68,12 @@ export default function Signup() {
                 alert("Registration successful! You can now login.");
                 navigate("/login");
             }
-           
+
         } catch (error) {
             setMessage("Error during registration");
             console.error("Registration error:", error);
+        } finally {
+            setIsLoading(false);
         }
     };
 
@@ -86,7 +91,7 @@ export default function Signup() {
                         type="email"
                         placeholder="Email"
                         value={formData.email}
-                        onChange={(e) => setFormData({...formData, email: e.target.value})}
+                        onChange={(e) => setFormData({ ...formData, email: e.target.value })}
                         required
                     />
                 </div>
@@ -101,7 +106,7 @@ export default function Signup() {
                         type="password"
                         placeholder="Password"
                         value={formData.password}
-                        onChange={(e) => setFormData({...formData, password: e.target.value})}
+                        onChange={(e) => setFormData({ ...formData, password: e.target.value })}
                         required
                     />
                 </div>
@@ -115,7 +120,7 @@ export default function Signup() {
                         type="text"
                         placeholder="Username"
                         value={formData.userName}
-                        onChange={(e) => setFormData({...formData, userName: e.target.value})}
+                        onChange={(e) => setFormData({ ...formData, userName: e.target.value })}
                         required
                     />
                 </div>
@@ -130,7 +135,7 @@ export default function Signup() {
                         type="text"
                         placeholder="First Name"
                         value={formData.firstName}
-                        onChange={(e) => setFormData({...formData, firstName: e.target.value})}
+                        onChange={(e) => setFormData({ ...formData, firstName: e.target.value })}
                         required
                     />
                 </div>
@@ -145,7 +150,7 @@ export default function Signup() {
                         type="text"
                         placeholder="Last Name"
                         value={formData.lastName}
-                        onChange={(e) => setFormData({...formData, lastName: e.target.value})}
+                        onChange={(e) => setFormData({ ...formData, lastName: e.target.value })}
                         required
                     />
                 </div>
@@ -160,7 +165,7 @@ export default function Signup() {
                         type="text"
                         placeholder="Phone Number"
                         value={formData.phoneNumber}
-                        onChange={(e) => setFormData({...formData, phoneNumber: e.target.value})}
+                        onChange={(e) => setFormData({ ...formData, phoneNumber: e.target.value })}
                         required
                     />
                 </div>
@@ -175,7 +180,7 @@ export default function Signup() {
                         type="date"
                         placeholder="Date of Birth"
                         value={formData.dateOfBirth}
-                        onChange={(e) => setFormData({...formData, dateOfBirth: e.target.value})}
+                        onChange={(e) => setFormData({ ...formData, dateOfBirth: e.target.value })}
                         min={formatDate(minDate)}
                         max={formatDate(maxDate)}
                         required
