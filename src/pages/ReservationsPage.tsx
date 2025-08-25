@@ -57,8 +57,12 @@ export default function ReservationsPage() {
                     headers: {"Content-Type": "application/json",
                         "Authorization": `Bearer ${user?.token}`},
                 });
-                const data: Review[] = await response.json();
-                setReviews(data);
+
+                if (!response.ok) {
+                    const data: Review[] = await response.json();
+                    setReviews(data);
+                    return;
+                }
             } catch (err) {
                 console.error("Error fetching reviews:", err);
             }
@@ -135,11 +139,14 @@ export default function ReservationsPage() {
                         "Authorization": `Bearer ${user?.token}`
                     }
                 });
+            
                 if (!response.ok) {
                     throw new Error(`HTTP error! status: ${response.status}`);
                 }
                 const data: Reservation[] = await response.json();
 
+                console.log("Fetched reservations:", data);
+                console.log("Fetched user ID:", user.id);
                 setReservations(data);
             } catch (err) {
                 setError(err instanceof Error ? err.message : "Unknown error");
@@ -178,7 +185,7 @@ export default function ReservationsPage() {
                                 alt="No results"/>
                         </p>
                     </div>
-                    <button onClick={() => navigate('/hotels')}>Browse Hotels</button>
+                    <button className="button-universal" onClick={() => navigate('/')}>Browse Hotels</button>
                 </div>
             ) : (
                 reservations.map((reservation) => {
