@@ -97,7 +97,6 @@ export default function UserPage() {
                 if (customerResponse.ok) {
                     alert("Data was changed!.");
                     const data = await customerResponse.json();
-                    console.log(data);
                     setAvatarUrl(data.imageUrl);
                     user.imageUrl = data.imageUrl;
                     

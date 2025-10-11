@@ -5,6 +5,7 @@ import "react-date-range/dist/theme/default.css";
 import {addDays} from "date-fns";
 import {useNavigate, useParams} from "react-router-dom";
 import {UserContext} from "../components/UserProvider.tsx";
+import Loading from "../components/Loading.tsx";
 
 export const API_BASE_URL = "https://hotelservice-2cw7.onrender.com";
 type Hotel = {
@@ -171,37 +172,29 @@ export default function HotelPage() {
     }
 
     if (error) return <div className="error">{error}</div>;
-    if (!hotel) return <div className="not-found">Hotel not found</div>;
+    //if (!hotel) return <div className="not-found">Hotel not found</div>;
     if (loading) return (
-        <div className="loading">
-            <div className="cheerful-loader">
-                <div className="bounce bounce1"></div>
-                <div className="bounce bounce2"></div>
-                <div className="bounce bounce3"></div>
-            </div>
-            <div>Loading hotel details...</div>
-        </div>
+        <Loading message="Loading hotels..."/>
     );
     return (
         <main className="hotel-main">
-
             <div className="hotel-page">
 
                 <div className="hotel-content-main">
                     <div className="booking-section">
                         <div className="header-container">
                             <div className="hotel-header">
-                                <h1>{hotel.name}</h1>
+                                <h1>{hotel?.name}</h1>
                             </div>
                         </div>
                         <div className="gallery">
                             <img
-                                src={hotel.thumbnailUrl || "/placeholder-hotel.jpg"}
-                                alt={hotel.name}
+                                src={hotel?.thumbnailUrl || "/placeholder-hotel.jpg"}
+                                alt={hotel?.name}
                                 className="main-image"
                             />
                             <div className="thumbnails">
-                                {hotel.rooms.map(room => (
+                                {hotel?.rooms.map(room => (
                                     <img
                                         key={room.roomId}
                                         src={room.thumbnailRoom || "/placeholder-room.jpg"}
@@ -213,19 +206,19 @@ export default function HotelPage() {
                             </div>
                         </div>
                         <div className="text-section">
-                            <h2>{hotel.country}</h2>
-                            <h3>{hotel.city}</h3>
-                            <p>{hotel.address}</p>
-                            <p>{hotel.postalCode}</p>
+                            <h2>{hotel?.country}</h2>
+                            <h3>{hotel?.city}</h3>
+                            <p>{hotel?.address}</p>
+                            <p>{hotel?.postalCode}</p>
 
-                            <p className="description">{hotel.description}</p>
+                            <p className="description">{hotel?.description}</p>
                         </div>
                     </div>
 
                     <div className="booking-section">
                         <h2>Available Rooms</h2>
                         <div className="room-options">
-                            {hotel.rooms.map(room => (
+                            {hotel?.rooms.map(room => (
                                 <div
                                     key={room.roomId}
                                     className={`room-card ${selectedRoom?.roomId === room.roomId ? 'selected' : ''}`}
@@ -308,7 +301,7 @@ export default function HotelPage() {
                     <div className="confirmation-modal">
                         <div className="modal-content">
                             <h3>Booking Confirmed!</h3>
-                            <p>Your reservation for {selectedRoom.roomType} at {hotel.name} has been confirmed.</p>
+                            <p>Your reservation for {selectedRoom.roomType} at {hotel?.name} has been confirmed.</p>
                             <button
                                 className="close-button"
                                 onClick={() => setShowConfirmation(false)}

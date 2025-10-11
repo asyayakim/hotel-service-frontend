@@ -2,6 +2,7 @@ import {useContext, useEffect, useState} from "react";
 import {UserContext} from "../components/UserProvider.tsx";
 import {useNavigate} from "react-router-dom";
 import Swal from "sweetalert2";
+import Loading from "../components/Loading.tsx";
 
 export const API_BASE_URL = "https://hotelservice-2cw7.onrender.com";
 
@@ -157,14 +158,7 @@ export default function ReservationsPage() {
         fetchReservation();
     }, [user]);
     if (loading) return (
-        <div className="loading">
-            <div className="cheerful-loader">
-                <div className="bounce bounce1"></div>
-                <div className="bounce bounce2"></div>
-                <div className="bounce bounce3"></div>
-            </div>
-            <div className="loading-text">Loading reservations...</div>
-        </div>
+        <Loading message="Loading your reservations..." />
     );
     if (error) return <div className="error">{error}</div>;
 

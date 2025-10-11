@@ -2,6 +2,7 @@ import {useLocation, useNavigate} from "react-router-dom";
 import {useContext, useState} from "react";
 import {UserContext} from "../components/UserProvider.tsx";
 import Swal from 'sweetalert2';
+import Loading from "../components/Loading.tsx";
 
 export const API_BASE_URL = "https://hotelservice-2cw7.onrender.com";
 const POINTS_PER_DOLLAR = 5;
@@ -147,6 +148,11 @@ export default function PaymentPage() {
             setLoading(false);
         }
     };
+    if (loading) {
+        return (
+            <Loading message="Processing your payment..." />
+        )
+    }
 
     return (
         <main>

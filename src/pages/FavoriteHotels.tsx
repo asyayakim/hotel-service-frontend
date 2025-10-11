@@ -1,6 +1,7 @@
 import { useContext, useEffect, useState } from "react";
 import { UserContext } from "../components/UserProvider.tsx";
 import {Link} from "react-router-dom";
+import Loading from "../components/Loading.tsx";
 export const API_BASE_URL = "https://hotelservice-2cw7.onrender.com";
 
 type Hotel = {
@@ -107,14 +108,7 @@ export default function FavoriteHotels() {
         <section className="hotels-section-favorite">
             <div className="hotels-container">
                 {loading ? (
-                    <div className="loading">
-                    <div className="cheerful-loader">
-                    <div className="bounce bounce1"></div>
-                    <div className="bounce bounce2"></div>
-                    <div className="bounce bounce3"></div>
-                    </div>
-                        <div className="loading-text">Loading reservations...</div>
-                    </div>
+                  <Loading message="Loading favorite hotels..." />
                 ) : hotels.length ? (
                     <div className="hotels-grid">
                         {hotels.map((hotel) => (

@@ -3,6 +3,7 @@ import {ChangeEvent} from "react";
 
 import {Link} from "react-router-dom";
 import {UserContext} from "../components/UserProvider.tsx";
+import Loading  from "../components/Loading.tsx";
 
 export const API_BASE_URL = "https://hotelservice-2cw7.onrender.com";
 
@@ -170,14 +171,7 @@ export default function MainView() {
 
                 <div className="hotels-container">
                     {loading ? (
-                        <div className="loading">
-                            <div className="cheerful-loader">
-                                <div className="bounce bounce1"></div>
-                                <div className="bounce bounce2"></div>
-                                <div className="bounce bounce3"></div>
-                            </div>
-                            <div className="loading-text">Loading hotels...</div>
-                        </div>
+                       <Loading message="Loading hotels..." />
                     ) : (
                         <>
                             {!user && (
