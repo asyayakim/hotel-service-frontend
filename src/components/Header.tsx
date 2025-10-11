@@ -3,9 +3,13 @@ import {UserContext} from "./UserProvider.tsx";
 import {useContext} from "react";
 
 export default function Header() {
-    const { user, logout } = useContext(UserContext)!;
+    const { user, logout, loading } = useContext(UserContext)!;
     const userRole = user?.role ?? 'guest';
-    
+    if (loading) {
+       <header className="main-header">
+            <div className="header-container">Loading...</div>
+        </header>
+    }
     const renderUserHeader = () => {
         return (
             <header className="main-header">

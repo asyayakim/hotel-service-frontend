@@ -16,18 +16,21 @@ type UserContextType = {
     login: (userData: { user: User; token: string }) => void;
     logout: () => void;
     setUser: (user: User | null) => void;
+    loading: boolean;
 };
 export const UserContext = createContext<UserContextType | undefined>(undefined);
 type Props = {
     children: ReactNode;
 };
 export default function UserProvider({ children }: Props) {
+    const [loading, setLoading] = useState(true);
     const [user, setUser] = useState<User | null>(null);
     useEffect(() => {
         const storedUser = localStorage.getItem("userdata");
         if (storedUser) {
             setUser(JSON.parse(storedUser));
         }
+        setLoading(false);
     }, []);
 
     const login = (userData: { user: User; token: string }) => {

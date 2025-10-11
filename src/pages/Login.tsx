@@ -87,7 +87,7 @@ export default function Login() {
                         required
                     />
                 </div>
-                <button type="submit" onClick={() => navigate("/")}>Login</button>
+                <button type="submit">Login</button>
                 <div className="forget-password">
                     Forget your <Link to="/login/restorePassword">Password</Link>
                 </div>

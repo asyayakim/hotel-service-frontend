@@ -314,7 +314,14 @@ export default function HotelPage() {
                 <div className="reviews-section">
                     <h2>Hotel Reviews</h2>
                     {reviews.length === 0 ? (
-                        <p>No reviews yet</p>
+                        <div className="no-reviews">
+                            <p>This hotel has no reviews yet. Be the first to leave a review!</p>
+                            <img
+                                className="no-results-img"
+                                src="https://img.icons8.com/?size=100&id=102599&format=png&color=000000"
+                                alt="No reviews"
+                            />
+                        </div>
                     ) : (
                         reviews.map((review) => (
                             <div key={review.reviewId} className="review-card">
