@@ -145,9 +145,6 @@ export default function ReservationsPage() {
                     throw new Error(`HTTP error! status: ${response.status}`);
                 }
                 const data: Reservation[] = await response.json();
-
-                console.log("Fetched reservations:", data);
-                console.log("Fetched user ID:", user.id);
                 setReservations(data);
             } catch (err) {
                 setError(err instanceof Error ? err.message : "Unknown error");

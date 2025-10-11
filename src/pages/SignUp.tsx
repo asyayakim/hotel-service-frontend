@@ -1,6 +1,8 @@
 import { useNavigate } from "react-router-dom";
 import { useState } from "react";
 import Button from "../components/Button.tsx";
+import Swal from "sweetalert2";
+import Loading from "../components/Loading.tsx";
 export const API_BASE_URL = "https://hotelservice-2cw7.onrender.com";
 
 export default function Signup() {
@@ -65,7 +67,14 @@ export default function Signup() {
                 })
             });
             if (customerResponse.ok) {
-                alert("Registration successful! You can now login.");
+                await Swal.fire({
+                    title: "Congratulations!",
+                    text: `Welcome aboard, ${formData.firstName}! Your account has been created successfully.`,
+                    imageUrl: "https://img.icons8.com/color/452/confetti.png",
+                    imageWidth: 200,
+                    imageHeight: 200,
+                    confirmButtonText: "Go to Login",
+                });
                 navigate("/login");
             }
 
@@ -76,6 +85,9 @@ export default function Signup() {
             setIsLoading(false);
         }
     };
+    if (isLoading) {
+        return <Loading message="Creating your account..." />;
+    }
 
     return (
         <div className="login-container">

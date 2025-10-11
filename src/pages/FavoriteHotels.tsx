@@ -108,7 +108,7 @@ export default function FavoriteHotels() {
         <section className="hotels-section-favorite">
             <div className="hotels-container">
                 {loading ? (
-                  <Loading message="Loading favorite hotels..." />
+                  <Loading message="Loading favorite hotel..." />
                 ) : hotels.length ? (
                     <div className="hotels-grid">
                         {hotels.map((hotel) => (
