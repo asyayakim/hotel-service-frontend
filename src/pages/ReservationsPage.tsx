@@ -155,7 +155,9 @@ export default function ReservationsPage() {
         fetchReservation();
     }, [user]);
     if (loading) return (
-        <Loading message="Loading your reservations..." />
+        <main>
+            <Loading message="Loading your reservations..." />
+        </main>
     );
     if (error) return <div className="error">{error}</div>;
 
