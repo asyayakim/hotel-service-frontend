@@ -18,6 +18,7 @@ export default function Login() {
 
     const handleLogin = async (e: { preventDefault: () => void; }) => {
         e.preventDefault();
+        setIsLoading(true);
 
         try {
             const response = await fetch(`${API_BASE_URL}/auth/login`, {
@@ -27,6 +28,7 @@ export default function Login() {
             });
             const data = await response.json();
             if (!response.ok) {
+                setIsLoading(false);
                 setMessage(data.message || `Login failed: ${response.status}`);
                 return;
             }
@@ -43,16 +45,14 @@ export default function Login() {
             login({ user, token: data.token });
             navigate("/");
             // setMessage("Login successful!");
-            setIsLoading(true);
             setTimeout(async () => {
                 setIsLoading(false);
-
                 await Swal.fire({
                     title: "Welcome back!",
                     text: `Good to see you again, ${user.username}!`,
-                    imageUrl: "https://img.icons8.com/color/452/happy.png",
-                    imageWidth: 200,
-                    imageHeight: 200,
+                    imageUrl: "https://img.icons8.com/?size=100&id=XiSP6YsZ9SZ0&format=png&color=000000",
+                    imageWidth: 48,
+                    imageHeight: 48,
                     imageAlt: "Welcome Image",
                     confirmButtonColor: "#3085d6",
                 });

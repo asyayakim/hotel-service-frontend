@@ -121,8 +121,12 @@
 
 
 input[type="date"] {
- 
-  color: #767676;
+   color: #767676; 
+}
+input[type="date"]:focus,
+input[type="date"]:valid,
+input[type="date"]:active {
+   color: #000000; 
 }
 
 @keyframes fadeIn {
