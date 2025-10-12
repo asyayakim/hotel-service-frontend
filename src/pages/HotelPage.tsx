@@ -316,11 +316,6 @@ export default function HotelPage() {
                     {reviews.length === 0 ? (
                         <div className="no-reviews">
                             <p>This hotel has no reviews yet. Be the first to leave a review!</p>
-                            <img
-                                className="no-results-img"
-                                src="https://img.icons8.com/?size=100&id=102599&format=png&color=000000"
-                                alt="No reviews"
-                            />
                         </div>
                     ) : (
                         reviews.map((review) => (

@@ -3,6 +3,7 @@ type LoadingProps = {
 };
 export default function Loading({ message }: LoadingProps) {
     return (
+        <main>
         <div className="loading">
             <div className="cheerful-loader">
                 <div className="bounce bounce1"></div>
@@ -10,6 +11,7 @@ export default function Loading({ message }: LoadingProps) {
                 <div className="bounce bounce3"></div>
             </div>
             <div className="loading-text">{ message }</div>
-        </div>
+            </div>
+            </main>
     );
 }

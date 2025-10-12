@@ -4,7 +4,6 @@ import Button from "../components/Button.jsx";
 import { UserContext } from "../components/UserProvider";
 import Loading from "../components/Loading.tsx";
 import Swal from "sweetalert2";
-import { fi } from "date-fns/locale";
 export const API_BASE_URL = "https://hotelservice-2cw7.onrender.com";
 
 export default function Login() {
@@ -19,6 +18,7 @@ export default function Login() {
     const handleLogin = async (e: { preventDefault: () => void; }) => {
         e.preventDefault();
         setIsLoading(true);
+        await new Promise((resolve) => setTimeout(resolve, 100));
 
         try {
             const response = await fetch(`${API_BASE_URL}/auth/login`, {
@@ -59,15 +59,6 @@ export default function Login() {
 
                 navigate("/");
             }, 1800);
-            // if (data.user.role === "Admin") {
-            //     navigate("/admin");
-            // }
-            // else if (data.user.role === "User") {
-            //     navigate("/user");
-            // }
-            // else if (data.user.role === "Employee" ){
-            //     navigate("/employee");
-            // }
         }
         catch (error) {
             setMessage("Something went wrong. Please try again.");
