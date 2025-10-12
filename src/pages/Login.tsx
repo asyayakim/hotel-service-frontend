@@ -1,14 +1,18 @@
-import {useContext, useState} from "react";
-import {Link, useNavigate} from "react-router-dom";
+import { useContext, useState } from "react";
+import { Link, useNavigate } from "react-router-dom";
 import Button from "../components/Button.jsx";
-import {UserContext} from "../components/UserProvider";
+import { UserContext } from "../components/UserProvider";
+import Loading from "../components/Loading.tsx";
+import Swal from "sweetalert2";
+import { fi } from "date-fns/locale";
 export const API_BASE_URL = "https://hotelservice-2cw7.onrender.com";
 
 export default function Login() {
-    const {login} = useContext(UserContext)!;
+    const { login } = useContext(UserContext)!;
     const [userName, setUserName] = useState("");
     const [password, setPassword] = useState("");
     const [message, setMessage] = useState("");
+    const [isLoading, setIsLoading] = useState(false);
     const navigate = useNavigate();
 
 
@@ -18,8 +22,8 @@ export default function Login() {
         try {
             const response = await fetch(`${API_BASE_URL}/auth/login`, {
                 method: "POST",
-                headers: {"Content-Type": "application/json"},
-                body: JSON.stringify({userName: userName, password: password}),
+                headers: { "Content-Type": "application/json" },
+                body: JSON.stringify({ userName: userName, password: password }),
             });
             const data = await response.json();
             if (!response.ok) {
@@ -38,7 +42,23 @@ export default function Login() {
             };
             login({ user, token: data.token });
             navigate("/");
-            setMessage("Login successful!");
+            // setMessage("Login successful!");
+            setIsLoading(true);
+            setTimeout(async () => {
+                setIsLoading(false);
+
+                await Swal.fire({
+                    title: "Welcome back!",
+                    text: `Good to see you again, ${user.username}!`,
+                    imageUrl: "https://img.icons8.com/color/452/happy.png",
+                    imageWidth: 200,
+                    imageHeight: 200,
+                    imageAlt: "Welcome Image",
+                    confirmButtonColor: "#3085d6",
+                });
+
+                navigate("/");
+            }, 1800);
             // if (data.user.role === "Admin") {
             //     navigate("/admin");
             // }
@@ -49,11 +69,17 @@ export default function Login() {
             //     navigate("/employee");
             // }
         }
-     catch (error) {
-        setMessage("Something went wrong. Please try again.");
-        console.error(error);
-    }
+        catch (error) {
+            setMessage("Something went wrong. Please try again.");
+            console.error(error);
+        }
+        finally {
+            setIsLoading(false);
+        }
     };
+    if (isLoading) {
+        return <Loading message="Logging you in..." />;
+    }
 
     return (
         <div className="login-container">
@@ -94,8 +120,8 @@ export default function Login() {
             </form>
             <p>{message}</p>
             <div className="login-form">
-                <Button name="Register" onClick={() => navigate("/signUp")}/>
-                <Button name="Back" onClick={() => navigate("/")}/>
+                <Button name="Register" onClick={() => navigate("/signUp")} />
+                <Button name="Back" onClick={() => navigate("/")} />
             </div>
         </div>
     );
