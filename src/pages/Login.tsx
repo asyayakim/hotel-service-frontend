@@ -92,7 +92,7 @@ export default function Login() {
                 />
                 
                 <Button type="submit" name="Login" />
-                {/* <button type="submit">Login</button> */}
+    
                 <div className="forget-password">
                     Forget your <Link to="/login/restorePassword">Password</Link>
                 </div>

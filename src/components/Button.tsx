@@ -5,9 +5,9 @@ type ButtonProps = {
     className?: string;
 };
 
-export default function Button({ name, type = "button", onClick }: ButtonProps) {
+export default function Button({ name, type = "button", onClick, className }: ButtonProps) {
     return (
-        <button type={type} onClick={onClick} className="button-job">
+        <button type={type} onClick={onClick} className={`button-job ${className}`}>
             {name}
         </button>
     );
