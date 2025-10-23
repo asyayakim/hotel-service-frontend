@@ -1,9 +1,10 @@
 import { useContext, useState } from "react";
 import { Link, useNavigate } from "react-router-dom";
 import Button from "../components/Button.jsx";
-import { UserContext } from "../components/UserProvider";
+import { UserContext } from "../context/UserProvider.tsx";
 import Loading from "../components/Loading.tsx";
 import Swal from "sweetalert2";
+import InputContainer from "../components/InputContainer.tsx";
 export const API_BASE_URL = "https://hotelservice-2cw7.onrender.com";
 
 export default function Login() {
@@ -76,35 +77,22 @@ export default function Login() {
         <div className="login-container">
             <h2>Login</h2>
             <form onSubmit={handleLogin}>
-                <div className="input-container">
-                    <img
-                        src="https://img.icons8.com/?size=100&id=zxB19VPoVLjK&format=png&color=000000"
-                        alt="Username Icon"
-                        className="icon"
-                    />
-                    <input
-                        type="text"
-                        placeholder="Username"
-                        value={userName}
-                        onChange={(e) => setUserName(e.target.value)}
-                        required
-                    />
-                </div>
-                <div className="input-container">
-                    <img
-                        src="https://img.icons8.com/?size=100&id=14095&format=png&color=000000"
-                        alt="Password Icon"
-                        className="icon"
-                    />
-                    <input
-                        type="password"
-                        placeholder="Password"
-                        value={password}
-                        onChange={(e) => setPassword(e.target.value)}
-                        required
-                    />
-                </div>
-                <button type="submit">Login</button>
+                <InputContainer
+                    iconSrc="https://img.icons8.com/?size=100&id=zxB19VPoVLjK&format=png&color=000000"
+                    placeholder="Username"
+                    value={userName}
+                    onChange={(e) => setUserName(e.target.value)}
+                />
+        
+                <InputContainer
+                    iconSrc="https://img.icons8.com/?size=100&id=14095&format=png&color=000000"
+                    placeholder="Password"
+                    value={password}
+                    onChange={(e) => setPassword(e.target.value)}
+                />
+                
+                <Button type="submit" name="Login" />
+                {/* <button type="submit">Login</button> */}
                 <div className="forget-password">
                     Forget your <Link to="/login/restorePassword">Password</Link>
                 </div>

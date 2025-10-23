@@ -1,7 +1,8 @@
 import { useContext, useEffect, useState } from "react";
-import { UserContext } from "../components/UserProvider.tsx";
+import { UserContext } from "../context/UserProvider.tsx";
 import {Link} from "react-router-dom";
 import Loading from "../components/Loading.tsx";
+import NoResults from "../components/NoResults.tsx";
 export const API_BASE_URL = "https://hotelservice-2cw7.onrender.com";
 
 type Hotel = {
@@ -12,8 +13,6 @@ type Hotel = {
     price: number;
     isFavorite?: boolean;
 };
-
-
 
 export default function FavoriteHotels() {
     const { user } = useContext(UserContext)!;
@@ -150,15 +149,8 @@ export default function FavoriteHotels() {
                             </div>
                         ))}
                     </div>
-                ) : (
-                    <div className="no-results-container">
-                    <p className="no-results">No favorite hotels found.
-                        <img
-                            className="no-results-img"
-                            src="https://img.icons8.com/?size=100&id=o5o2xsP3V7kK&format=png&color=000000" 
-                            alt="No results"/>
-                    </p>
-                    </div>
+                        ) : (
+                        <NoResults />
                 )}
             </div>
         </section>

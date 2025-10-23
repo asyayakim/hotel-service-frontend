@@ -1,5 +1,5 @@
 import {useContext, useEffect, useState} from "react";
-import {UserContext} from "../components/UserProvider.tsx";
+import {UserContext} from "../context/UserProvider.tsx";
 import * as React from "react";
 export const API_BASE_URL = "https://hotelservice-2cw7.onrender.com";
 

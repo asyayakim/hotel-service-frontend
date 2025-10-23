@@ -1,10 +1,10 @@
-import {useContext, useEffect, useState} from "react";
-import {DateRange, Range, RangeKeyDict} from "react-date-range";
+import { useContext, useEffect, useState } from "react";
+import { DateRange, Range, RangeKeyDict } from "react-date-range";
 import "react-date-range/dist/styles.css";
 import "react-date-range/dist/theme/default.css";
-import {addDays} from "date-fns";
-import {useNavigate, useParams} from "react-router-dom";
-import {UserContext} from "../components/UserProvider.tsx";
+import { addDays } from "date-fns";
+import { useNavigate, useParams } from "react-router-dom";
+import { UserContext } from "../context/UserProvider.tsx";
 import Loading from "../components/Loading.tsx";
 
 export const API_BASE_URL = "https://hotelservice-2cw7.onrender.com";
@@ -39,10 +39,10 @@ type Customer = {
 
 export default function HotelPage() {
 
-    const {user} = useContext(UserContext)!;
-    const {id} = useParams<{ id: string }>();
+    const { user } = useContext(UserContext)!;
+    const { id } = useParams<{ id: string }>();
     const hotelId = id && !isNaN(parseInt(id)) &&
-    parseInt(id) > 0 ? parseInt(id) : null;
+        parseInt(id) > 0 ? parseInt(id) : null;
     const [loading, setLoading] = useState<boolean>(true);
     const [hotel, setHotel] = useState<Hotel | null>(null);
     const [error, setError] = useState<string | null>(null);
@@ -68,7 +68,7 @@ export default function HotelPage() {
             try {
                 const response = await fetch(`${API_BASE_URL}/hotel/from-db/${hotelId}`, {
                     method: "GET",
-                    headers: {"Content-Type": "application/json"},
+                    headers: { "Content-Type": "application/json" },
                 });
                 const data: Hotel = await response.json();
                 setHotel(data);
@@ -90,7 +90,7 @@ export default function HotelPage() {
                 if (!selectedRoom?.roomId) return;
                 const response = await fetch(`${API_BASE_URL}/reservation/available-date/${selectedRoom?.roomId}`, {
                     method: "GET",
-                    headers: {"Content-Type": "application/json"},
+                    headers: { "Content-Type": "application/json" },
                 });
                 const reservations = await response.json();
                 const allDates = reservations.flatMap((res: any) => {
@@ -117,7 +117,7 @@ export default function HotelPage() {
             try {
                 const response = await fetch(`${API_BASE_URL}/review/hotel/${hotelId}`, {
                     method: "GET",
-                    headers: {"Content-Type": "application/json"},
+                    headers: { "Content-Type": "application/json" },
                 });
                 const data: Review[] = await response.json();
                 setReviews(data);
@@ -174,7 +174,7 @@ export default function HotelPage() {
     if (error) return <div className="error">{error}</div>;
     //if (!hotel) return <div className="not-found">Hotel not found</div>;
     if (loading) return (
-        <Loading message="Loading hotels..."/>
+        <Loading message="Loading hotels..." />
     );
     return (
         <main className="hotel-main">
@@ -269,8 +269,8 @@ export default function HotelPage() {
                                     <div className="discount-notice">
                                         <span>Member Discount (5%):</span>
                                         <span className="discount-amount">
-                            -${(calculateBasePrice().basePrice * 0.05).toFixed(2)}
-                        </span>
+                                            -${(calculateBasePrice().basePrice * 0.05).toFixed(2)}
+                                        </span>
                                     </div>
                                 )}
 
@@ -285,7 +285,7 @@ export default function HotelPage() {
                                     </div>
                                 )}
                             </div>
-                            )}
+                        )}
 
                         <button
                             className="reserve-button"
@@ -326,12 +326,12 @@ export default function HotelPage() {
                                             {review.customer?.firstName || 'Anonymous Guest'}
                                         </h4>
                                         <span className="review-date">
-                    {new Date(review.createdAt).toLocaleDateString('en-US', {
-                        year: 'numeric',
-                        month: 'long',
-                        day: 'numeric'
-                    })}
-                </span>
+                                            {new Date(review.createdAt).toLocaleDateString('en-US', {
+                                                year: 'numeric',
+                                                month: 'long',
+                                                day: 'numeric'
+                                            })}
+                                        </span>
                                     </div>
                                     <div className="rating-badge">
                                         <span className="rating-number">{review.rating}</span>

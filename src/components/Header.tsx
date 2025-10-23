@@ -1,5 +1,5 @@
 import { Link } from "react-router-dom";
-import {UserContext} from "./UserProvider.tsx";
+import {UserContext} from "../context/UserProvider.tsx";
 import {useContext} from "react";
 
 export default function Header() {

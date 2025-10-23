@@ -1,6 +1,6 @@
 import Swal from "sweetalert2";
 import {useContext, useState} from "react";
-import {UserContext} from "../components/UserProvider.tsx";
+import {UserContext} from "../context/UserProvider.tsx";
 import * as React from "react";
 import {useLocation, useNavigate} from "react-router-dom";
 import {StarRating} from "../components/StarRating.tsx";

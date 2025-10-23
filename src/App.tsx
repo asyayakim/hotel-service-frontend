@@ -4,7 +4,7 @@ import Layout from "./pages/Layout";
 import MainView from "./pages/MainView.tsx";
 import Login from "./pages/Login.tsx";
 import SignUp from "./pages/SignUp.tsx";
-import UserProvider from "./components/UserProvider.tsx";
+import UserProvider from "./context/UserProvider.tsx";
 import UserPage from "./pages/UserPage.tsx";
 import HotelPage from "./pages/HotelPage.tsx";
 import PaymentPage from "./pages/PaymentPage.tsx";

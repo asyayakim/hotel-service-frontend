@@ -2,7 +2,7 @@ import {useContext, useEffect, useState} from "react";
 import {ChangeEvent} from "react";
 
 import {Link} from "react-router-dom";
-import {UserContext} from "../components/UserProvider.tsx";
+import {UserContext} from "../context/UserProvider.tsx";
 import Loading  from "../components/Loading.tsx";
 
 export const API_BASE_URL = "https://hotelservice-2cw7.onrender.com";

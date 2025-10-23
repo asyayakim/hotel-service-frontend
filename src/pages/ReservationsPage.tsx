@@ -1,5 +1,5 @@
 import {useContext, useEffect, useState} from "react";
-import {UserContext} from "../components/UserProvider.tsx";
+import {UserContext} from "../context/UserProvider.tsx";
 import {useNavigate} from "react-router-dom";
 import Swal from "sweetalert2";
 import Loading from "../components/Loading.tsx";
