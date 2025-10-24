@@ -12,6 +12,7 @@ import FavoriteHotels from "./pages/FavoriteHotels.tsx";
 import ReservationsPage from "./pages/ReservationsPage.tsx";
 import WriteReviewPage from "./pages/WriteReview.tsx";
 import RestorePassword from "./pages/RestorePassword.tsx";
+import PageNotFound from "./pages/PageNotFound.tsx";
 
 export default function App() {
     return (
@@ -28,7 +29,7 @@ export default function App() {
                     <Route path="reservation" element={<ReservationsPage />} />
                     <Route path="payment" element={<PaymentPage />} />
                     <Route path="/hotel/:id" element={<HotelPage />} />
-                    <Route path="*" element={<p>404 - Page not found</p>}/>
+                    <Route path="*" element={<PageNotFound />} />
                 </Route>
             </Routes>
         </UserProvider>
