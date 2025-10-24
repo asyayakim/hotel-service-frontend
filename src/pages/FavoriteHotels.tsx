@@ -150,7 +150,7 @@ export default function FavoriteHotels() {
                         ))}
                     </div>
                         ) : (
-                        <NoResults />
+                        <NoResults message="No favorite hotels found." />
                 )}
             </div>
         </section>

@@ -1,9 +1,11 @@
-import {useContext, useEffect, useState} from "react";
-import {ChangeEvent} from "react";
+import { useContext, useEffect, useState } from "react";
+import { ChangeEvent } from "react";
 
-import {Link} from "react-router-dom";
-import {UserContext} from "../context/UserProvider.tsx";
-import Loading  from "../components/Loading.tsx";
+import { Link } from "react-router-dom";
+import { UserContext } from "../context/UserProvider.tsx";
+import Loading from "../components/Loading.tsx";
+import NoResults from "../components/NoResults.tsx";
+import Button from "../components/Button.tsx";
 
 export const API_BASE_URL = "https://hotelservice-2cw7.onrender.com";
 
@@ -20,7 +22,7 @@ type Hotel = {
 };
 
 export default function MainView() {
-    const {user} = useContext(UserContext)!;
+    const { user } = useContext(UserContext)!;
     const [searchText, setSearchText] = useState<string>("");
     const handleSearchChange = (e: ChangeEvent<HTMLInputElement>) => {
         setSearchText(e.target.value);
@@ -40,7 +42,7 @@ export default function MainView() {
             setHotels(prev =>
                 prev?.map(hotel =>
                     localFavs.includes(hotel.hotelId)
-                        ? {...hotel, isFavorite: true}
+                        ? { ...hotel, isFavorite: true }
                         : hotel
                 )
             );
@@ -82,7 +84,7 @@ export default function MainView() {
                 `&pageSize=${pageSize}&SearchText=${encodeURIComponent(searchText)}`,
                 {
                     method: "GET",
-                    headers: {"Content-Type": "application/json"},
+                    headers: { "Content-Type": "application/json" },
                 });
             const data = await response.json();
             setHotels(data.hotels);
@@ -104,7 +106,7 @@ export default function MainView() {
             saveToLocalFavorites(hotelId);
             setHotels(prev => prev?.map(hotel =>
                 hotel.hotelId === hotelId
-                    ? {...hotel, isFavorite: true}
+                    ? { ...hotel, isFavorite: true }
                     : hotel
             ));
             return;
@@ -124,7 +126,7 @@ export default function MainView() {
             if (response.ok) {
                 setHotels(prev => prev?.map(hotel =>
                     hotel.hotelId === hotelId
-                        ? {...hotel, isFavorite: true}
+                        ? { ...hotel, isFavorite: true }
                         : hotel
                 ));
             }
@@ -171,23 +173,23 @@ export default function MainView() {
 
                 <div className="hotels-container">
                     {loading ? (
-                       <Loading message="Loading hotels..." />
+                        <Loading message="Loading hotels..." />
                     ) : (
                         <>
                             {!user && (
                                 <div className="discount-banner">
                                     <span className="discount-text">
-                                         Register now to get 5% discount on your bookings!
+                                        Register now to get 5% discount on your bookings!
                                     </span>
                                 </div>
                             )}
                             {
                                 user && (
                                     <div className="info-banner">
-                                    <span className="info-text">
-                                         Book your next journey with our service!
-                                    </span>
-                                    </div> 
+                                        <span className="info-text">
+                                            Book your next journey with our service!
+                                        </span>
+                                    </div>
                                 )
                             }
                             <div className="hotels-grid">
@@ -197,12 +199,12 @@ export default function MainView() {
                                             <div className="hotel-img-container">
                                                 <div className="favorite-icon">
                                                     <svg onClick={() => AddToFavorite(hotel.hotelId)}
-                                                         fill={hotel.isFavorite ? "red" : "none"}
-                                                         stroke="currentColor"
-                                                         strokeWidth="1.5"
-                                                         xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24">
+                                                        fill={hotel.isFavorite ? "red" : "none"}
+                                                        stroke="currentColor"
+                                                        strokeWidth="1.5"
+                                                        xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24">
                                                         <path stroke-linecap="round" stroke-linejoin="round"
-                                                              d="M21 8.25c0-2.485-2.099-4.5-4.688-4.5-1.935 0-3.597 1.126-4.312 2.733-.715-1.607-2.377-2.733-4.313-2.733C5.1 3.75 3 5.765 3 8.25c0 7.22 9 12 9 12s9-4.78 9-12z"/>
+                                                            d="M21 8.25c0-2.485-2.099-4.5-4.688-4.5-1.935 0-3.597 1.126-4.312 2.733-.715-1.607-2.377-2.733-4.313-2.733C5.1 3.75 3 5.765 3 8.25c0 7.22 9 12 9 12s9-4.78 9-12z" />
                                                     </svg>
                                                 </div>
                                                 <img
@@ -229,33 +231,25 @@ export default function MainView() {
                                         </div>
                                     ))
                                 ) : (
-                                    <div className="no-results-container">
-                                        <p className="no-results">No favorite hotels found.
-                                            <img
-                                                className="no-results-img"
-                                                src="https://img.icons8.com/?size=100&id=o5o2xsP3V7kK&format=png&color=000000"
-                                                alt="No results"/>
-                                        </p>
-                                    </div>
+                                    <NoResults message="Hotels are not found." />
                                 )}
                             </div>
 
                             <div className="pagination-controls">
-                                <button
-                                    className="button-extra"
+                                <Button
+                                    name="Previous"
                                     onClick={() => fetchHotels(pageNumber - 1)}
                                     disabled={pageNumber <= 1}
-                                >
-                                    Previous
-                                </button>
+                                    className="button-extra"
+                                />
+                                
                                 <span className="price-label"> &nbsp; Page {pageNumber} of {totalPages} &nbsp; </span>
-                                <button
+                                <Button
+                                    name="Next"
                                     onClick={() => fetchHotels(pageNumber + 1)}
                                     disabled={pageNumber >= totalPages}
                                     className="button-extra"
-                                >
-                                    Next
-                                </button>
+                                />
                             </div>
                         </>
                     )}

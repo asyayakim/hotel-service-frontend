@@ -177,6 +177,7 @@ export default function UserPage() {
                   />
                 </div>
 
+
                 <div className="input-container">
                   <img
                     src="https://img.icons8.com/password"
@@ -297,6 +298,7 @@ export default function UserPage() {
             </div>
 
             <div className="button-container">
+          
               <button type="submit" className="change-button">
                 Update
               </button>

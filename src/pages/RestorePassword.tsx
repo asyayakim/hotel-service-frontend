@@ -1,6 +1,7 @@
 import { useNavigate} from "react-router-dom";
 import Button from "../components/Button.tsx";
 import {useState} from "react";
+import InputContainer from "../components/InputContainer.tsx";
 export const API_BASE_URL = "https://hotelservice-2cw7.onrender.com";
 
 export default function RestorePassword(){
@@ -29,7 +30,8 @@ export default function RestorePassword(){
                 <div className="login-container">
                     <h2>Restart your password</h2>
                     <form onSubmit={handleLogin}>
-                        <div className="input-container">
+                        <div className="input-container">  
+                            
                             <img
                                 src="https://img.icons8.com/?size=100&id=zxB19VPoVLjK&format=png&color=000000"
                                 alt="Username Icon"
@@ -41,7 +43,7 @@ export default function RestorePassword(){
                                 value={userName}
                                 onChange={(e) => setUserName(e.target.value)}
                                 required
-                            />
+                            /> 
                         </div>
                         <div className="input-container">
                             <img
