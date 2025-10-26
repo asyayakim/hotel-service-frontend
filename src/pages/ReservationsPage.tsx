@@ -3,6 +3,8 @@ import {UserContext} from "../context/UserProvider.tsx";
 import {useNavigate} from "react-router-dom";
 import Swal from "sweetalert2";
 import Loading from "../components/Loading.tsx";
+import Button from "../components/Button.tsx";
+import NoResults from "../components/NoResults.tsx";
 
 export const API_BASE_URL = "https://hotelservice-2cw7.onrender.com";
 
@@ -165,21 +167,14 @@ export default function ReservationsPage() {
         <main className="">
             <div className="header-text">
             <h1>Your Reservations</h1>
-            </div>
+            </div> 
             <div className="reservations-container">
 
             {reservations.length === 0 ? (
-                <div className="no-reservations">
-                    <div className="no-results-container">
-                        <p className="no-results">No reservations found.
-                            <img
-                                className="no-results-img"
-                                src="https://img.icons8.com/?size=100&id=o5o2xsP3V7kK&format=png&color=000000"
-                                alt="No results"/>
-                        </p>
+                    <div className="no-reservations">
+                        <NoResults message="No reservations found." />
+                        <Button onClick={() => navigate('/')} name="Browse Hotels" className="button-universal" />
                     </div>
-                    <button className="button-universal" onClick={() => navigate('/')}>Browse Hotels</button>
-                </div>
             ) : (
                 reservations.map((reservation) => {
               
@@ -264,12 +259,7 @@ export default function ReservationsPage() {
 
 
                             {reservation.status.toLowerCase() === 'completed' && !existingReview && (
-
-                                <button
-                                    className="button-universal"
-                                    onClick={() =>  handleLeaveReview(reservation.reservationId)}>
-                                    Write Review
-                                </button>
+                                <Button onClick={() => handleLeaveReview(reservation.reservationId)} name="Write Review" className="button-universal" />
                             )}
                         </div>
                     );
