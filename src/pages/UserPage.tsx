@@ -1,6 +1,7 @@
 import {useContext, useEffect, useState} from "react";
 import {UserContext} from "../context/UserProvider.tsx";
 import * as React from "react";
+import InputContainer from "../components/InputContainer.tsx";
 export const API_BASE_URL = "https://hotelservice-2cw7.onrender.com";
 
 export default function UserPage() {
@@ -162,47 +163,34 @@ export default function UserPage() {
             <div className="form-columns">
               <div className="form-column">
                 <div className="input-container">
-                  <img
-                    src="https://img.icons8.com/email"
-                    alt="Email"
-                    className="icon"
-                  />
-                  <input
-                    type="email"
+                  <InputContainer
+                    iconSrc="https://img.icons8.com/email"
                     placeholder="Email"
                     value={formData.email}
                     onChange={(e) =>
                       setFormData({ ...formData, email: e.target.value })
                     }
+                    type="email"
                   />
+      
                 </div>
-
-
                 <div className="input-container">
-                  <img
-                    src="https://img.icons8.com/password"
-                    alt="Password"
-                    className="icon"
-                  />
-                  <input
-                    type="password"
+                  <InputContainer
+                    iconSrc="https://img.icons8.com/password"
                     placeholder="Password"
                     value={formData.password}
                     onChange={(e) =>
                       setFormData({ ...formData, password: e.target.value })
                     }
+                    type="password"
                   />
                 </div>
 
                 <div className="input-container">
-                  <img
-                    src="https://img.icons8.com/password"
-                    alt="Confirm Password"
-                    className="icon"
-                  />
-                  <input
-                    type="password"
+                  <InputContainer
+                    iconSrc="https://img.icons8.com/password"
                     placeholder="Confirm Password"
+                    type="password"
                     value={formData.confirmPassword}
                     onChange={(e) =>
                       setFormData({
@@ -214,84 +202,64 @@ export default function UserPage() {
                 </div>
 
                 <div className="input-container">
-                  <img
-                    src="https://img.icons8.com/user"
-                    alt="Username"
-                    className="icon"
-                  />
-                  <input
-                    type="text"
+                  <InputContainer
+                    iconSrc="https://img.icons8.com/user"
                     placeholder="Username"
                     value={formData.username}
                     onChange={(e) =>
                       setFormData({ ...formData, username: e.target.value })
                     }
+                    type="text"
                   />
                 </div>
               </div>
 
               <div className="form-column">
                 <div className="input-container">
-                  <img
-                    src="https://img.icons8.com/?size=100&id=11730&format=png&color=000000"
-                    alt="First Name"
-                    className="icon"
-                  />
-                  <input
-                    type="text"
-                    placeholder="First Name"
-                    value={formData.firstName}
-                    onChange={(e) =>
-                      setFormData({ ...formData, firstName: e.target.value })
-                    }
-                  />
+                     <InputContainer
+                  iconSrc="https://img.icons8.com/?size=100&id=11730&format=png&color=000000"
+                  placeholder="First Name"
+                  value={formData.firstName}
+                  onChange={(e) =>
+                    setFormData({ ...formData, firstName: e.target.value })
+                  }
+                  type="text"
+                />
                 </div>
 
                 <div className="input-container">
-                  <img
-                    src="https://img.icons8.com/?size=100&id=11730&format=png&color=000000"
-                    alt="Last Name"
-                    className="icon"
-                  />
-                  <input
-                    type="text"
+                  <InputContainer
+                    iconSrc="https://img.icons8.com/?size=100&id=11730&format=png&color=000000"
                     placeholder="Last Name"
                     value={formData.lastName}
                     onChange={(e) =>
                       setFormData({ ...formData, lastName: e.target.value })
                     }
+                    type="text"
                   />
                 </div>
 
                 <div className="input-container">
-                  <img
-                    src="https://img.icons8.com/phone"
-                    alt="Phone Number"
-                    className="icon"
-                  />
-                  <input
-                    type="text"
+                  <InputContainer
+                    iconSrc="https://img.icons8.com/phone"
                     placeholder="Phone Number"
                     value={formData.phoneNumber}
                     onChange={(e) =>
                       setFormData({ ...formData, phoneNumber: e.target.value })
                     }
+                    type="text"
                   />
                 </div>
 
                 <div className="input-container">
-                  <img
-                    src="https://img.icons8.com/calendar"
-                    alt="Date of Birth"
-                    className="icon"
-                  />
-                  <input
-                    type="date"
+                  <InputContainer
+                    iconSrc="https://img.icons8.com/calendar"
                     placeholder="Date of Birth"
                     value={formData.dateOfBirth}
                     onChange={(e) =>
                       setFormData({ ...formData, dateOfBirth: e.target.value })
                     }
+                    type="date"
                   />
                 </div>
               </div>

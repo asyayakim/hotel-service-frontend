@@ -31,32 +31,22 @@ export default function RestorePassword(){
                     <h2>Restart your password</h2>
                     <form onSubmit={handleLogin}>
                         <div className="input-container">  
-                            
-                            <img
-                                src="https://img.icons8.com/?size=100&id=zxB19VPoVLjK&format=png&color=000000"
-                                alt="Username Icon"
-                                className="icon"
-                            />
-                            <input
-                                type="text"
+                            <InputContainer
+                                iconSrc="https://img.icons8.com/?size=100&id=zxB19VPoVLjK&format=png&color=000000"
                                 placeholder="Username"
                                 value={userName}
                                 onChange={(e) => setUserName(e.target.value)}
                                 required
-                            /> 
+                            />
                         </div>
                         <div className="input-container">
-                            <img
-                                src="https://img.icons8.com/?size=100&id=14095&format=png&color=000000"
-                                alt="Password Icon"
-                                className="icon"
-                            />
-                            <input
-                                type="password"
+                            <InputContainer
+                                iconSrc="https://img.icons8.com/?size=100&id=14095&format=png&color=000000"
                                 placeholder="Password"
                                 value={password}
                                 onChange={(e) => setPassword(e.target.value)}
                                 required
+                                type="password"
                             />
                         </div>
                         <button type="submit" onClick={() => navigate("/")}>Login</button>
