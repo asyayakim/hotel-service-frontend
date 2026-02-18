@@ -146,6 +146,8 @@
 }
 .header-text {
     display: flex;
+    
+    border-bottom: 1px solid var(--border);
     margin-top: 1rem;
     margin-left: 7rem;
 }

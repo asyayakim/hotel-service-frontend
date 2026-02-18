@@ -251,7 +251,7 @@ export default function UserPage() {
                   />
                 </div>
 
-                <div className="input-container">
+                {/* <div className="input-container">
                   <InputContainer
                     iconSrc="https://img.icons8.com/calendar"
                     placeholder="Date of Birth"
@@ -261,7 +261,7 @@ export default function UserPage() {
                     }
                     type="date"
                   />
-                </div>
+                </div> */}
               </div>
             </div>
 
